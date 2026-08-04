@@ -1,34 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>گیمیمود</title>
+<title>GAMIMOD</title>
 
 <style>
-body {
-  background:#111;
+body{
+  margin:0;
+  background:#0b0b0f;
   color:white;
   font-family:Arial;
+}
+
+.header{
+  background:#00ff88;
+  color:#111;
+  padding:25px;
   text-align:center;
 }
 
-h1 {
-  color:#00ff99;
-  font-size:40px;
+.header h1{
+  font-size:45px;
+  margin:0;
 }
 
-.card {
-  background:#222;
+.menu{
+  text-align:center;
+  padding:15px;
+}
+
+.card{
+  background:#181820;
   margin:20px;
   padding:20px;
-  border-radius:15px;
+  border-radius:20px;
+  box-shadow:0 0 15px #000;
 }
 
-button {
-  background:#00ff99;
-  padding:12px 25px;
-  border:none;
-  border-radius:10px;
-  font-size:18px;
+.card h2{
+  color:#00ff88;
+}
+
+.download{
+  display:inline-block;
+  background:#00ff88;
+  color:#000;
+  padding:12px 30px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+.footer{
+  text-align:center;
+  padding:20px;
+  color:#888;
 }
 </style>
 
@@ -36,20 +61,34 @@ button {
 
 <body>
 
-<h1>🎮 گیمیمود</h1>
+<div class="header">
+<h1>🎮 GAMIMOD</h1>
 <p>دانلود بازی های اندروید</p>
-
-<div class="card">
-<h2>🔥 بازی جدید</h2>
-<p>حجم: 500 مگابایت</p>
-<p>نسخه اندروید</p>
-<button>دانلود</button>
 </div>
 
+<div class="menu">
+<h2>🔥 جدیدترین بازی ها</h2>
+</div>
+
+
 <div class="card">
-<h2>🚗 بازی دوم</h2>
+<h2>🚀 بازی اول</h2>
+<p>حجم: 500MB</p>
+<p>نسخه اندروید | گیم پلی جذاب</p>
+<a class="download" href="#">دانلود</a>
+</div>
+
+
+<div class="card">
+<h2>🏎️ بازی دوم</h2>
+<p>حجم: 700MB</p>
 <p>به زودی اضافه می‌شود</p>
-<button>دانلود</button>
+<a class="download" href="#">دانلود</a>
+</div>
+
+
+<div class="footer">
+© 2026 GAMIMOD
 </div>
 
 </body>
