@@ -1,46 +1,100 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
 <meta charset="UTF-8">
-<title>GAMIMOD Games</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>بازی‌ها | GAMIMOD</title>
 
 <style>
+
 body{
-background:#0b0b0f;
-color:white;
-font-family:tahoma;
-text-align:center;
-padding:40px;
+    margin:0;
+    background:#0b0b0f;
+    color:white;
+    font-family:tahoma;
+}
+
+h1{
+    text-align:center;
+    padding:30px;
+    color:#00ff99;
+}
+
+.games{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
 }
 
 .card{
-background:#181820;
-padding:20px;
-border-radius:15px;
-margin:20px;
+    background:#181820;
+    width:280px;
+    margin:15px;
+    padding:20px;
+    border-radius:20px;
+    text-align:center;
 }
 
-a{
-color:#00ff99;
+.card img{
+    width:100%;
+    height:160px;
+    object-fit:cover;
+    border-radius:15px;
 }
+
+.info{
+    text-align:right;
+    line-height:2;
+}
+
+.btn{
+    display:inline-block;
+    background:#00ff99;
+    color:black;
+    padding:12px 30px;
+    border-radius:25px;
+    text-decoration:none;
+    font-weight:bold;
+}
+
 </style>
 
 </head>
+
 
 <body>
 
 <h1>🎮 بازی‌های GAMIMOD</h1>
 
-<div class="card">
-<h2>Igneous</h2>
-<p>نسخه 1.0</p>
-<p>بازی جدید اندروید</p>
 
-<a href="https://github.com/babakkazemi671-afk/gamimod/releases/download/v1.0/igneous.apk">
-دانلود بازی
+<div class="games">
+
+
+<div class="card">
+
+<img src="https://via.placeholder.com/400x200">
+
+<h2>Igneous</h2>
+
+<div class="info">
+📦 حجم: 100MB <br>
+🔢 نسخه: 1.0 <br>
+⭐ امتیاز: 4.8
+</div>
+
+<br>
+
+<a class="btn" href="game-igneous.html">
+مشاهده
 </a>
 
 </div>
+
+
+</div>
+
 
 </body>
 </html>
