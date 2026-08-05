@@ -2,115 +2,111 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>GAMIMOD | دانلود بازی اندروید</title>
 
 <style>
 body{
-margin:0;
-font-family:tahoma;
-background:#111;
-color:white;
+    margin:0;
+    font-family:tahoma;
+    background:#0b0b0f;
+    color:white;
 }
 
 header{
-background:#00bcd4;
-padding:20px;
-text-align:center;
-font-size:32px;
-font-weight:bold;
+    background:linear-gradient(135deg,#111,#222);
+    padding:60px 20px;
+    text-align:center;
 }
 
-.search{
-padding:15px;
-text-align:center;
+.logo{
+    font-size:45px;
+    font-weight:bold;
+    color:#00ff99;
 }
 
-.search input{
-width:90%;
-max-width:500px;
-padding:12px;
-border-radius:10px;
-border:none;
-font-size:18px;
+h1{
+    font-size:35px;
 }
 
-.games{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-padding:20px;
-}
-
-.card{
-background:#222;
-border-radius:15px;
-overflow:hidden;
-box-shadow:0 0 15px #000;
-}
-
-.card img{
-width:100%;
-height:220px;
-object-fit:cover;
-}
-
-.card h2{
-text-align:center;
-}
-
-.info{
-padding:10px;
+p{
+    font-size:20px;
 }
 
 .btn{
-display:block;
-background:#00bcd4;
-color:white;
-text-align:center;
-padding:12px;
-margin:15px;
-border-radius:10px;
-text-decoration:none;
-font-weight:bold;
+    display:inline-block;
+    margin-top:20px;
+    padding:15px 35px;
+    background:#00ff99;
+    color:#000;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:bold;
 }
 
-footer{
-background:#000;
-text-align:center;
-padding:20px;
-margin-top:20px;
+section{
+    padding:30px;
 }
+
+.card{
+    background:#181820;
+    padding:20px;
+    border-radius:15px;
+    margin:15px;
+}
+
 </style>
 
 </head>
+
 <body>
 
 <header>
-🎮 GAMIMOD
+
+<div class="logo">
+GAMIMOD
+</div>
+
+<h1>
+دانلود بازی‌های اندروید
+</h1>
+
+<p>
+به دنیای بازی‌های جدید خوش آمدید 🎮
+</p>
+
+<a class="btn" href="games.html">
+مشاهده بازی‌ها
+</a>
+
 </header>
 
-<div class="search">
-<input type="text" placeholder="جستجوی بازی...">
-</div>
 
-<div class="games">
+<section>
+
+<h2>
+دسته‌بندی بازی‌ها
+</h2>
 
 <div class="card">
-<img src="Screenshot_۲۰۲۶۰۶۲۰_۲۱۴۳۴۹_Google.jpg">
-<div class="info">
-<h2>Mario</h2>
-<p>⭐ 4.8</p>
-<p>💾 14 MB</p>
-<a class="btn" href="mario.html">مشاهده بازی</a>
-</div>
+🔥 اکشن
 </div>
 
+<div class="card">
+🏎️ مسابقه‌ای
 </div>
 
-<footer>
-© 2026 GAMIMOD
-</footer>
+<div class="card">
+🌍 ماجراجویی
+</div>
+
+<div class="card">
+🏠 شبیه‌سازی
+</div>
+
+</section>
+
 
 </body>
 </html>
