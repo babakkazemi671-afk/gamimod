@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🎁 پک فوتبال | گیمی‌مود</title>
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:tahoma;
+    background:#101010;
+    color:white;
+    text-align:center;
+}
+
+header{
+    background:linear-gradient(135deg,#00bcd4,#006b7a);
+    padding:20px;
+    font-size:27px;
+    font-weight:bold;
+}
+
+.box{
+    width:94%;
+    max-width:900px;
+    margin:20px auto;
+    padding:20px;
+    background:#202020;
+    border-radius:20px;
+    box-shadow:0 0 15px #000;
+}
+
+.balance{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.money{
+    min-width:180px;
+    background:#151515;
+    padding:15px;
+    border-radius:14px;
+}
+
+.money b{
+    display:block;
+    margin-top:7px;
+    color:#00e5ff;
+    font-size:24px;
+}
+
+.packs{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(210px,1fr));
+    gap:15px;
+}
+
+.pack{
+    background:#171717;
+    border:2px solid #333;
+    border-radius:18px;
+    padding:20px;
+}
+
+.packIcon{
+    font-size:55px;
+}
+
+.pack h2{
+    margin:10px 0;
+}
+
+.price{
+    color:#ffd700;
+    font-size:20px;
+    font-weight:bold;
+    margin:12px;
+}
+
+button{
+    border:0;
+    border-radius:12px;
+    padding:13px 22px;
+    background:#16a085;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:disabled{
+    background:#555;
+}
+
+.result{
+    margin-top:20px;
+    padding:20px;
+    background:#151515;
+    border-radius:15px;
+    line-height:2;
+    min-height:90px;
+}
+
+.playerName{
+    color:#00e5ff;
+    font-size:25px;
+    font-weight:bold;
+}
+
+.rating{
+    color:#ffd700;
+    font-size:25px;
+}
+
+.back{
+    display:block;
+    width:230px;
+    margin:25px auto;
+    padding:14px;
+    background:#333;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+}
+</style>
+</head>
+<body>
+<header>
+🎁 پک فوتبال گیمی‌مود
+</header>
+<section class="box">
+<div class="balance">
+<div class="money">
+🪙 سکه
+<b id="coins">0</b>
+</div>
+<div class="money">
+💎 الماس
+<b id="diamonds">0</b>
+</div>
+</div>
+</section>
+<section class="box">
+<h2>🎁 انتخاب پک</h2>
+<div class="packs">
+<div class="pack">
+<div class="packIcon">📦</div>
+<h2>پک معمولی</h2>
+<p>یک بازیکن تصادفی</p>
+<div class="price">
+1000 🪙
+</div>
+<button onclick="openPack(1000)">
+باز کردن پک
+</button>
+</div>
+<div class="pack">
+<div class="packIcon">🎁</div>
+<h2>پک ویژه</h2>
+<p>شانس بازیکن قوی بیشتر</p>
+<div class="price">
+2500 🪙
+</div>
+<button onclick="openPack(2500)">
+باز کردن پک
+</button>
+</div>
+<div class="pack">
+<div class="packIcon">💎</div>
+<h2>پک الماسی</h2>
+<p>شانس بازیکن بسیار قوی</p>
+<div class="price">
+10 💎
+</div>
+<button onclick="openDiamondPack()">
+باز کردن پک
+</button>
+</div>
+</div>
+</section>
+<section class="box">
+<h2>🎉 نتیجه پک</h2>
+<div class="result" id="result">
+یک پک انتخاب کن!
+</div>
+</section>
+<a class="back" href="myteam.html">
+⬅️ برگشت به تیم من
+</a>
+<script>
+
+/* =====================
+   موجودی
+===================== */
+
+let coins =
+Number(
+localStorage.getItem("coins")
+) || 10000;
+
+let diamonds =
+Number(
+localStorage.getItem(
+"footballDiamonds"
+)
+) || 0;
+
+
+/* =====================
+   بازیکنان پک
+===================== */
+
+const normalPlayers=[
+
+{
+name:"بازیکن جوان ایرانی",
+rating:60,
+position:"MID"
+},
+
+{
+name:"مدافع جوان",
+rating:63,
+position:"DEF"
+},
+
+{
+name:"هافبک ایرانی",
+rating:66,
+position:"MID"
+},
+
+{
+name:"مهاجم ایرانی",
+rating:70,
+position:"ATT"
+},
+
+{
+name:"دروازه‌بان ایرانی",
+rating:68,
+position:"GK"
+}
+
+];
+
+
+const specialPlayers=[
+
+{
+name:"بازیکن ایرانی حرفه‌ای",
+rating:75,
+position:"MID"
+},
+
+{
+name:"مهاجم ایرانی قدرتمند",
+rating:80,
+position:"ATT"
+},
+
+{
+name:"مدافع حرفه‌ای",
+rating:78,
+position:"DEF"
+},
+
+{
+name:"ستاره ایرانی",
+rating:85,
+position:"ATT"
+},
+
+{
+name:"ستاره لیگ",
+rating:88,
+position:"MID"
+}
+
+];
+
+
+const diamondPlayers=[
+
+{
+name:"رونالدو",
+rating:100,
+position:"ATT"
+},
+
+{
+name:"امباپه",
+rating:100,
+position:"ATT"
+},
+
+{
+name:"یامال",
+rating:100,
+position:"ATT"
+},
+
+{
+name:"ستاره جهانی",
+rating:96,
+position:"ATT"
+},
+
+{
+name:"ستاره جهانی",
+rating:94,
+position:"MID"
+}
+
+];
+
+
+/* =====================
+   پک معمولی / ویژه
+===================== */
+
+function openPack(price){
+
+if(coins<price){
+
+showResult(
+"❌ سکه کافی نداری!"
+);
+
+return;
+
+}
+
+
+coins-=price;
+
+
+let list=
+price===1000
+?normalPlayers
+:specialPlayers;
+
+
+let player=
+list[
+Math.floor(
+Math.random()*
+list.length
+)
+];
+
+
+addPlayer(player);
+
+save();
+
+
+showResult(
+
+"🎉 بازیکن گرفتی!"+
+"<br><br>"+
+
+"<span class='playerName'>"+
+player.name+
+"</span>"+
+
+"<br>"+
+
+"⭐ قدرت: "+
+"<span class='rating'>"+
+player.rating+
+"</span>"+
+
+"<br>"+
+
+"📍 پست: "+
+player.position
+
+);
+
+}
+
+
+/* =====================
+   پک الماسی
+===================== */
+
+function openDiamondPack(){
+
+if(diamonds<10){
+
+showResult(
+"💎 الماس کافی نداری!"
+);
+
+return;
+
+}
+
+
+diamonds-=10;
+
+
+let player=
+diamondPlayers[
+Math.floor(
+Math.random()*
+diamondPlayers.length
+)
+];
+
+
+addPlayer(player);
+
+save();
+
+
+showResult(
+
+"🔥 پک الماسی باز شد!"+
+"<br><br>"+
+
+"<span class='playerName'>"+
+player.name+
+"</span>"+
+
+"<br>"+
+
+"⭐ قدرت: "+
+"<span class='rating'>"+
+player.rating+
+"</span>"+
+
+"<br>"+
+"💎 بازیکن ویژه!"
+
+);
+
+}
+
+
+/* =====================
+   اضافه کردن بازیکن
+===================== */
+
+function addPlayer(player){
+
+let myPlayers=
+JSON.parse(
+localStorage.getItem(
+"myPlayers"
+)
+) || [];
+
+
+myPlayers.push({
+
+name:player.name,
+
+position:player.position,
+
+rating:player.rating
+
+});
+
+
+localStorage.setItem(
+"myPlayers",
+JSON.stringify(
+myPlayers
+)
+);
+
+
+/* قدرت باشگاه */
+
+let power=
+Number(
+localStorage.getItem(
+"clubPower"
+)
+) || 60;
+
+
+power=
+Math.min(
+100,
+power+
+Math.ceil(
+player.rating/30
+)
+);
+
+
+localStorage.setItem(
+"clubPower",
+power
+);
+
+}
+
+
+/* =====================
+   ذخیره
+===================== */
+
+function save(){
+
+localStorage.setItem(
+"coins",
+coins
+);
+
+localStorage.setItem(
+"footballDiamonds",
+diamonds
+);
+
+updateBalance();
+
+}
+
+
+/* =====================
+   موجودی
+===================== */
+
+function updateBalance(){
+
+document.getElementById(
+"coins"
+).innerHTML=
+coins;
+
+document.getElementById(
+"diamonds"
+).innerHTML=
+diamonds;
+
+}
+
+
+/* =====================
+   نتیجه
+===================== */
+
+function showResult(text){
+
+document.getElementById(
+"result"
+).innerHTML=
+text;
+
+}
+
+
+updateBalance();
+
+</script>
+</body>
+</html>
