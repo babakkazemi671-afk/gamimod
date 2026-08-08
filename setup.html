@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>⚽ ساخت باشگاه | گیمی‌مود</title>
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:tahoma;
+    background:#101010;
+    color:white;
+    text-align:center;
+}
+
+header{
+    background:linear-gradient(135deg,#00bcd4,#006b7a);
+    padding:22px;
+    font-size:27px;
+    font-weight:bold;
+}
+
+.box{
+    width:92%;
+    max-width:600px;
+    margin:25px auto;
+    padding:25px 20px;
+    background:#202020;
+    border-radius:22px;
+    box-shadow:0 0 18px #000;
+}
+
+h2{
+    color:#00e5ff;
+}
+
+input,select{
+    width:100%;
+    padding:15px;
+    margin:8px 0 15px;
+    border:0;
+    border-radius:12px;
+    background:#333;
+    color:white;
+    font-size:16px;
+    outline:none;
+}
+
+label{
+    display:block;
+    text-align:right;
+    margin-top:10px;
+    color:#ddd;
+    font-weight:bold;
+}
+
+.colors{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin:15px 0;
+}
+
+.color{
+    height:50px;
+    border:3px solid transparent;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+.color.selected{
+    border-color:white;
+    box-shadow:0 0 10px white;
+}
+
+.red{background:#d71920}
+.blue{background:#1976d2}
+.green{background:#16a085}
+.yellow{background:#f1c40f}
+.black{background:#111;border:2px solid #555}
+.white{background:white}
+.purple{background:#8e44ad}
+.orange{background:#e67e22}
+
+.start{
+    width:100%;
+    padding:16px;
+    border:0;
+    border-radius:13px;
+    background:#00bcd4;
+    color:white;
+    font-size:19px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.note{
+    margin-top:18px;
+    padding:15px;
+    background:#151515;
+    border-radius:12px;
+    line-height:2;
+    color:#ddd;
+}
+
+</style>
+</head>
+<body>
+<header>
+⚽ ساخت باشگاه گیمی‌مود
+</header>
+<section class="box">
+<h2>👤 مشخصات مربی</h2>
+<label>
+نام
+</label>
+<input
+id="firstName"
+type="text"
+placeholder="مثلاً امیر"
+maxlength="20"
+
+<label>
+نام خانوادگی
+</label>
+<input
+id="lastName"
+type="text"
+placeholder="مثلاً احمدی"
+maxlength="25"
+
+<h2>🏟️ باشگاه</h2>
+<label>
+نام باشگاه
+</label>
+<input
+id="clubName"
+type="text"
+placeholder="مثلاً عقاب تهران"
+maxlength="25"
+
+<label>
+رنگ لباس باشگاه
+</label>
+<div class="colors">
+<div class="color red"
+data-color="قرمز"
+onclick="chooseColor(this)"></div>
+<div class="color blue"
+data-color="آبی"
+onclick="chooseColor(this)"></div>
+<div class="color green"
+data-color="سبز"
+onclick="chooseColor(this)"></div>
+<div class="color yellow"
+data-color="زرد"
+onclick="chooseColor(this)"></div>
+<div class="color black"
+data-color="مشکی"
+onclick="chooseColor(this)"></div>
+<div class="color white"
+data-color="سفید"
+onclick="chooseColor(this)"></div>
+<div class="color purple"
+data-color="بنفش"
+onclick="chooseColor(this)"></div>
+<div class="color orange"
+data-color="نارنجی"
+onclick="chooseColor(this)"></div>
+</div>
+<button
+class="start"
+onclick="createClub()">
+🚀 ساخت باشگاه و شروع لیگ دسته ۲
+</button>
+<div class="note">
+🎲 تیم و بازیکنان شروعی به‌صورت شانسی انتخاب می‌شوند.<br>
+🟢 بازی از لیگ دسته ۲ شروع می‌شود.<br>
+📈 با پیشرفت، لیگ‌های قوی‌تر باز می‌شوند.
+</div>
+</section>
+<script>
+
+let selectedColor="";
+
+
+/* =========================
+   انتخاب رنگ
+========================= */
+
+function chooseColor(element){
+
+    document
+    .querySelectorAll(".color")
+    .forEach(function(item){
+
+        item.classList.remove("selected");
+
+    });
+
+
+    element.classList.add("selected");
+
+    selectedColor=
+    element.dataset.color;
+
+}
+
+
+/* =========================
+   بازیکنان شروعی
+========================= */
+
+const starterPlayers=[
+
+{
+name:"دروازه‌بان جوان",
+position:"GK",
+rating:64
+},
+
+{
+name:"مدافع آینده‌دار",
+position:"DEF",
+rating:62
+},
+
+{
+name:"مدافع جوان",
+position:"DEF",
+rating:66
+},
+
+{
+name:"مدافع قدرتمند",
+position:"DEF",
+rating:68
+},
+
+{
+name:"مدافع سرعتی",
+position:"DEF",
+rating:63
+},
+
+{
+name:"هافبک خلاق",
+position:"MID",
+rating:67
+},
+
+{
+name:"هافبک جنگنده",
+position:"MID",
+rating:65
+},
+
+{
+name:"هافبک جوان",
+position:"MID",
+rating:61
+},
+
+{
+name:"مهاجم سریع",
+position:"ATT",
+rating:68
+},
+
+{
+name:"مهاجم جوان",
+position:"ATT",
+rating:64
+},
+
+{
+name:"مهاجم گلزن",
+position:"ATT",
+rating:69
+}
+
+];
+
+
+/* =========================
+   ساخت باشگاه
+========================= */
+
+function createClub(){
+
+    const first=
+    document.getElementById(
+        "firstName"
+    ).value.trim();
+
+
+    const last=
+    document.getElementById(
+        "lastName"
+    ).value.trim();
+
+
+    const club=
+    document.getElementById(
+        "clubName"
+    ).value.trim();
+
+
+    if(!first){
+
+        alert("❌ نامت را وارد کن.");
+
+        return;
+
+    }
+
+
+    if(!last){
+
+        alert("❌ نام خانوادگی را وارد کن.");
+
+        return;
+
+    }
+
+
+    if(!club){
+
+        alert("❌ نام باشگاه را وارد کن.");
+
+        return;
+
+    }
+
+
+    if(!selectedColor){
+
+        alert("❌ رنگ لباس را انتخاب کن.");
+
+        return;
+
+    }
+
+
+    /*
+       بازیکنان شانسی
+    */
+
+    let shuffled=
+    [...starterPlayers]
+    .sort(function(){
+
+        return Math.random()-0.5;
+
+    });
+
+
+    let myPlayers=
+    shuffled.slice(0,11);
+
+
+    /*
+       ذخیره مربی
+    */
+
+    localStorage.setItem(
+        "managerFirstName",
+        first
+    );
+
+    localStorage.setItem(
+        "managerLastName",
+        last
+    );
+
+
+    /*
+       ذخیره باشگاه
+    */
+
+    localStorage.setItem(
+        "clubName",
+        club
+    );
+
+    localStorage.setItem(
+        "clubColor",
+        selectedColor
+    );
+
+
+    /*
+       شروع لیگ
+    */
+
+    localStorage.setItem(
+        "league",
+        "دسته ۲"
+    );
+
+
+    localStorage.setItem(
+        "leagueLevel",
+        "2"
+    );
+
+
+    /*
+       ذخیره بازیکنان
+    */
+
+    localStorage.setItem(
+        "myPlayers",
+        JSON.stringify(myPlayers)
+    );
+
+
+    /*
+       قدرت اولیه باشگاه
+    */
+
+    let totalPower=0;
+
+
+    myPlayers.forEach(function(player){
+
+        totalPower +=
+        player.rating;
+
+    });
+
+
+    localStorage.setItem(
+        "clubPower",
+        totalPower
+    );
+
+
+    /*
+       شروع فصل
+    */
+
+    localStorage.setItem(
+        "season",
+        "1"
+    );
+
+
+    localStorage.setItem(
+        "matchNumber",
+        "1"
+    );
+
+
+    /*
+       الماس و سکه اولیه
+    */
+
+    if(
+        !localStorage.getItem(
+            "footballDiamonds"
+        )
+    ){
+
+        localStorage.setItem(
+            "footballDiamonds",
+            "0"
+        );
+
+    }
+
+
+    if(
+        !localStorage.getItem(
+            "gamimodCoins"
+        )
+    ){
+
+        localStorage.setItem(
+            "gamimodCoins",
+            "0"
+        );
+
+    }
+
+
+    localStorage.setItem(
+        "clubCreated",
+        "true"
+    );
+
+
+    alert(
+        "🎉 باشگاه «"+
+        club+
+        "» ساخته شد!"+
+        "\n\n"+
+        "🟢 شروع از لیگ دسته ۲"+
+        "\n"+
+        "🎲 بازیکنان شروعی به‌صورت شانسی انتخاب شدند."
+    );
+
+
+    /*
+       رفتن به تیم من
+    */
+
+    window.location.href=
+    "myteam.html";
+
+}
+
+</script>
+</body>
+</html>
