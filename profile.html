@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>👤 پروفایل | GAMIMOD</title>
 <style>
 
@@ -12,263 +12,557 @@ box-sizing:border-box;
 
 body{
 margin:0;
-padding-bottom:85px;
 font-family:tahoma;
 background:#101010;
 color:white;
+padding-bottom:30px;
+transition:.3s;
 }
 
 header{
-padding:22px;
+padding:25px;
 text-align:center;
 background:linear-gradient(135deg,#00bcd4,#006b7a);
-font-size:27px;
-font-weight:bold;
+}
+
+header h1{
+margin:0;
 }
 
 .profile{
 width:94%;
 max-width:700px;
 margin:25px auto;
+background:#1b1b22;
+border-radius:22px;
+padding:25px;
+text-align:center;
+box-shadow:0 5px 20px #000;
 }
 
-.avatar{
-width:110px;
-height:110px;
-margin:auto;
+.avatarBox{
+width:150px;
+height:150px;
+margin:10px auto 20px;
 border-radius:50%;
-background:#202020;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:55px;
-border:3px solid #00e5ff;
+font-size:70px;
+background:#222;
+border:8px solid #00bcd4;
+box-shadow:0 0 20px #000;
+transition:.3s;
 }
 
 .name{
-text-align:center;
-font-size:24px;
+font-size:25px;
 font-weight:bold;
-margin-top:15px;
-}
-
-.subtitle{
-text-align:center;
-color:#aaa;
-margin-top:7px;
+color:#00e5ff;
+margin:10px;
 }
 
 .stats{
 display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-margin-top:25px;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin:20px 0;
 }
 
 .stat{
-background:#202020;
-padding:20px;
-border-radius:16px;
-text-align:center;
-box-shadow:0 0 10px #000;
+background:#292930;
+padding:15px;
+border-radius:14px;
 }
 
-.stat-icon{
-font-size:32px;
-}
-
-.stat-title{
-color:#aaa;
-margin-top:8px;
-}
-
-.stat-value{
-font-size:22px;
-font-weight:bold;
-color:#00e5ff;
+.stat b{
+display:block;
+font-size:20px;
 margin-top:5px;
 }
 
-.card{
-background:#202020;
-padding:20px;
-border-radius:16px;
-margin-top:15px;
-box-shadow:0 0 10px #000;
-text-align:center;
+.items{
+margin-top:20px;
+text-align:right;
 }
 
-.card h2{
+.items h2{
 color:#00e5ff;
-margin-top:0;
 }
 
-.home{
+.item{
+background:#292930;
+padding:12px;
+border-radius:12px;
+margin:8px 0;
+}
+
+.empty{
+color:#aaa;
+padding:15px;
+}
+
+.buttons{
+display:grid;
+gap:10px;
+margin-top:20px;
+}
+
+.btn{
 display:block;
-width:230px;
-margin:25px auto;
 padding:14px;
+border-radius:12px;
+text-decoration:none;
+font-weight:bold;
 background:#00bcd4;
 color:white;
-text-decoration:none;
-border-radius:12px;
-text-align:center;
-font-weight:bold;
 }
 
-.bottom{
-position:fixed;
-bottom:0;
-right:0;
-left:0;
-height:75px;
-display:flex;
-justify-content:space-around;
-align-items:center;
-background:#181818;
-border-top:2px solid #333;
-z-index:100;
+.btn.shop{
+background:#8e44ad;
 }
 
-.nav{
-color:#aaa;
-text-decoration:none;
-text-align:center;
-font-size:12px;
-padding:5px;
-}
-
-.nav span{
-display:block;
-font-size:27px;
-margin-bottom:3px;
-}
-
-.nav.active{
-color:#00e5ff;
-font-weight:bold;
-}
-
-@media(max-width:500px){
-
-.stats{
-grid-template-columns:1fr 1fr;
-}
-
+.btn.home{
+background:#333;
 }
 
 </style>
 </head>
 <body>
 <header>
-👤 پروفایل من
+<h1>👤 پروفایل من</h1>
 </header>
 <div class="profile">
-<div class="avatar">
-👤
+<div
+class="avatarBox"
+id="avatarBox">
+😎
 </div>
-<div class="name">
+<div
+class="name"
+id="profileName">
 بازیکن گیمی‌مود
-</div>
-<div class="subtitle">
-🎮 خوش آمدی به پروفایل خودت
 </div>
 <div class="stats">
 <div class="stat">
-<div class="stat-icon">
-💰
-</div>
-<div class="stat-title">
-سکه
-</div>
-<div class="stat-value" id="coins">
+💰 سکه
+<b id="coins">
 0
-</div>
+</b>
 </div>
 <div class="stat">
-<div class="stat-icon">
-💎
-</div>
-<div class="stat-title">
-الماس
-</div>
-<div class="stat-value" id="diamonds">
+💎 الماس
+<b id="diamonds">
 0
+</b>
 </div>
 </div>
-<div class="stat">
-<div class="stat-icon">
-🎮
+<div class="items">
+<h2>🛒 آیتم‌های من</h2>
+<div id="ownedItems"></div>
 </div>
-<div class="stat-title">
-بازی‌ها
-</div>
-<div class="stat-value">
-100
-</div>
-</div>
-<div class="stat">
-<div class="stat-icon">
-🏆
-</div>
-<div class="stat-title">
-امتیاز
-</div>
-<div class="stat-value">
-0
-</div>
-</div>
-</div>
-<div class="card">
-<h2>
-🔥 وضعیت حساب
-</h2>
-<p>
-حساب شما فعال است.
-</p>
-<p>
-🎮 از بازی‌های GAMIMOD لذت ببر!
-</p>
-</div>
-<a class="home" href="index.html">
+<div class="buttons">
+<a
+class="btn shop"
+href="shop.html">
+🛒 رفتن به فروشگاه
+</a>
+<a
+class="btn home"
+href="index.html">
 🏠 برگشت به خانه
 </a>
 </div>
-<nav class="bottom">
-<a class="nav" href="index.html">
-<span>🏠</span>
-خانه
-</a>
-<a class="nav" href="games.html">
-<span>🎮</span>
-بازی‌ها
-</a>
-<a class="nav active" href="profile.html">
-<span>👤</span>
-پروفایل
-</a>
-</nav>
+</div>
 <script>
 
-let coins =
-Number(localStorage.getItem("coins"));
+/* =========================
+   پول
+========================= */
 
-if(!Number.isFinite(coins)){
-coins = 30000;
-}
+let coins =
+Number(localStorage.getItem("coins")) || 0;
 
 let diamonds =
-Number(localStorage.getItem("diamonds"));
+Number(localStorage.getItem("diamonds")) || 0;
 
-if(!Number.isFinite(diamonds)){
-diamonds = 0;
-}
 
-document.getElementById("coins").textContent =
+document.getElementById("coins")
+.textContent=
 coins.toLocaleString("fa-IR");
 
-document.getElementById("diamonds").textContent =
+
+document.getElementById("diamonds")
+.textContent=
 diamonds.toLocaleString("fa-IR");
+
+
+/* =========================
+   نام
+========================= */
+
+let profileName =
+localStorage.getItem("profileName")
+|| "بازیکن گیمی‌مود";
+
+
+document.getElementById(
+"profileName"
+).textContent=
+profileName;
+
+
+/* =========================
+   آیتم‌های خریداری‌شده
+========================= */
+
+let owned =
+JSON.parse(
+localStorage.getItem("shopItems")
+) || [];
+
+
+/* =========================
+   نام آیتم‌ها
+========================= */
+
+const itemNames={};
+
+
+/* تم‌ها */
+
+const themes=[
+"تم آبی","تم قرمز","تم سبز","تم بنفش",
+"تم طلایی","تم نارنجی","تم صورتی",
+"تم آسمانی","تم شب","تم نئون",
+"تم آتشی","تم یخی","تم جنگل",
+"تم اقیانوس","تم کهکشانی","تم الماسی",
+"تم مشکی","تم سفید","تم سایبری",
+"تم گیمینگ","تم رعد","تم آذرخش",
+"تم لاوا","تم زمرد","تم یاقوت",
+"تم بنفش سلطنتی","تم طلوع","تم غروب",
+"تم فضایی","تم آینده"
+];
+
+themes.forEach((x,i)=>{
+itemNames["theme_"+i]="🎨 "+x;
+});
+
+
+/* پس‌زمینه */
+
+const backgrounds=[
+"پس‌زمینه شب","پس‌زمینه شهر",
+"پس‌زمینه استادیوم","پس‌زمینه فوتبال",
+"پس‌زمینه آتش","پس‌زمینه یخ",
+"پس‌زمینه جنگل","پس‌زمینه دریا",
+"پس‌زمینه کوهستان","پس‌زمینه فضا",
+"پس‌زمینه کهکشان","پس‌زمینه نئون",
+"پس‌زمینه سایبری","پس‌زمینه طلایی",
+"پس‌زمینه الماسی","پس‌زمینه رعدوبرق",
+"پس‌زمینه غروب","پس‌زمینه طلوع",
+"پس‌زمینه بارانی","پس‌زمینه برفی",
+"پس‌زمینه قرمز","پس‌زمینه آبی",
+"پس‌زمینه بنفش","پس‌زمینه سبز",
+"پس‌زمینه مشکی"
+];
+
+backgrounds.forEach((x,i)=>{
+itemNames["bg_"+i]="🖼️ "+x;
+});
+
+
+/* قاب‌ها */
+
+const frames=[
+"قاب آبی","قاب قرمز","قاب سبز",
+"قاب بنفش","قاب طلایی","قاب نقره‌ای",
+"قاب نارنجی","قاب صورتی","قاب آتشی",
+"قاب یخی","قاب نئون","قاب رعد",
+"قاب زمرد","قاب یاقوت","قاب الماسی",
+"قاب سلطنتی","قاب ستاره‌ای",
+"قاب کهکشانی","قاب سایبری",
+"قاب گیمینگ","قاب فوتبال",
+"قاب قهرمانی","قاب افسانه‌ای",
+"قاب شاهانه","قاب اسطوره‌ای"
+];
+
+frames.forEach((x,i)=>{
+itemNames["frame_"+i]="🖼️ "+x;
+});
+
+
+/* آواتار */
+
+const avatars=[
+"آواتار جنگجو","آواتار فوتبالیست",
+"آواتار گیمر","آواتار نینجا",
+"آواتار ربات","آواتار فضایی",
+"آواتار آتش","آواتار یخ",
+"آواتار رعد","آواتار شاه",
+"آواتار قهرمان","آواتار سایبری",
+"آواتار طلایی","آواتار الماسی",
+"آواتار افسانه‌ای"
+];
+
+avatars.forEach((x,i)=>{
+itemNames["avatar_"+i]="👤 "+x;
+});
+
+
+/* ویژه */
+
+const special=[
+"قاب الماس آبی","قاب الماس قرمز",
+"قاب الماس طلایی","قاب الماس بنفش",
+"قاب الماس سبز","پس‌زمینه الماس آبی",
+"پس‌زمینه الماس قرمز",
+"پس‌زمینه الماس طلایی",
+"پس‌زمینه کهکشان الماسی",
+"تم الماس نئون","تم الماس آتش",
+"تم الماس یخ","آواتار الماس",
+"آواتار پادشاه","آواتار اسطوره",
+"قاب فوق‌العاده","قاب اژدها",
+"قاب رعد طلایی","قاب ستاره‌ای الماسی",
+"پس‌زمینه افسانه‌ای","تم افسانه‌ای",
+"تم قهرمانی","تم شاهانه",
+"آواتار افسانه‌ای","پک کامل الماسی"
+];
+
+special.forEach((x,i)=>{
+itemNames["special_"+i]="💎 "+x;
+});
+
+
+/* =========================
+   نمایش آیتم‌ها
+========================= */
+
+let container =
+document.getElementById(
+"ownedItems"
+);
+
+
+if(!owned.length){
+
+container.innerHTML=
+'<div class="empty">'+
+"هنوز آیتمی نخریدی. 🛒"+
+"</div>";
+
+}
+else{
+
+owned.forEach(id=>{
+
+let div =
+document.createElement("div");
+
+div.className="item";
+
+div.textContent=
+itemNames[id]
+|| "✨ آیتم ویژه";
+
+container.appendChild(div);
+
+});
+
+}
+
+
+/* =========================
+   آواتار فعال
+========================= */
+
+let activeAvatar =
+localStorage.getItem(
+"activeAvatar"
+);
+
+
+if(activeAvatar){
+
+let number =
+activeAvatar.replace(
+"avatar_",""
+);
+
+let avatarEmojis=[
+"⚔️","⚽","🎮","🥷","🤖",
+"👨‍🚀","🔥","❄️","⚡","👑",
+"🏆","💻","🟡","💎","🌟"
+];
+
+if(avatarEmojis[number]){
+
+document.getElementById(
+"avatarBox"
+).textContent=
+avatarEmojis[number];
+
+}
+
+}
+
+
+/* =========================
+   قاب فعال
+========================= */
+
+let activeFrame =
+localStorage.getItem(
+"activeFrame"
+);
+
+
+if(activeFrame){
+
+let number =
+Number(
+activeFrame.replace(
+"frame_",""
+)
+);
+
+let frameColors=[
+"#00bcd4",
+"#e53935",
+"#43a047",
+"#8e44ad",
+"#ffd700",
+"#cfd8dc",
+"#ff9800",
+"#ff69b4",
+"#ff5722",
+"#81d4fa",
+"#00ffff",
+"#7e57c2",
+"#2ecc71",
+"#e91e63",
+"#55ddff",
+"#ffd700",
+"#ffffff",
+"#9c27b0",
+"#00e5ff",
+"#00bcd4",
+"#2ecc71",
+"#ffd700",
+"#ff00ff",
+"#ffcc00",
+"#55ddff"
+];
+
+if(frameColors[number]){
+
+document.getElementById(
+"avatarBox"
+).style.borderColor=
+frameColors[number];
+
+}
+
+}
+
+
+/* =========================
+   پس‌زمینه فعال
+========================= */
+
+let activeBackground =
+localStorage.getItem(
+"activeBackground"
+);
+
+
+if(activeBackground){
+
+let number =
+Number(
+activeBackground.replace(
+"bg_",""
+)
+);
+
+let backgroundsColors=[
+"#101018",
+"#202030",
+"#152b45",
+"#162b40",
+"#401010",
+"#102a40",
+"#102a18",
+"#102d35",
+"#302818",
+"#151025",
+"#17102f",
+"#102c35",
+"#101c2c",
+"#302610",
+"#102d35",
+"#252535",
+"#302018",
+"#302515",
+"#202530",
+"#20252d",
+"#301010",
+"#102030",
+"#201030",
+"#102010",
+"#080808"
+];
+
+if(backgroundsColors[number]){
+
+document.body.style.background=
+backgroundsColors[number];
+
+}
+
+}
+
+
+/* =========================
+   تم فعال
+========================= */
+
+let activeTheme =
+localStorage.getItem(
+"activeTheme"
+);
+
+
+if(activeTheme){
+
+let number =
+Number(
+activeTheme.replace(
+"theme_",""
+)
+);
+
+let themeColors=[
+"#101820","#201010","#102010",
+"#181020","#201c10","#201810",
+"#20101c","#101c20","#080810",
+"#101820","#301010","#102030",
+"#102018","#101c25","#15102a",
+"#101525","#080808","#f0f0f0",
+"#101018","#101820","#102030",
+"#202010","#301510","#102018",
+"#201010","#181020","#202010",
+"#201018","#101525","#101018"
+];
+
+if(themeColors[number]){
+
+document.body.style.background=
+themeColors[number];
+
+}
+
+}
 
 </script>
 </body>
