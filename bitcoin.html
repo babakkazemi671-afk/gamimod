@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>₿ پیش‌بینی بیت‌کوین | گیمی‌مود</title>
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:tahoma;
+    background:#101010;
+    color:white;
+    text-align:center;
+}
+
+header{
+    background:#00bcd4;
+    padding:20px;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.container{
+    margin:20px;
+    padding:25px 15px;
+    background:#202020;
+    border-radius:20px;
+    box-shadow:0 0 15px #000;
+}
+
+.balance{
+    background:linear-gradient(135deg,#302b63,#24243e);
+}
+
+.balance h2{
+    color:#00e5ff;
+}
+
+.coins{
+    font-size:32px;
+    font-weight:bold;
+}
+
+.price{
+    margin:25px auto;
+    padding:20px;
+    max-width:450px;
+    background:#181818;
+    border-radius:18px;
+}
+
+.price-title{
+    font-size:18px;
+}
+
+.price-number{
+    font-size:35px;
+    font-weight:bold;
+    margin:15px 0;
+    color:#ffc107;
+}
+
+.change{
+    font-size:20px;
+    font-weight:bold;
+}
+
+.timer{
+    font-size:24px;
+    margin:20px;
+    color:#00e5ff;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.predict{
+    width:150px;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.up{
+    background:#16a085;
+}
+
+.down{
+    background:#e74c3c;
+}
+
+.predict:disabled{
+    background:#555;
+    cursor:not-allowed;
+}
+
+.result{
+    margin-top:20px;
+    padding:15px;
+    background:#151515;
+    border-radius:12px;
+    line-height:2;
+}
+
+.back{
+    display:block;
+    width:230px;
+    margin:25px auto;
+    padding:14px;
+    background:#333;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+.warning{
+    font-size:14px;
+    color:#aaa;
+    line-height:2;
+}
+
+</style>
+</head>
+<body>
+<header>
+₿ پیش‌بینی بیت‌کوین گیمی‌مود
+</header>
+<!-- موجودی -->
+<section class="container balance">
+<h2>🪙 موجودی شما</h2>
+<div class="coins" id="coins">
+0 🪙
+</div>
+</section>
+<!-- بازی -->
+<section class="container">
+<h2>🎯 حدس بزن قیمت میره بالا یا پایین؟</h2>
+<p>
+این قیمت کاملاً ساختگی و مخصوص بازی گیمی‌مود است.
+</p>
+<div class="price">
+<div class="price-title">
+₿ قیمت فعلی
+</div>
+<div class="price-number" id="price">
+100000
+</div>
+<div class="change" id="change">
+قیمت پایه
+</div>
+</div>
+<div class="timer">
+⏱️ زمان باقی‌مانده:
+<span id="timer">30</span>
+ثانیه
+</div>
+<div class="buttons">
+<button
+class="predict up"
+id="upButton"
+onclick="predict('up')">
+📈 میره بالا
+</button>
+<button
+class="predict down"
+id="downButton"
+onclick="predict('down')">
+📉 میاد پایین
+</button>
+</div>
+<div class="result" id="result">
+هنوز پیش‌بینی نکردی.
+</div>
+</section>
+<p class="warning">
+🪙 این بازی فقط با سکه مجازی گیمی‌مود انجام می‌شود و
+هیچ پول واقعی در آن استفاده نمی‌شود.
+</p>
+<a class="back" href="coin.html">
+⬅️ برگشت به مرکز سکه
+</a>
+<script>
+
+/* =========================
+   سیستم سکه
+========================= */
+
+let coins =
+Number(localStorage.getItem("gamimodCoins")) || 0;
+
+
+function saveCoins(){
+
+    localStorage.setItem(
+        "gamimodCoins",
+        coins
+    );
+
+    updateCoins();
+
+}
+
+
+function updateCoins(){
+
+    document.getElementById(
+        "coins"
+    ).innerHTML =
+    coins + " 🪙";
+
+}
+
+
+updateCoins();
+
+
+/* =========================
+   قیمت ساختگی
+========================= */
+
+let price = 100000;
+
+let prediction = null;
+
+let finished = false;
+
+let time = 30;
+
+
+/* =========================
+   انتخاب پیش بینی
+========================= */
+
+function predict(choice){
+
+    if(finished){
+
+        return;
+
+    }
+
+    if(prediction !== null){
+
+        return;
+
+    }
+
+    prediction = choice;
+
+    document.getElementById(
+        "upButton"
+    ).disabled = true;
+
+    document.getElementById(
+        "downButton"
+    ).disabled = true;
+
+
+    if(choice === "up"){
+
+        document.getElementById(
+            "result"
+        ).innerHTML =
+        "📈 پیش‌بینی شما: قیمت می‌رود بالا.<br>" +
+        "⏳ منتظر نتیجه بمان...";
+
+    }
+
+    else{
+
+        document.getElementById(
+            "result"
+        ).innerHTML =
+        "📉 پیش‌بینی شما: قیمت می‌آید پایین.<br>" +
+        "⏳ منتظر نتیجه بمان...";
+
+    }
+
+}
+
+
+/* =========================
+   شمارش معکوس
+========================= */
+
+let countdown =
+setInterval(function(){
+
+    time--;
+
+    document.getElementById(
+        "timer"
+    ).innerHTML = time;
+
+
+    if(time <= 0){
+
+        clearInterval(countdown);
+
+        finishRound();
+
+    }
+
+},1000);
+
+
+/* =========================
+   پایان دور
+========================= */
+
+function finishRound(){
+
+    finished = true;
+
+
+    /*
+       قیمت کاملاً ساختگی است.
+       50٪ بالا
+       50٪ پایین
+    */
+
+    let direction =
+    Math.random() < 0.5
+    ? "up"
+    : "down";
+
+
+    let movement =
+    Math.floor(
+        Math.random() * 5000
+    ) + 1000;
+
+
+    if(direction === "up"){
+
+        price += movement;
+
+        document.getElementById(
+            "change"
+        ).innerHTML =
+        "📈 +" + movement;
+
+    }
+
+    else{
+
+        price -= movement;
+
+        document.getElementById(
+            "change"
+        ).innerHTML =
+        "📉 -" + movement;
+
+    }
+
+
+    document.getElementById(
+        "price"
+    ).innerHTML =
+    price;
+
+
+    if(prediction === null){
+
+        document.getElementById(
+            "result"
+        ).innerHTML =
+        "⏰ زمان تمام شد!<br>" +
+        "این دور پیش‌بینی نکردی.";
+
+        return;
+
+    }
+
+
+    if(prediction === direction){
+
+        coins += 50;
+
+        saveCoins();
+
+
+        document.getElementById(
+            "result"
+        ).innerHTML =
+        "🎉 درست حدس زدی! 🔥<br>" +
+        "+50 🪙 سکه گرفتی!";
+
+    }
+
+    else{
+
+        document.getElementById(
+            "result"
+        ).innerHTML =
+        "❌ اشتباه بود!<br>" +
+        "این بار سکه‌ای نگرفتی.";
+
+    }
+
+}
+
+</script>
+</body>
+  </html>
