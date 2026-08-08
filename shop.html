@@ -2,473 +2,792 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>🏪 فروشگاه گیمی‌مود</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🛒 فروشگاه | گیمی مود</title>
 <style>
-
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
-    margin:0;
-    font-family:tahoma;
-    background:#101010;
-    color:white;
+margin:0;
+font-family:tahoma;
+background:#101010;
+color:#fff;
 }
 
 header{
-    background:#00bcd4;
-    padding:20px;
-    text-align:center;
-    font-size:28px;
-    font-weight:bold;
+background:linear-gradient(135deg,#00b894,#00695c);
+padding:20px;
+text-align:center;
+font-size:25px;
+font-weight:bold;
+}
+
+.container{
+width:94%;
+max-width:1000px;
+margin:20px auto;
 }
 
 .balance{
-    margin:20px;
-    padding:22px;
-    text-align:center;
-    background:linear-gradient(135deg,#302b63,#24243e);
-    border-radius:20px;
-    box-shadow:0 0 15px #000;
+background:#1d1d1d;
+padding:15px;
+border-radius:15px;
+display:flex;
+justify-content:space-around;
+margin-bottom:20px;
+font-weight:bold;
 }
 
-.balance h2{
-    color:#00e5ff;
+.tabs{
+display:flex;
+gap:8px;
+margin-bottom:15px;
 }
 
-.coins{
-    font-size:34px;
-    font-weight:bold;
+.tabs button{
+flex:1;
 }
 
-.shop{
-    padding:20px;
+button{
+border:0;
+border-radius:12px;
+padding:12px;
+font-family:tahoma;
+font-weight:bold;
+cursor:pointer;
 }
 
-.shop h2{
-    text-align:center;
-    color:#00e5ff;
+.tab{
+background:#333;
+color:#fff;
+}
+
+.tab.active{
+background:#00b894;
+}
+
+.section{
+display:none;
+}
+
+.section.active{
+display:block;
 }
 
 .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
-    gap:18px;
+display:grid;
+grid-template-columns:repeat(
+auto-fit,
+minmax(210px,1fr)
+);
+gap:15px;
 }
 
 .item{
-    background:#222;
-    border-radius:18px;
-    padding:20px;
-    text-align:center;
-    box-shadow:0 0 10px #000;
-}
-
-.item h3{
-    font-size:21px;
-    color:#00e5ff;
+background:#1d1d1d;
+border-radius:18px;
+padding:18px;
+text-align:center;
+box-shadow:0 4px 15px #0008;
 }
 
 .icon{
-    font-size:45px;
+font-size:55px;
+margin:10px;
+}
+
+.item h3{
+margin:8px 0;
+}
+
+.power{
+color:#ffd700;
+font-weight:bold;
 }
 
 .price{
-    font-size:18px;
-    font-weight:bold;
-    margin:12px;
+margin:12px 0;
+color:#00e5ff;
+font-weight:bold;
 }
 
 .buy{
-    border:0;
-    padding:12px 22px;
-    border-radius:10px;
-    background:#00bcd4;
-    color:white;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
+background:#00b894;
+color:#fff;
+width:100%;
 }
 
 .buy:disabled{
-    background:#555;
-    cursor:not-allowed;
-}
-
-.owned{
-    background:#176b3a;
-    padding:10px;
-    border-radius:10px;
-    font-weight:bold;
+background:#555;
 }
 
 .message{
-    margin:20px;
-    padding:15px;
-    background:#1b1b1b;
-    border-radius:12px;
-    text-align:center;
+background:#151515;
+padding:12px;
+border-radius:12px;
+margin-bottom:15px;
+text-align:center;
+min-height:25px;
 }
 
 .back{
-    display:block;
-    width:230px;
-    margin:25px auto;
-    padding:14px;
-    text-align:center;
-    background:#333;
-    color:white;
-    text-decoration:none;
-    border-radius:12px;
-    font-weight:bold;
+display:block;
+background:#333;
+color:#fff;
+text-decoration:none;
+padding:13px;
+border-radius:12px;
+text-align:center;
+margin-top:20px;
 }
 
+.legendary{
+border:1px solid #d4af37;
+}
+
+.foreign{
+border:1px solid #3498db;
+}
+
+.iranian{
+border:1px solid #27ae60;
+}
 </style>
 </head>
 <body>
 <header>
-🏪 فروشگاه گیمی‌مود
+🛒 فروشگاه گیمی مود
 </header>
-<section class="balance">
-<h2>🐷 موجودی قلک</h2>
-<div class="coins" id="coins">
-0 🪙
+<div class="container">
+<div class="balance">
+<div>🪙 سکه: <span id="coins">0</span></div>
+<div>💎 الماس: <span id="diamonds">0</span></div>
 </div>
-</section>
-<section class="shop">
-<h2>🛒 آیتم‌های فروشگاه</h2>
+<div id="message" class="message">
+از فروشگاه بازیکن یا پک موردنظرت را انتخاب کن.
+</div>
+<div class="tabs">
+<button
+class="tab active"
+onclick="showSection('players',this)">
+⚽ بازیکنان
+</button>
+<button
+class="tab"
+onclick="showSection('iran',this)">
+🇮🇷 ایرانی
+</button>
+<button
+class="tab"
+onclick="showSection('foreign',this)">
+🌍 خارجی
+</button>
+<button
+class="tab"
+onclick="showSection('packs',this)">
+🎁 پک‌ها
+</button>
+</div>
+<!-- همه بازیکنان -->
+<div id="players" class="section active">
+<div class="grid">
+<div class="item iranian">
+<div class="icon">⚽</div>
+<h3>مهدی طارمی</h3>
+<div class="power">قدرت 88</div>
+<div class="price">🪙 3,000</div>
+<button class="buy"
+onclick="buyPlayer('مهدی طارمی',88,3000,0)">
+خرید بازیکن
+</button>
+</div>
+<div class="item iranian">
+<div class="icon">⚽</div>
+<h3>علیرضا جهانبخش</h3>
+<div class="power">قدرت 84</div>
+<div class="price">🪙 2,700</div>
+<button class="buy"
+onclick="buyPlayer('علیرضا جهانبخش',84,2700,0)">
+خرید بازیکن
+</button>
+</div>
+<div class="item foreign">
+<div class="icon">⭐</div>
+<h3>کیلیان امباپه</h3>
+<div class="power">قدرت 100</div>
+<div class="price">💎 80</div>
+<button class="buy"
+onclick="buyPlayer('کیلیان امباپه',100,0,80)">
+خرید بازیکن
+</button>
+</div>
+<div class="item foreign">
+<div class="icon">⭐</div>
+<h3>لامین یامال</h3>
+<div class="power">قدرت 100</div>
+<div class="price">💎 75</div>
+<button class="buy"
+onclick="buyPlayer('لامین یامال',100,0,75)">
+خرید بازیکن
+</button>
+</div>
+<div class="item legendary">
+<div class="icon">👑</div>
+<h3>کریستیانو رونالدو</h3>
+<div class="power">قدرت 100</div>
+<div class="price">💎 100</div>
+<button class="buy"
+onclick="buyPlayer('کریستیانو رونالدو',100,0,100)">
+خرید بازیکن
+</button>
+</div>
+<div class="item legendary">
+<div class="icon">🏆</div>
+<h3>زیدان</h3>
+<div class="power">قدرت 120</div>
+<div class="price">💎 120</div>
+<button class="buy"
+onclick="buyPlayer('زیدان',120,0,120)">
+خرید بازیکن
+</button>
+</div>
+</div>
+</div>
+<!-- ایرانی -->
+<div id="iran" class="section">
+<div class="grid">
+<div class="item iranian">
+<div class="icon">🇮🇷</div>
+<h3>مهدی قایدی</h3>
+<div class="power">قدرت 82</div>
+<div class="price">🪙 2,500</div>
+<button class="buy"
+onclick="buyPlayer('مهدی قایدی',82,2500,0)">
+خرید
+</button>
+</div>
+<div class="item iranian">
+<div class="icon">🇮🇷</div>
+<h3>سردار آزمون</h3>
+<div class="power">قدرت 86</div>
+<div class="price">🪙 2,900</div>
+<button class="buy"
+onclick="buyPlayer('سردار آزمون',86,2900,0)">
+خرید
+</button>
+</div>
+<div class="item iranian">
+<div class="icon">🇮🇷</div>
+<h3>علیرضا بیرانوند</h3>
+<div class="power">قدرت 85</div>
+<div class="price">🪙 2,800</div>
+<button class="buy"
+onclick="buyPlayer('علیرضا بیرانوند',85,2800,0)">
+خرید
+</button>
+</div>
+</div>
+</div>
+<!-- خارجی -->
+<div id="foreign" class="section">
+<div class="grid">
+<div class="item foreign">
+<div class="icon">🌍</div>
+<h3>لیونل مسی</h3>
+<div class="power">قدرت 100</div>
+<div class="price">💎 90</div>
+<button class="buy"
+onclick="buyPlayer('لیونل مسی',100,0,90)">
+خرید
+</button>
+</div>
+<div class="item foreign">
+<div class="icon">🌍</div>
+<h3>هالند</h3>
+<div class="power">قدرت 99</div>
+<div class="price">💎 85</div>
+<button class="buy"
+onclick="buyPlayer('هالند',99,0,85)">
+خرید
+</button>
+</div>
+<div class="item foreign">
+<div class="icon">🌍</div>
+<h3>امباپه</h3>
+<div class="power">قدرت 100</div>
+<div class="price">💎 80</div>
+<button class="buy"
+onclick="buyPlayer('امباپه',100,0,80)">
+خرید
+</button>
+</div>
+</div>
+</div>
+<!-- پک‌ها -->
+<div id="packs" class="section">
 <div class="grid">
 <div class="item">
-<div class="icon">🎨</div>
-<h3>تم قرمز</h3>
+<div class="icon">🎁</div>
+<h3>پک ایرانی</h3>
 <p>
-ظاهر قرمز برای سایت
+یک بازیکن ایرانی تصادفی
 </p>
 <div class="price">
-100 🪙
+🪙 1,500
 </div>
-<button class="buy"
-onclick="buyItem('redTheme',100)">
-خرید
+<button
+class="buy"
+onclick="buyPack('iran')">
+خرید پک
 </button>
 </div>
 <div class="item">
-<div class="icon">🌈</div>
-<h3>تم رنگین‌کمانی</h3>
+<div class="icon">🎁</div>
+<h3>پک خارجی</h3>
 <p>
-تم ویژه گیمی‌مود
+یک بازیکن خارجی تصادفی
 </p>
 <div class="price">
-200 🪙
+💎 25
 </div>
-<button class="buy"
-onclick="buyItem('rainbowTheme',200)">
-خرید
+<button
+class="buy"
+onclick="buyPack('foreign')">
+خرید پک
 </button>
 </div>
-<div class="item">
-<div class="icon">🌌</div>
-<h3>پس‌زمینه فضایی</h3>
-<p>
-پس‌زمینه مخصوص
-</p>
-<div class="price">
-300 🪙
-</div>
-<button class="buy"
-onclick="buyItem('spaceBackground',300)">
-خرید
-</button>
-</div>
-<div class="item">
+<div class="item legendary">
 <div class="icon">👑</div>
-<h3>نشان VIP</h3>
+<h3>پک ویژه</h3>
 <p>
-نشان مخصوص پروفایل
+شانس بازیکن قدرتمند
 </p>
 <div class="price">
-500 🪙
+💎 40
 </div>
-<button class="buy"
-onclick="buyItem('vip',500)">
-خرید
-</button>
-</div>
-<div class="item">
-<div class="icon">⚡</div>
-<h3>قدرت دو برابر</h3>
-<p>
-آیتم ویژه گیمی‌مود
-</p>
-<div class="price">
-750 🪙
-</div>
-<button class="buy"
-onclick="buyItem('doublePower',750)">
-خرید
-</button>
-</div>
-<div class="item">
-<div class="icon">🏆</div>
-<h3>نشان قهرمان</h3>
-<p>
-نشان مخصوص برندگان
-</p>
-<div class="price">
-1000 🪙
-</div>
-<button class="buy"
-onclick="buyItem('champion',1000)">
-خرید
-</button>
-</div>
-<div class="item">
-<div class="icon">🔥</div>
-<h3>عنوان افسانه‌ای</h3>
-<p>
-عنوان ویژه برای حساب
-</p>
-<div class="price">
-1500 🪙
-</div>
-<button class="buy"
-onclick="buyItem('legendTitle',1500)">
-خرید
-</button>
-</div>
-<div class="item">
-<div class="icon">💎</div>
-<h3>الماس گیمی‌مود</h3>
-<p>
-آیتم بسیار کمیاب
-</p>
-<div class="price">
-3000 🪙
-</div>
-<button class="buy"
-onclick="buyItem('diamond',3000)">
-خرید
-</button>
-</div>
-<div class="item">
-<div class="icon">🚀</div>
-<h3>پک فضایی</h3>
-<p>
-پک ویژه و کمیاب
-</p>
-<div class="price">
-5000 🪙
-</div>
-<button class="buy"
-onclick="buyItem('spacePack',5000)">
-خرید
-</button>
-</div>
-<div class="item">
-<div class="icon">👑</div>
-<h3>پک پادشاه</h3>
-<p>
-گران‌ترین آیتم فروشگاه
-</p>
-<div class="price">
-10000 🪙
-</div>
-<button class="buy"
-onclick="buyItem('kingPack',10000)">
-خرید
+<button
+class="buy"
+onclick="buyPack('special')">
+خرید پک
 </button>
 </div>
 </div>
-</section>
-<div class="message" id="message">
-از سکه‌هایت برای خرید آیتم استفاده کن! 🪙
 </div>
-<a class="back" href="coin.html">
-⬅️ برگشت به مرکز سرگرمی
+<a class="back" href="index.html">
+⬅️ برگشت به خانه
 </a>
+</div>
 <script>
 
-/* =========================
-   سیستم سکه مشترک
-========================= */
+/* =====================================
+ موجودی
+===================================== */
 
-let coins =
-Number(localStorage.getItem("gamimodCoins")) || 0;
+let coins=
+Number(
+localStorage.getItem("coins")
+)||0;
+
+let diamonds=
+Number(
+localStorage.getItem("diamonds")
+)||0;
+
+updateBalance();
 
 
-function updateCoins(){
+function updateBalance(){
 
-    document.getElementById(
-        "coins"
-    ).innerHTML =
-    coins + " 🪙";
+document.getElementById(
+"coins"
+).innerHTML=
+coins;
+
+document.getElementById(
+"diamonds"
+).innerHTML=
+diamonds;
 
 }
 
 
-function saveCoins(){
+/* =====================================
+ تغییر بخش
+===================================== */
 
-    localStorage.setItem(
-        "gamimodCoins",
-        coins
-    );
+function showSection(
+id,
+button
+){
 
-    updateCoins();
+document.querySelectorAll(
+".section"
+).forEach(
+section=>{
+section.classList.remove(
+"active"
+);
+});
+
+document.getElementById(
+id
+).classList.add(
+"active"
+);
+
+document.querySelectorAll(
+".tab"
+).forEach(
+btn=>{
+btn.classList.remove(
+"active"
+);
+});
+
+button.classList.add(
+"active"
+);
 
 }
 
 
-updateCoins();
+/* =====================================
+ تیم من
+===================================== */
+
+function getTeam(){
+
+try{
+
+return JSON.parse(
+localStorage.getItem("myteam")
+)||[];
+
+}catch(e){
+
+return[];
+
+}
+
+}
 
 
-/* =========================
-   وضعیت خریدها
-========================= */
+function saveTeam(team){
 
-const items = [
+localStorage.setItem(
+"myteam",
+JSON.stringify(team)
+);
 
-    "redTheme",
-    "rainbowTheme",
-    "spaceBackground",
-    "vip",
-    "doublePower",
-    "champion",
-    "legendTitle",
-    "diamond",
-    "spacePack",
-    "kingPack"
+}
 
+
+/* =====================================
+ خرید بازیکن
+===================================== */
+
+function buyPlayer(
+name,
+power,
+coinPrice,
+diamondPrice
+){
+
+if(
+coinPrice>0 &&
+coins<coinPrice
+){
+
+showMessage(
+"❌ سکه کافی نداری."
+);
+
+return;
+
+}
+
+if(
+diamondPrice>0 &&
+diamonds<diamondPrice
+){
+
+showMessage(
+"❌ الماس کافی نداری."
+);
+
+return;
+
+}
+
+
+/*
+ پرداخت
+*/
+
+coins-=coinPrice;
+
+diamonds-=diamondPrice;
+
+
+/*
+ اضافه کردن بازیکن
+*/
+
+let team=
+getTeam();
+
+let exists=
+team.some(
+p=>p.name===name
+);
+
+if(exists){
+
+/*
+ پول برگردد
+*/
+
+coins+=coinPrice;
+
+diamonds+=diamondPrice;
+
+showMessage(
+"⚠️ این بازیکن را قبلاً داری."
+);
+
+updateBalance();
+
+return;
+
+}
+
+
+team.push({
+
+name:name,
+
+power:power,
+
+source:"shop",
+
+date:Date.now()
+
+});
+
+saveTeam(team);
+
+
+/*
+ ذخیره پول
+*/
+
+localStorage.setItem(
+"coins",
+coins
+);
+
+localStorage.setItem(
+"diamonds",
+diamonds
+);
+
+updateBalance();
+
+showMessage(
+"✅ "+name+
+" با قدرت "+power+
+" به «تیم من» اضافه شد!"
+);
+
+}
+
+
+/* =====================================
+ خرید پک
+===================================== */
+
+function buyPack(type){
+
+if(type==="iran"){
+
+if(coins<1500){
+
+showMessage(
+"❌ برای پک ایرانی ۱۵۰۰ سکه لازم داری."
+);
+
+return;
+
+}
+
+coins-=1500;
+
+let players=[
+["بازیکن ایرانی 1",72],
+["بازیکن ایرانی 2",76],
+["بازیکن ایرانی 3",80],
+["بازیکن ایرانی 4",83],
+["بازیکن ایرانی 5",86]
 ];
 
+let chosen=
+players[
+Math.floor(
+Math.random()*players.length
+)
+];
 
-function updateButtons(){
+addPackPlayer(
+chosen[0],
+chosen[1]
+);
 
-    const buttons =
-    document.querySelectorAll(".buy");
+}
 
+else if(type==="foreign"){
 
-    buttons.forEach(function(button){
+if(diamonds<25){
 
-        const code =
-        button.getAttribute(
-            "onclick"
-        );
+showMessage(
+"❌ برای پک خارجی ۲۵ الماس لازم داری."
+);
 
+return;
 
-        const match =
-        code.match(
-            /buyItem\('([^']+)'/
-        );
+}
 
+diamonds-=25;
 
-        if(!match){
+let players=[
+["بازیکن خارجی 1",88],
+["بازیکن خارجی 2",91],
+["بازیکن خارجی 3",94],
+["بازیکن خارجی 4",97],
+["بازیکن خارجی 5",99]
+];
 
-            return;
+let chosen=
+players[
+Math.floor(
+Math.random()*players.length
+)
+];
 
-        }
+addPackPlayer(
+chosen[0],
+chosen[1]
+);
 
+}
 
-        const item =
-        match[1];
+else{
 
+if(diamonds<40){
 
-        if(
-            localStorage.getItem(
-                "shop_" + item
-            ) === "true"
-        ){
+showMessage(
+"❌ برای پک ویژه ۴۰ الماس لازم داری."
+);
 
-            button.disabled = true;
+return;
 
-            button.outerHTML =
-            '<div class="owned">✅ خریداری شد</div>';
+}
 
-        }
+diamonds-=40;
 
-    });
+let players=[
+["بازیکن ویژه 1",95],
+["بازیکن ویژه 2",97],
+["بازیکن ویژه 3",99],
+["بازیکن ویژه 4",100]
+];
+
+let chosen=
+players[
+Math.floor(
+Math.random()*players.length
+)
+];
+
+addPackPlayer(
+chosen[0],
+chosen[1]
+);
 
 }
 
 
-updateButtons();
+/*
+ ذخیره موجودی
+*/
 
+localStorage.setItem(
+"coins",
+coins
+);
 
-/* =========================
-   خرید
-========================= */
+localStorage.setItem(
+"diamonds",
+diamonds
+);
 
-function buyItem(item,price){
-
-    if(
-        localStorage.getItem(
-            "shop_" + item
-        ) === "true"
-    ){
-
-        showMessage(
-            "⚠️ این آیتم را قبلاً خریدی."
-        );
-
-        return;
-
-    }
-
-
-    if(coins < price){
-
-        showMessage(
-            "❌ سکه کافی نداری!<br>" +
-            "قیمت این آیتم: " +
-            price +
-            " 🪙"
-        );
-
-        return;
-
-    }
-
-
-    coins -= price;
-
-
-    localStorage.setItem(
-        "shop_" + item,
-        "true"
-    );
-
-
-    saveCoins();
-
-
-    showMessage(
-        "🎉 خرید موفق بود!<br>" +
-        "آیتم به حساب گیمی‌مود شما اضافه شد."
-    );
-
-
-    setTimeout(function(){
-
-        location.reload();
-
-    },700);
+updateBalance();
 
 }
 
 
-/* =========================
-   پیام
-========================= */
+/* =====================================
+ اضافه کردن بازیکن پک
+===================================== */
 
-function showMessage(text){
+function addPackPlayer(
+name,
+power
+){
 
-    document.getElementById(
-        "message"
-    ).innerHTML = text;
+let team=
+getTeam();
+
+team.push({
+
+name:name,
+
+power:power,
+
+source:"pack",
+
+date:Date.now()
+
+});
+
+saveTeam(team);
+
+showMessage(
+"🎁 تبریک! "+
+name+
+" با قدرت "+
+power+
+" از پک به تیم من اضافه شد!"
+);
+
+}
+
+
+/* =====================================
+ پیام
+===================================== */
+
+function showMessage(
+text
+){
+
+document.getElementById(
+"message"
+).innerHTML=
+text;
 
 }
 
 </script>
 </body>
-  </html>
+
+</html>
