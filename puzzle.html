@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🧩 پازل | گیمی‌مود</title>
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:tahoma;
+    background:#101010;
+    color:white;
+    text-align:center;
+}
+
+header{
+    background:#00bcd4;
+    padding:20px;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.balance{
+    margin:20px;
+    padding:20px;
+    background:linear-gradient(135deg,#302b63,#24243e);
+    border-radius:20px;
+}
+
+.coins{
+    font-size:32px;
+    font-weight:bold;
+}
+
+.game{
+    width:92%;
+    max-width:600px;
+    margin:20px auto;
+    padding:25px 15px;
+    background:#202020;
+    border-radius:20px;
+    box-shadow:0 0 15px #000;
+}
+
+.board{
+    width:300px;
+    height:300px;
+    max-width:90vw;
+    max-height:90vw;
+    margin:25px auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:5px;
+    background:#111;
+    padding:5px;
+    border-radius:15px;
+}
+
+.tile{
+    border:0;
+    border-radius:10px;
+    background:#00bcd4;
+    color:white;
+    font-size:28px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.tile.empty{
+    background:#111;
+    cursor:default;
+}
+
+.message{
+    margin:15px;
+    padding:15px;
+    background:#151515;
+    border-radius:12px;
+    line-height:2;
+}
+
+.restart{
+    padding:13px 25px;
+    border:0;
+    border-radius:12px;
+    background:#00bcd4;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.back{
+    display:block;
+    width:230px;
+    margin:25px auto;
+    padding:14px;
+    background:#333;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+</style>
+</head>
+<body>
+<header>
+🧩 پازل گیمی‌مود
+</header>
+<section class="balance">
+<h2>🐷 موجودی قلک</h2>
+<div class="coins" id="coins">
+0 🪙
+</div>
+</section>
+<section class="game">
+<h2>🧩 پازل عددی</h2>
+<p>
+عددها را مرتب کن تا از ۱ تا ۸ باشند.
+</p>
+<div class="board" id="board">
+</div>
+<div class="message" id="message">
+🎯 پازل را حل کن و ۱۰۰ 🪙 بگیر!
+</div>
+<button
+class="restart"
+onclick="startPuzzle()">
+🔄 شروع دوباره
+</button>
+</section>
+<a class="back" href="coin.html">
+⬅️ برگشت به مرکز سرگرمی
+</a>
+<script>
+
+/* =========================
+   سکه مشترک
+========================= */
+
+let coins =
+Number(localStorage.getItem("gamimodCoins")) || 0;
+
+
+function updateCoins(){
+
+    document.getElementById(
+        "coins"
+    ).innerHTML =
+    coins + " 🪙";
+
+}
+
+
+function saveCoins(){
+
+    localStorage.setItem(
+        "gamimodCoins",
+        coins
+    );
+
+    updateCoins();
+
+}
+
+
+updateCoins();
+
+
+/* =========================
+   پازل
+========================= */
+
+let tiles = [];
+
+
+function startPuzzle(){
+
+    tiles = [
+        1,2,3,
+        4,5,6,
+        7,8,0
+    ];
+
+
+    /*
+       پازل را با حرکت‌های واقعی
+       به‌هم می‌ریزیم تا قابل حل باشد.
+    */
+
+    for(
+        let i = 0;
+        i < 100;
+        i++
+    ){
+
+        let empty =
+        tiles.indexOf(0);
+
+
+        let possible = [];
+
+
+        if(empty >= 3){
+            possible.push(
+                empty - 3
+            );
+        }
+
+        if(empty < 6){
+            possible.push(
+                empty + 3
+            );
+        }
+
+        if(empty % 3 !== 0){
+            possible.push(
+                empty - 1
+            );
+        }
+
+        if(empty % 3 !== 2){
+            possible.push(
+                empty + 1
+            );
+        }
+
+
+        let random =
+        possible[
+            Math.floor(
+                Math.random() *
+                possible.length
+            )
+        ];
+
+
+        tiles[empty] =
+        tiles[random];
+
+
+        tiles[random] = 0;
+
+    }
+
+
+    drawBoard();
+
+
+    document.getElementById(
+        "message"
+    ).innerHTML =
+    "🧩 پازل را حل کن و ۱۰۰ 🪙 بگیر!";
+
+}
+
+
+/* =========================
+   نمایش
+========================= */
+
+function drawBoard(){
+
+    const board =
+    document.getElementById(
+        "board"
+    );
+
+
+    board.innerHTML = "";
+
+
+    tiles.forEach(
+    function(value,index){
+
+        const button =
+        document.createElement(
+            "button"
+        );
+
+
+        button.className =
+        "tile";
+
+
+        if(value === 0){
+
+            button.classList.add(
+                "empty"
+            );
+
+            button.innerHTML = "";
+
+        }
+
+        else{
+
+            button.innerHTML =
+            value;
+
+
+            button.onclick =
+            function(){
+
+                moveTile(index);
+
+            };
+
+        }
+
+
+        board.appendChild(
+            button
+        );
+
+    });
+
+}
+
+
+/* =========================
+   حرکت
+========================= */
+
+function moveTile(index){
+
+    let empty =
+    tiles.indexOf(0);
+
+
+    let valid = false;
+
+
+    if(
+        Math.abs(index-empty) === 3
+    ){
+
+        valid = true;
+
+    }
+
+
+    if(
+        Math.abs(index-empty) === 1 &&
+        Math.floor(index/3) ===
+        Math.floor(empty/3)
+    ){
+
+        valid = true;
+
+    }
+
+
+    if(!valid){
+
+        return;
+
+    }
+
+
+    tiles[empty] =
+    tiles[index];
+
+
+    tiles[index] = 0;
+
+
+    drawBoard();
+
+
+    checkWin();
+
+}
+
+
+/* =========================
+   بررسی برد
+========================= */
+
+function checkWin(){
+
+    const solved =
+    [
+        1,2,3,
+        4,5,6,
+        7,8,0
+    ];
+
+
+    for(
+        let i = 0;
+        i < solved.length;
+        i++
+    ){
+
+        if(
+            tiles[i] !==
+            solved[i]
+        ){
+
+            return;
+
+        }
+
+    }
+
+
+    coins += 100;
+
+    saveCoins();
+
+
+    document.getElementById(
+        "message"
+    ).innerHTML =
+    "🏆 فوق‌العاده! پازل را حل کردی!<br>" +
+    "+100 🪙 سکه گرفتی!";
+
+
+    document.querySelectorAll(
+        ".tile"
+    ).forEach(
+    function(button){
+
+        button.disabled = true;
+
+    });
+
+}
+
+
+/* =========================
+   شروع اولیه
+========================= */
+
+startPuzzle();
+
+</script>
+</body>
+  </html>
