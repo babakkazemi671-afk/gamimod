@@ -15,19 +15,20 @@ body{
     font-family:tahoma;
     background:#101010;
     color:white;
+    padding-bottom:30px;
 }
 
 header{
-    background:#00bcd4;
+    background:linear-gradient(135deg,#00bcd4,#006b7a);
     padding:20px;
     text-align:center;
     font-size:27px;
     font-weight:bold;
 }
 
-.panel{
+.box{
     width:94%;
-    max-width:1000px;
+    max-width:900px;
     margin:20px auto;
     padding:20px;
     background:#202020;
@@ -35,645 +36,349 @@ header{
     box-shadow:0 0 15px #000;
 }
 
-.teamPower{
+.club{
     text-align:center;
-    padding:20px;
     background:linear-gradient(135deg,#302b63,#24243e);
-    border-radius:18px;
 }
 
-.power{
-    font-size:42px;
-    color:#ffd700;
+.clubName{
+    font-size:30px;
     font-weight:bold;
+    color:#00e5ff;
 }
 
-.field{
-    position:relative;
-    width:100%;
-    max-width:700px;
-    height:500px;
-    margin:auto;
-    overflow:hidden;
-    border:4px solid white;
-    border-radius:15px;
-
-    background:
-    repeating-linear-gradient(
-        90deg,
-        #147636 0px,
-        #147636 70px,
-        #18813b 70px,
-        #18813b 140px
-    );
+.manager{
+    margin-top:10px;
+    color:#ddd;
 }
 
-.line{
-    position:absolute;
-    left:50%;
-    top:0;
-    width:3px;
-    height:100%;
-    background:white;
+.stats{
+    display:grid;
+    grid-template-columns:
+    repeat(3,1fr);
+    gap:10px;
+    margin-top:20px;
 }
 
-.circle{
-    position:absolute;
-    left:50%;
-    top:50%;
-    width:110px;
-    height:110px;
-    transform:translate(-50%,-50%);
-    border:3px solid white;
-    border-radius:50%;
-}
-
-.slot{
-    position:absolute;
-    transform:translate(-50%,-50%);
-    width:70px;
-    min-height:55px;
-    padding:7px;
-    background:#d71920;
-    border:2px solid white;
+.stat{
+    background:#151515;
+    padding:15px;
     border-radius:14px;
     text-align:center;
-    font-size:12px;
-    font-weight:bold;
 }
 
-.slot span{
+.stat b{
     display:block;
-    color:#ffd700;
-    margin-top:4px;
+    color:#00e5ff;
+    font-size:22px;
+    margin-top:7px;
 }
 
 .players{
     display:grid;
     grid-template-columns:
-    repeat(auto-fit,minmax(210px,1fr));
-    gap:15px;
+    repeat(auto-fit,minmax(180px,1fr));
+    gap:12px;
 }
 
-.card{
+.player{
     background:#181818;
-    padding:18px;
     border-radius:15px;
+    padding:15px;
     text-align:center;
+    border:2px solid #333;
 }
 
-.card h3{
-    color:#00e5ff;
+.playerName{
+    font-size:17px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.position{
+    color:#aaa;
+    margin-bottom:8px;
 }
 
 .rating{
     color:#ffd700;
-    font-size:22px;
+    font-size:24px;
     font-weight:bold;
 }
 
-.add{
-    margin-top:10px;
-    padding:11px 20px;
-    border:0;
-    border-radius:10px;
-    background:#00bcd4;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
+.actions{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(180px,1fr));
+    gap:12px;
 }
 
-.remove{
-    background:#8e3030;
-}
-
-.message{
-    padding:15px;
-    background:#151515;
-    border-radius:12px;
-    text-align:center;
-    line-height:2;
-}
-
-.back{
+.button{
     display:block;
-    width:230px;
-    margin:25px auto;
-    padding:14px;
-    background:#333;
-    color:white;
+    padding:15px;
+    border-radius:13px;
     text-decoration:none;
-    border-radius:12px;
-    text-align:center;
+    color:white;
     font-weight:bold;
+    text-align:center;
+    background:#333;
+}
+
+.blue{
+    background:#00bcd4;
+}
+
+.green{
+    background:#16a085;
+}
+
+.purple{
+    background:#8e44ad;
+}
+
+.orange{
+    background:#e67e22;
+}
+
+.red{
+    background:#c0392b;
+}
+
+.warning{
+    text-align:center;
+    padding:20px;
+    line-height:2;
 }
 
 </style>
 </head>
 <body>
 <header>
-👕 تیم من | گیمی‌مود
+👕 تیم من
 </header>
-<section class="panel">
-<div class="teamPower">
-<h2>💪 قدرت کلی تیم</h2>
-<div class="power" id="power">
-0
+<section class="box club">
+<div class="clubName" id="clubName">
+باشگاه من
 </div>
-<div>
-امتیاز قدرت
+<div class="manager" id="manager">
+مربی: -
 </div>
+<div class="manager" id="uniform">
+👕 رنگ لباس: -
 </div>
-</section>
-<section class="panel">
-<h2 style="text-align:center;color:#00e5ff">
-🏟️ ترکیب اصلی
-</h2>
-<div class="field">
-<div class="line"></div>
-<div class="circle"></div>
-<div class="slot" style="left:8%;top:50%">
-دروازه‌بان
-<span id="slot1">خالی</span>
+<div class="stats">
+<div class="stat">
+💪 قدرت تیم
+<b id="power">0</b>
 </div>
-<div class="slot" style="left:25%;top:20%">
-مدافع
-<span id="slot2">خالی</span>
+<div class="stat">
+🏆 لیگ
+<b id="league">دسته ۲</b>
 </div>
-<div class="slot" style="left:25%;top:40%">
-مدافع
-<span id="slot3">خالی</span>
-</div>
-<div class="slot" style="left:25%;top:60%">
-مدافع
-<span id="slot4">خالی</span>
-</div>
-<div class="slot" style="left:25%;top:80%">
-مدافع
-<span id="slot5">خالی</span>
-</div>
-<div class="slot" style="left:48%;top:25%">
-هافبک
-<span id="slot6">خالی</span>
-</div>
-<div class="slot" style="left:48%;top:50%">
-هافبک
-<span id="slot7">خالی</span>
-</div>
-<div class="slot" style="left:48%;top:75%">
-هافبک
-<span id="slot8">خالی</span>
-</div>
-<div class="slot" style="left:72%;top:30%">
-مهاجم
-<span id="slot9">خالی</span>
-</div>
-<div class="slot" style="left:78%;top:50%">
-مهاجم
-<span id="slot10">خالی</span>
-</div>
-<div class="slot" style="left:72%;top:70%">
-مهاجم
-<span id="slot11">خالی</span>
+<div class="stat">
+💎 الماس
+<b id="diamonds">0</b>
 </div>
 </div>
 </section>
-<section class="panel">
+<section class="box">
 <h2 style="text-align:center;color:#00e5ff">
-⭐ بازیکنان خریداری‌شده
+⚽ بازیکنان من
 </h2>
 <div class="players" id="players"></div>
-<div class="message" id="message">
-از بازار بازیکنان خرید کن تا بازیکن‌ها اینجا نمایش داده شوند. 🛒⚽
+</section>
+<section class="box">
+<h2 style="text-align:center;color:#00e5ff">
+🎮 مدیریت باشگاه
+</h2>
+<div class="actions">
+<a class="button blue" href="players.html">
+🛒 خرید بازیکن
+</a>
+<a class="button purple" href="football.html">
+⚽ مسابقه
+</a>
+<a class="button green" href="league.html">
+🏆 لیگ
+</a>
+<a class="button orange" href="packs.html">
+🎁 پک فوتبال
+</a>
+<a class="button red" href="cup.html">
+🏆 جام حذفی ایران
+</a>
 </div>
 </section>
-<a class="back" href="players.html">
-⬅️ بازار بازیکنان
-</a>
 <script>
 
 /* =========================
-   اطلاعات بازیکنان
+   اطلاعات باشگاه
 ========================= */
 
-const players=[
+const clubName =
+localStorage.getItem("clubName");
 
-{
-name:"علیرضا بیرانوند",
-team:"تراکتور",
-position:"GK",
-rating:88
-},
+const firstName =
+localStorage.getItem("managerFirstName");
 
-{
-name:"پیام نیازمند",
-team:"پرسپولیس",
-position:"GK",
-rating:86
-},
+const lastName =
+localStorage.getItem("managerLastName");
 
-{
-name:"حسین حسینی",
-team:"استقلال",
-position:"GK",
-rating:85
-},
+const color =
+localStorage.getItem("clubColor");
 
-{
-name:"شجاع خلیل‌زاده",
-team:"تراکتور",
-position:"DEF",
-rating:87
-},
+const league =
+localStorage.getItem("league") ||
+"دسته ۲";
 
-{
-name:"محمدحسین کنعانی‌زادگان",
-team:"پرسپولیس",
-position:"DEF",
-rating:86
-},
+const power =
+Number(
+localStorage.getItem("clubPower")
+) || 0;
 
-{
-name:"دانیال اسماعیلی‌فر",
-team:"تراکتور",
-position:"DEF",
-rating:84
-},
-
-{
-name:"رامین رضاییان",
-team:"استقلال",
-position:"DEF",
-rating:86
-},
-
-{
-name:"میلاد محمدی",
-team:"پرسپولیس",
-position:"DEF",
-rating:84
-},
-
-{
-name:"روزبه چشمی",
-team:"استقلال",
-position:"MID",
-rating:85
-},
-
-{
-name:"سروش رفیعی",
-team:"پرسپولیس",
-position:"MID",
-rating:83
-},
-
-{
-name:"مهدی ترابی",
-team:"تراکتور",
-position:"MID",
-rating:88
-},
-
-{
-name:"محمد محبی",
-team:"سپاهان",
-position:"MID",
-rating:87
-},
-
-{
-name:"امیرحسین حسین‌زاده",
-team:"تراکتور",
-position:"ATT",
-rating:86
-},
-
-{
-name:"علی علیپور",
-team:"پرسپولیس",
-position:"ATT",
-rating:86
-},
-
-{
-name:"شهریار مغانلو",
-team:"سپاهان",
-position:"ATT",
-rating:87
-},
-
-{
-name:"مهدی قایدی",
-team:"ایران",
-position:"ATT",
-rating:90
-}
-
-];
+const diamonds =
+Number(
+localStorage.getItem("footballDiamonds")
+) || 0;
 
 
 /* =========================
-   بازیکنان خریداری‌شده
+   نمایش اطلاعات
 ========================= */
 
-function getOwnedPlayers(){
+document.getElementById(
+"clubName"
+).innerHTML =
+clubName || "باشگاه من";
 
-    return players.filter(function(player){
 
-        return localStorage.getItem(
-            "player_"+player.name
-        )==="true";
+document.getElementById(
+"manager"
+).innerHTML =
+"👤 مربی: "+
+(firstName || "")+
+" "+
+(lastName || "");
 
-    });
 
-}
+document.getElementById(
+"uniform"
+).innerHTML =
+"👕 رنگ لباس: "+
+(color || "-");
+
+
+document.getElementById(
+"league"
+).innerHTML =
+league;
+
+
+document.getElementById(
+"power"
+).innerHTML =
+power;
+
+
+document.getElementById(
+"diamonds"
+).innerHTML =
+diamonds;
 
 
 /* =========================
-   ترکیب ذخیره‌شده
+   بازیکنان
 ========================= */
 
-let lineup=
+let myPlayers =
 JSON.parse(
 localStorage.getItem(
-"gamimodLineup"
+"myPlayers"
 )
 ) || [];
 
 
-/* =========================
-   نمایش بازیکنان
-========================= */
-
-function showPlayers(){
-
-    const box=
-    document.getElementById("players");
-
-    box.innerHTML="";
+const playersBox =
+document.getElementById(
+"players"
+);
 
 
-    const owned=
-    getOwnedPlayers();
+if(myPlayers.length===0){
+
+    playersBox.innerHTML =
+    "<div class='warning'>"+
+    "⚠️ هنوز باشگاهی نساختی.<br>"+
+    "اول باشگاه خودت را بساز."+
+    "<br><br>"+
+    "<a class='button blue' href='setup.html'>"+
+    "🚀 ساخت باشگاه"+
+    "</a>"+
+    "</div>";
+
+}
+else{
+
+    myPlayers.forEach(
+    function(player){
+
+        const card =
+        document.createElement(
+            "div"
+        );
+
+        card.className =
+        "player";
 
 
-    if(owned.length===0){
-
-        box.innerHTML=
-        "<div class='message'>"+
-        "هنوز بازیکنی نخریدی. 🛒"+
-        "</div>";
-
-        updateTeam();
-
-        return;
-
-    }
+        let position =
+        "⚽ بازیکن";
 
 
-    owned.forEach(function(player){
+        if(player.position==="GK"){
+            position =
+            "🧤 دروازه‌بان";
+        }
 
-        const card=
-        document.createElement("div");
+        if(player.position==="DEF"){
+            position =
+            "🛡️ مدافع";
+        }
 
-        card.className="card";
+        if(player.position==="MID"){
+            position =
+            "⚡ هافبک";
+        }
+
+        if(player.position==="ATT"){
+            position =
+            "🔥 مهاجم";
+        }
 
 
-        const inTeam=
-        lineup.some(function(p){
+        card.innerHTML =
 
-            return p.name===player.name;
-
-        });
-
-
-        card.innerHTML=
-
-        "<h3>"+player.name+"</h3>"+
-
-        "<div>"+
-        player.team+
+        "<div class='playerName'>"+
+        player.name+
         "</div>"+
 
-        "<div>"+
-        positionName(player.position)+
+        "<div class='position'>"+
+        position+
         "</div>"+
 
         "<div class='rating'>"+
-        "⭐ "+player.rating+
-        "</div>"+
+        "⭐ "+
+        player.rating+
+        "</div>";
 
-        (
-        inTeam
 
-        ?
-
-        "<button class='add remove' "+
-        "onclick='removePlayer(\""+
-        player.name+
-        "\")'>"+
-        "➖ خارج کردن از ترکیب"+
-        "</button>"
-
-        :
-
-        "<button class='add' "+
-        "onclick='addPlayer(\""+
-        player.name+
-        "\")'>"+
-        "➕ قرار دادن در ترکیب"+
-        "</button>"
+        playersBox.appendChild(
+            card
         );
 
-
-        box.appendChild(card);
-
     });
 
-
-    updateTeam();
-
 }
-
-
-/* =========================
-   اضافه کردن به ترکیب
-========================= */
-
-function addPlayer(name){
-
-    const player=
-    players.find(function(p){
-
-        return p.name===name;
-
-    });
-
-
-    if(lineup.length>=11){
-
-        showMessage(
-        "❌ ترکیب شما پر است! اول یک بازیکن را خارج کن."
-        );
-
-        return;
-
-    }
-
-
-    if(
-        lineup.some(function(p){
-            return p.name===name;
-        })
-    ){
-
-        return;
-
-    }
-
-
-    lineup.push(player);
-
-
-    saveLineup();
-
-
-    showMessage(
-    "✅ "+name+
-    " به ترکیب اصلی اضافه شد! ⚽"
-    );
-
-}
-
-
-/* =========================
-   حذف از ترکیب
-========================= */
-
-function removePlayer(name){
-
-    lineup=
-    lineup.filter(function(player){
-
-        return player.name!==name;
-
-    });
-
-
-    saveLineup();
-
-
-    showMessage(
-    "➖ "+name+
-    " از ترکیب خارج شد."
-    );
-
-}
-
-
-/* =========================
-   ذخیره ترکیب
-========================= */
-
-function saveLineup(){
-
-    localStorage.setItem(
-        "gamimodLineup",
-        JSON.stringify(lineup)
-    );
-
-
-    showPlayers();
-
-}
-
-
-/* =========================
-   قدرت تیم
-========================= */
-
-function updateTeam(){
-
-    let total=0;
-
-
-    lineup.forEach(function(player){
-
-        total+=player.rating;
-
-    });
-
-
-    document.getElementById(
-        "power"
-    ).innerHTML=total;
-
-
-    for(let i=1;i<=11;i++){
-
-        const slot=
-        document.getElementById(
-            "slot"+i
-        );
-
-
-        if(lineup[i-1]){
-
-            slot.innerHTML=
-            lineup[i-1].name+
-            "<span>⭐ "+
-            lineup[i-1].rating+
-            "</span>";
-
-        }
-
-        else{
-
-            slot.innerHTML=
-            "خالی";
-
-        }
-
-    }
-
-}
-
-
-/* =========================
-   پست
-========================= */
-
-function positionName(position){
-
-    if(position==="GK")
-        return "🧤 دروازه‌بان";
-
-    if(position==="DEF")
-        return "🛡️ مدافع";
-
-    if(position==="MID")
-        return "⚡ هافبک";
-
-    return "🔥 مهاجم";
-
-}
-
-
-/* =========================
-   پیام
-========================= */
-
-function showMessage(text){
-
-    document.getElementById(
-        "message"
-    ).innerHTML=text;
-
-}
-
-
-showPlayers();
 
 </script>
 </body>
