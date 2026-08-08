@@ -38,110 +38,115 @@ header{
 }
 
 .game{
-    margin:20px;
+    width:94%;
+    max-width:650px;
+    margin:20px auto;
     padding:25px 15px;
     background:#202020;
     border-radius:20px;
     box-shadow:0 0 15px #000;
 }
 
-.pointer{
-    font-size:40px;
-    margin-bottom:-10px;
+.wheel-wrap{
     position:relative;
-    z-index:10;
+    width:330px;
+    max-width:90vw;
+    height:330px;
+    margin:25px auto;
 }
 
-/* گردونه */
-
 .wheel{
-    width:310px;
-    height:310px;
-    max-width:90vw;
-    max-height:90vw;
-    margin:0 auto 25px;
+    width:100%;
+    height:100%;
     border-radius:50%;
     border:8px solid white;
     position:relative;
     overflow:hidden;
-    background:conic-gradient(
+    transition:transform 4s cubic-bezier(.12,.8,.18,1);
+    background:
+    conic-gradient(
         #555 0deg 36deg,
-        #2196f3 36deg 72deg,
-        #4caf50 72deg 108deg,
-        #ff9800 108deg 144deg,
-        #e91e63 144deg 180deg,
-        #9c27b0 180deg 216deg,
+        #00bcd4 36deg 72deg,
+        #555 72deg 108deg,
+        #00bcd4 108deg 144deg,
+        #555 144deg 180deg,
+        #00bcd4 180deg 216deg,
         #00bcd4 216deg 252deg,
-        #8bc34a 252deg 288deg,
-        #ffc107 288deg 324deg,
-        #673ab7 324deg 360deg
+        #00bcd4 252deg 288deg,
+        #00bcd4 288deg 324deg,
+        #00bcd4 324deg 360deg
     );
-    transition:transform 5s cubic-bezier(.15,.8,.25,1);
+    box-shadow:0 0 20px #000;
 }
-
-/* نوشته های گردونه */
 
 .label{
     position:absolute;
-    left:50%;
-    top:50%;
     width:100%;
     height:100%;
-    transform-origin:center;
+    top:0;
+    left:0;
+    font-weight:bold;
+    font-size:16px;
 }
 
 .label span{
     position:absolute;
     left:50%;
-    top:8px;
-    transform:translateX(-50%);
-    font-size:15px;
-    font-weight:bold;
-    white-space:nowrap;
-    text-shadow:0 2px 3px #000;
+    top:50%;
+    transform-origin:0 0;
+    width:120px;
+    margin-left:-60px;
+    margin-top:-10px;
 }
 
-.l1{transform:rotate(18deg);}
-.l2{transform:rotate(54deg);}
-.l3{transform:rotate(90deg);}
-.l4{transform:rotate(126deg);}
-.l5{transform:rotate(162deg);}
-.l6{transform:rotate(198deg);}
-.l7{transform:rotate(234deg);}
-.l8{transform:rotate(270deg);}
-.l9{transform:rotate(306deg);}
-.l10{transform:rotate(342deg);}
+.l1{transform:rotate(18deg) translateY(-135px);}
+.l2{transform:rotate(54deg) translateY(-135px);}
+.l3{transform:rotate(90deg) translateY(-135px);}
+.l4{transform:rotate(126deg) translateY(-135px);}
+.l5{transform:rotate(162deg) translateY(-135px);}
+.l6{transform:rotate(198deg) translateY(-135px);}
+.l7{transform:rotate(234deg) translateY(-135px);}
+.l8{transform:rotate(270deg) translateY(-135px);}
+.l9{transform:rotate(306deg) translateY(-135px);}
+.l10{transform:rotate(342deg) translateY(-135px);}
 
-.center{
+.pointer{
     position:absolute;
-    width:65px;
-    height:65px;
-    border-radius:50%;
-    background:#111;
-    border:5px solid white;
+    top:-18px;
     left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
+    transform:translateX(-50%);
     z-index:5;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:25px;
+    font-size:38px;
 }
 
 .spin{
-    background:#00bcd4;
-    border:0;
-    color:white;
     padding:15px 35px;
+    border:0;
     border-radius:12px;
-    font-size:20px;
+    background:#00bcd4;
+    color:white;
+    font-size:19px;
     font-weight:bold;
     cursor:pointer;
 }
 
 .spin:disabled{
     background:#555;
+    cursor:not-allowed;
+}
+
+.prizes{
+    margin:20px auto;
+    max-width:500px;
+    padding:18px;
+    background:#151515;
+    border-radius:14px;
+    line-height:2;
+}
+
+.gold{
+    color:#ffd700;
+    font-weight:bold;
 }
 
 .result{
@@ -150,19 +155,6 @@ header{
     background:#151515;
     border-radius:12px;
     line-height:2;
-}
-
-.prizes{
-    margin-top:20px;
-    padding:15px;
-    background:#292929;
-    border-radius:15px;
-    line-height:2;
-}
-
-.gold{
-    color:#ffd700;
-    font-weight:bold;
 }
 
 .back{
@@ -190,42 +182,32 @@ header{
 </div>
 </section>
 <section class="game">
+<h2>🎁 جایزه‌های گردونه</h2>
+<div class="prizes">
+❌ پوچ — ۳ قسمت<br>
+🪙 ۱۰ سکه<br>
+🪙 ۱۵ سکه<br>
+🪙 ۲۰ سکه<br>
+🪙 ۳۰ سکه<br>
+<span class="gold">👑 سکه طلایی — ۵۰۰ سکه | شانس ویژه ۱٪</span>
+</div>
+<div class="wheel-wrap">
 <div class="pointer">
-🔻
+▼
 </div>
 <div class="wheel" id="wheel">
-<div class="label l1">
-<span>😵 پوچ</span>
+<div class="label">
+<span class="l1">❌ پوچ</span>
+<span class="l2">🪙 ۱۰</span>
+<span class="l3">❌ پوچ</span>
+<span class="l4">🪙 ۱۵</span>
+<span class="l5">❌ پوچ</span>
+<span class="l6">🪙 ۲۰</span>
+<span class="l7">🪙 ۳۰</span>
+<span class="l8">🪙 ۱۰</span>
+<span class="l9">🪙 ۱۵</span>
+<span class="l10">🪙 ۲۰</span>
 </div>
-<div class="label l2">
-<span>😵 پوچ</span>
-</div>
-<div class="label l3">
-<span>😵 پوچ</span>
-</div>
-<div class="label l4">
-<span>🪙 ۱۰</span>
-</div>
-<div class="label l5">
-<span>🪙 ۱۵</span>
-</div>
-<div class="label l6">
-<span>🪙 ۲۰</span>
-</div>
-<div class="label l7">
-<span>🪙 ۳۰</span>
-</div>
-<div class="label l8">
-<span>🪙 ۵۰</span>
-</div>
-<div class="label l9">
-<span>🪙 ۱۰۰</span>
-</div>
-<div class="label l10">
-<span>🏆 ۵۰۰</span>
-</div>
-<div class="center">
-🎡
 </div>
 </div>
 <button
@@ -235,22 +217,7 @@ onclick="spinWheel()">
 🎡 چرخاندن گردونه
 </button>
 <div class="result" id="result">
-گردونه آماده است!
-</div>
-<div class="prizes">
-<h3>
-🎁 جایزه‌های گردونه
-</h3>
-😵 پوچ × ۳<br>
-🪙 ۱۰ سکه<br>
-🪙 ۱۵ سکه<br>
-🪙 ۲۰ سکه<br>
-🪙 ۳۰ سکه<br>
-🪙 ۵۰ سکه<br>
-🪙 ۱۰۰ سکه<br>
-<span class="gold">
-🏆 سکه طلایی ۵۰۰ سکه — فقط ۱٪ احتمال
-</span>
+گردونه را بچرخان و جایزه بگیر! 🎁
 </div>
 </section>
 <a class="back" href="coin.html">
@@ -259,7 +226,7 @@ onclick="spinWheel()">
 <script>
 
 /* =========================
-   موجودی مشترک
+   سکه مشترک
 ========================= */
 
 let coins =
@@ -298,6 +265,10 @@ updateCoins();
 let spinning = false;
 
 
+/* =========================
+   چرخاندن
+========================= */
+
 function spinWheel(){
 
     if(spinning){
@@ -306,7 +277,9 @@ function spinWheel(){
 
     }
 
+
     spinning = true;
+
 
     document.getElementById(
         "spinButton"
@@ -314,101 +287,92 @@ function spinWheel(){
 
 
     /*
-       ۵۰۰ سکه طلایی:
-       دقیقاً ۱٪ احتمال
-
-       بقیه:
-       پوچ ×۳
-       ۱۰
-       ۱۵
-       ۲۰
-       ۳۰
-       ۵۰
-       ۱۰۰
+       جایزه طلایی:
+       فقط ۱٪ احتمال
     */
 
-    let random =
-    Math.random() * 100;
+    let gold =
+    Math.random() < 0.01;
 
 
     let reward;
 
 
-    if(random < 1){
+    if(gold){
 
         reward = 500;
 
     }
 
-    else if(random < 15){
-
-        reward = 100;
-
-    }
-
-    else if(random < 29){
-
-        reward = 50;
-
-    }
-
-    else if(random < 43){
-
-        reward = 30;
-
-    }
-
-    else if(random < 57){
-
-        reward = 20;
-
-    }
-
-    else if(random < 71){
-
-        reward = 15;
-
-    }
-
-    else if(random < 85){
-
-        reward = 10;
-
-    }
-
     else{
 
-        reward = 0;
+        /*
+           ۱۰ بخش اصلی:
+
+           ۳ پوچ
+           ۲ × ۱۰
+           ۲ × ۱۵
+           ۲ × ۲۰
+           ۱ × ۳۰
+        */
+
+        const prizes = [
+            0,
+            10,
+            0,
+            15,
+            0,
+            20,
+            30,
+            10,
+            15,
+            20
+        ];
+
+
+        reward =
+        prizes[
+            Math.floor(
+                Math.random() *
+                prizes.length
+            )
+        ];
 
     }
 
 
     /*
-       چرخش ظاهری
+       چرخش نمایشی
     */
 
-    let rotation =
-    1800 +
-    Math.floor(
-        Math.random()*360
+    const wheel =
+    document.getElementById(
+        "wheel"
     );
 
 
-    document.getElementById(
-        "wheel"
-    ).style.transform =
-    "rotate(" + rotation + "deg)";
+    const rotation =
+    1440 +
+    Math.floor(
+        Math.random() * 360
+    );
 
 
-    setTimeout(function(){
+    wheel.style.transform =
+    "rotate(" +
+    rotation +
+    "deg)";
 
+
+    setTimeout(
+    function(){
 
         if(reward === 0){
 
             document.getElementById(
                 "result"
             ).innerHTML =
-            "😵 پوچ شد!<br>" +
+            "❌ پوچ شد!<br>" +
             "این بار سکه‌ای نگرفتی.";
 
         }
@@ -419,11 +383,13 @@ function spinWheel(){
 
             saveCoins();
 
+
             document.getElementById(
                 "result"
             ).innerHTML =
-            "🏆🔥 سکه طلایی پیدا کردی!<br>" +
-            "+500 🪙";
+            "👑🔥 سکه طلایی!<br>" +
+            "+500 🪙<br>" +
+            "شانس این جایزه: ۱٪";
 
         }
 
@@ -433,27 +399,31 @@ function spinWheel(){
 
             saveCoins();
 
+
             document.getElementById(
                 "result"
             ).innerHTML =
-            "🎉 تبریک!<br>" +
-            "+" + reward +
-            " 🪙 سکه گرفتی!";
+            "🎉 برنده شدی!<br>" +
+            "+ " +
+            reward +
+            " 🪙";
 
         }
 
 
         spinning = false;
 
+
         document.getElementById(
             "spinButton"
         ).disabled = false;
 
 
-    },5000);
+    },4200);
 
 }
 
 </script>
 </body>
-  </html>
+
+</html>
