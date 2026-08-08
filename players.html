@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🛒 بازار بازیکنان | گیمی‌مود</title>
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:tahoma;
+    background:#101010;
+    color:white;
+}
+
+header{
+    background:#00bcd4;
+    padding:20px;
+    text-align:center;
+    font-size:27px;
+    font-weight:bold;
+}
+
+.balance{
+    width:94%;
+    max-width:800px;
+    margin:20px auto;
+    padding:20px;
+    text-align:center;
+    background:linear-gradient(135deg,#302b63,#24243e);
+    border-radius:20px;
+}
+
+.coins{
+    font-size:32px;
+    font-weight:bold;
+    color:#ffd700;
+}
+
+.filters{
+    width:94%;
+    max-width:1000px;
+    margin:20px auto;
+    text-align:center;
+}
+
+.filter{
+    border:0;
+    padding:12px 20px;
+    margin:5px;
+    border-radius:10px;
+    background:#333;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.filter:hover{
+    background:#00bcd4;
+}
+
+.grid{
+    width:94%;
+    max-width:1100px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:16px;
+}
+
+.player{
+    background:#202020;
+    border-radius:18px;
+    padding:18px;
+    text-align:center;
+    box-shadow:0 0 12px #000;
+}
+
+.avatar{
+    font-size:55px;
+}
+
+.player h3{
+    color:#00e5ff;
+    margin:10px 0;
+}
+
+.position{
+    color:#bbb;
+}
+
+.rating{
+    font-size:23px;
+    color:#ffd700;
+    font-weight:bold;
+    margin:10px;
+}
+
+.price{
+    font-size:18px;
+    font-weight:bold;
+    margin:10px;
+}
+
+.buy{
+    border:0;
+    padding:12px 25px;
+    border-radius:10px;
+    background:#00bcd4;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.buy:disabled{
+    background:#555;
+    cursor:not-allowed;
+}
+
+.owned{
+    padding:11px;
+    border-radius:10px;
+    background:#176b3a;
+    font-weight:bold;
+}
+
+.message{
+    width:94%;
+    max-width:900px;
+    margin:20px auto;
+    padding:15px;
+    background:#181818;
+    border-radius:12px;
+    text-align:center;
+}
+
+.back{
+    display:block;
+    width:230px;
+    margin:25px auto;
+    padding:14px;
+    background:#333;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    text-align:center;
+    font-weight:bold;
+}
+
+</style>
+</head>
+<body>
+<header>
+⚽🛒 بازار بازیکنان گیمی‌مود
+</header>
+<div class="balance">
+<h2>🐷 موجودی قلک</h2>
+<div class="coins" id="coins">
+0 🪙
+</div>
+</div>
+<div class="filters">
+<button class="filter" onclick="filterPlayers('all')">
+همه
+</button>
+<button class="filter" onclick="filterPlayers('GK')">
+🧤 دروازه‌بان
+</button>
+<button class="filter" onclick="filterPlayers('DEF')">
+🛡️ مدافع
+</button>
+<button class="filter" onclick="filterPlayers('MID')">
+⚡ هافبک
+</button>
+<button class="filter" onclick="filterPlayers('ATT')">
+🔥 مهاجم
+</button>
+</div>
+<div class="grid" id="players"></div>
+<div class="message" id="message">
+بازیکن موردنظرت را بخر و به تیم خودت اضافه کن! ⚽
+</div>
+<a class="back" href="football.html">
+⬅️ برگشت به فوتبال
+</a>
+<script>
+
+/* =========================
+   سکه مشترک
+========================= */
+
+let coins =
+Number(localStorage.getItem("gamimodCoins")) || 0;
+
+
+function updateCoins(){
+
+    document.getElementById("coins")
+    .innerHTML =
+    coins + " 🪙";
+
+}
+
+
+function saveCoins(){
+
+    localStorage.setItem(
+        "gamimodCoins",
+        coins
+    );
+
+    updateCoins();
+
+}
+
+
+updateCoins();
+
+
+/* =========================
+   بازیکنان
+========================= */
+
+const players = [
+
+{
+name:"علیرضا بیرانوند",
+team:"تراکتور",
+position:"GK",
+rating:88,
+price:5000
+},
+
+{
+name:"پیام نیازمند",
+team:"پرسپولیس",
+position:"GK",
+rating:86,
+price:4500
+},
+
+{
+name:"حسین حسینی",
+team:"استقلال",
+position:"GK",
+rating:85,
+price:4200
+},
+
+{
+name:"شجاع خلیل‌زاده",
+team:"تراکتور",
+position:"DEF",
+rating:87,
+price:4800
+},
+
+{
+name:"محمدحسین کنعانی‌زادگان",
+team:"پرسپولیس",
+position:"DEF",
+rating:86,
+price:4500
+},
+
+{
+name:"دانیال اسماعیلی‌فر",
+team:"تراکتور",
+position:"DEF",
+rating:84,
+price:3900
+},
+
+{
+name:"رامین رضاییان",
+team:"استقلال",
+position:"DEF",
+rating:86,
+price:4700
+},
+
+{
+name:"میلاد محمدی",
+team:"پرسپولیس",
+position:"DEF",
+rating:84,
+price:4000
+},
+
+{
+name:"روزبه چشمی",
+team:"استقلال",
+position:"MID",
+rating:85,
+price:4300
+},
+
+{
+name:"سروش رفیعی",
+team:"پرسپولیس",
+position:"MID",
+rating:83,
+price:3500
+},
+
+{
+name:"مهدی ترابی",
+team:"تراکتور",
+position:"MID",
+rating:88,
+price:5200
+},
+
+{
+name:"محمد محبی",
+team:"سپاهان",
+position:"MID",
+rating:87,
+price:5000
+},
+
+{
+name:"مهدی هاشم‌نژاد",
+team:"تراکتور",
+position:"MID",
+rating:82,
+price:3200
+},
+
+{
+name:"امیرحسین حسین‌زاده",
+team:"تراکتور",
+position:"ATT",
+rating:86,
+price:4600
+},
+
+{
+name:"علی علیپور",
+team:"پرسپولیس",
+position:"ATT",
+rating:86,
+price:4500
+},
+
+{
+name:"سعید سحرخیزان",
+team:"استقلال",
+position:"ATT",
+rating:84,
+price:4000
+},
+
+{
+name:"شهریار مغانلو",
+team:"سپاهان",
+position:"ATT",
+rating:87,
+price:5000
+},
+
+{
+name:"مهدی قایدی",
+team:"ایران",
+position:"ATT",
+rating:90,
+price:7000
+}
+
+];
+
+
+/* =========================
+   نام پست
+========================= */
+
+function positionName(position){
+
+    if(position==="GK")
+        return "🧤 دروازه‌بان";
+
+    if(position==="DEF")
+        return "🛡️ مدافع";
+
+    if(position==="MID")
+        return "⚡ هافبک";
+
+    return "🔥 مهاجم";
+
+}
+
+
+/* =========================
+   نمایش بازیکنان
+========================= */
+
+function showPlayers(list){
+
+    const box =
+    document.getElementById("players");
+
+    box.innerHTML="";
+
+
+    list.forEach(function(player,index){
+
+        const card =
+        document.createElement("div");
+
+        card.className="player";
+
+
+        const key =
+        "player_" +
+        player.name;
+
+
+        const bought =
+        localStorage.getItem(key)==="true";
+
+
+        card.innerHTML=
+
+        '<div class="avatar">⚽</div>' +
+
+        '<h3>'+player.name+'</h3>' +
+
+        '<div class="position">'+
+        player.team+
+        ' | '+
+        positionName(player.position)+
+        '</div>' +
+
+        '<div class="rating">'+
+        '⭐ '+player.rating+
+        '</div>' +
+
+        '<div class="price">'+
+        '💰 '+player.price+
+        ' 🪙'+
+        '</div>' +
+
+
+        (
+            bought
+
+            ?
+
+            '<div class="owned">✅ خریداری شد</div>'
+
+            :
+
+            '<button class="buy" '+
+            'onclick="buyPlayer('+index+')">'+
+            '🛒 خرید بازیکن'+
+            '</button>'
+        );
+
+
+        box.appendChild(card);
+
+    });
+
+}
+
+
+showPlayers(players);
+
+
+/* =========================
+   فیلتر
+========================= */
+
+function filterPlayers(type){
+
+    if(type==="all"){
+
+        showPlayers(players);
+
+        return;
+    }
+
+
+    const filtered =
+    players.filter(function(player){
+
+        return player.position===type;
+
+    });
+
+
+    showPlayers(filtered);
+
+}
+
+
+/* =========================
+   خرید
+========================= */
+
+function buyPlayer(index){
+
+    const player =
+    players[index];
+
+
+    const key =
+    "player_" +
+    player.name;
+
+
+    if(
+        localStorage.getItem(key)
+        ==="true"
+    ){
+
+        showMessage(
+        "⚠️ این بازیکن را قبلاً خریدی."
+        );
+
+        return;
+    }
+
+
+    if(coins < player.price){
+
+        showMessage(
+        "❌ سکه کافی نداری!<br>"+
+        "قیمت "+player.name+
+        ": "+player.price+
+        " 🪙"
+        );
+
+        return;
+    }
+
+
+    coins -= player.price;
+
+
+    localStorage.setItem(
+        key,
+        "true"
+    );
+
+
+    saveCoins();
+
+
+    showMessage(
+    "🎉 "+player.name+
+    " با موفقیت به تیم شما اضافه شد! ⚽"
+    );
+
+
+    showPlayers(players);
+
+}
+
+
+/* =========================
+   پیام
+========================= */
+
+function showMessage(text){
+
+    document.getElementById(
+        "message"
+    ).innerHTML=text;
+
+}
+
+</script>
+</body>
+  </html>
