@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🪙 بازی‌های جایزه‌ای | GAMIMOD</title>
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+padding-bottom:30px;
+font-family:tahoma;
+background:#101010;
+color:white;
+}
+
+header{
+padding:22px;
+text-align:center;
+background:linear-gradient(135deg,#00bcd4,#006b7a);
+}
+
+header h1{
+margin:0 0 8px;
+}
+
+header p{
+margin:0;
+color:#dffaff;
+}
+
+.wallet{
+width:94%;
+max-width:1000px;
+margin:18px auto;
+background:#1c1c1c;
+padding:16px;
+border-radius:15px;
+text-align:center;
+font-size:19px;
+}
+
+.games{
+width:94%;
+max-width:1100px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+gap:15px;
+}
+
+.card{
+background:#1c1c1c;
+border-radius:18px;
+padding:18px;
+text-align:center;
+box-shadow:0 5px 15px #000;
+}
+
+.icon{
+font-size:48px;
+margin-bottom:8px;
+}
+
+.card h2{
+margin:8px 0;
+color:#00e5ff;
+font-size:19px;
+}
+
+.info{
+color:#bbb;
+line-height:1.9;
+font-size:14px;
+}
+
+.entry{
+color:#ffd700;
+font-weight:bold;
+margin:10px 0;
+}
+
+.prize{
+color:#00ff99;
+font-weight:bold;
+margin-bottom:12px;
+}
+
+.btn{
+display:block;
+background:#00bcd4;
+color:white;
+text-decoration:none;
+padding:12px;
+border-radius:12px;
+font-weight:bold;
+}
+
+.btn:hover{
+background:#00e5ff;
+}
+
+.back{
+display:block;
+width:230px;
+margin:25px auto;
+padding:14px;
+background:#333;
+color:white;
+text-decoration:none;
+border-radius:12px;
+text-align:center;
+font-weight:bold;
+}
+
+</style>
+</head>
+<body>
+<header>
+<h1>🪙 بازی‌های جایزه‌ای</h1>
+<p>
+سکه بده، بازی کن و برای برنده شدن جایزه بگیر!
+</p>
+</header>
+<div class="wallet">
+💰 سکه شما:
+<strong id="coins">0</strong>
+</div>
+<div class="games">
+<div class="card">
+<div class="icon">🎲</div>
+<h2>تاس طلایی</h2>
+<div class="info">تاس بنداز و بالاترین عدد را بیاور</div>
+<div class="entry">ورود: ۲۰۰ سکه</div>
+<div class="prize">🥇 جایزه: ۳۰۰ سکه</div>
+<a class="btn" href="#">بازی</a>
+</div>
+<div class="card">
+<div class="icon">🐍</div>
+<h2>مار و پله</h2>
+<div class="info">تاس بریز و زودتر به خانه آخر برس</div>
+<div class="entry">ورود: ۲۰۰ سکه</div>
+<div class="prize">🥇 جایزه: ۵۰۰ سکه</div>
+<a class="btn" href="#">بازی</a>
+</div>
+<div class="card">
+<div class="icon">🧠</div>
+<h2>مسابقه سوال</h2>
+<div class="info">به سوال‌ها جواب بده</div>
+<div class="entry">ورود: ۱۰۰ سکه</div>
+<div class="prize">🥇 جایزه: ۳۰۰ سکه</div>
+<a class="btn" href="#">بازی</a>
+</div>
+<div class="card">
+<div class="icon">🃏</div>
+<h2>کارت طلایی</h2>
+<div class="info">یک کارت را انتخاب کن</div>
+<div class="entry">ورود: ۱۵۰ سکه</div>
+<div class="prize">🥇 جایزه: ۴۰۰ سکه</div>
+<a class="btn" href="#">بازی</a>
+</div>
+<div class="card">
+<div class="icon">🎯</div>
+<h2>هدف طلایی</h2>
+<div class="info">در زمان محدود هدف‌ها را بزن</div>
+<div class="entry">ورود: ۲۰۰ سکه</div>
+<div class="prize">🥇 جایزه: ۵۰۰ سکه</div>
+<a class="btn" href="#">بازی</a>
+</div>
+<div class="card">
+<div class="icon">⚽</div>
+<h2>پنالتی جایزه‌ای</h2>
+<div class="info">گل بزن و جایزه بگیر</div>
+<div class="entry">ورود: ۲۰۰ سکه</div>
+<div class="prize">🥇 جایزه: ۴۰۰ سکه</div>
+<a class="btn" href="#">بازی</a>
+</div>
+<div class="card">
+<div class="icon">🪙</div>
+<h2>شیر یا خط حرفه‌ای</h2>
+<div class="info">درست حدس بزن</div>
+<div class="entry">ورود: ۱۰۰ سکه</div>
+<div class="prize">🥇 جایزه: ۲۵۰ سکه</div>
+<a class="btn" href="#">بازی</a>
+</div>
+<div class="card">
+<div class="icon">🎡</div>
+<h2>گردونه طلایی</h2>
+<div class="info">گردونه را بچرخان</div>
+<div class="entry">ورود: ۲۰۰ سکه</div>
+<div class="prize">🥇 جایزه: ۶۰۰ سکه</div>
+<a class="btn" href="#">بازی</a>
+</div>
+<div class="card">
+<div class="icon">🧩</div>
+<h2>پازل سرعتی</h2>
+<div class="info">پازل را قبل از حریف کامل کن</div>
+<div class="entry">ورود: ۱۵۰ سکه</div>
+<div class="prize">🥇 جایزه: ۴۰۰ سکه</div>
+<a class="btn" href="#">بازی</a>
+</div>
+<div class="card">
+<div class="icon">👀</div>
+<h2>حافظه طلایی</h2>
+<div class="info">جفت کارت‌ها را پیدا کن</div>
+<div class="entry">ورود: ۱۵۰ سکه</div>
+<div class="prize">🥇 جایزه: ۳۵۰ سکه</div>
+<a class="btn" href="#">بازی</a>
+</div>
+<div class="card">
+<div class="icon">✂️</div>
+<h2>سنگ کاغذ قیچی</h2>
+<div class="info">با حریف رقابت کن</div>
+<div class="entry">ورود: ۱۰۰ سکه</div>
+<div class="prize">🥇 جایزه: ۲۰۰ سکه</div>
+<a class="btn" href="#">بازی</a>
+</div>
+<div class="card">
+<div class="icon">🔢</div>
+<h2>حدس عدد</h2>
+<div class="info">عدد مخفی را پیدا کن</div>
+<div class="entry">ورود: ۱۰۰ سکه</div>
+<div class="prize">🥇 جایزه: ۳۰۰ سکه</div>
+<a class="btn" href="#">بازی</a>
+</div>
+<div class="card">
+<div class="icon">🏀</div>
+<h2>پرتاب بسکتبال</h2>
+<div class="info">توپ را داخل سبد بینداز</div>
+<div class="entry">ورود: ۱۵۰ سکه</div>
+<div class="prize">🥇 جایزه: ۳۵۰ سکه</div>
+<a class="btn" href="#">بازی</a>
+</div>
+<div class="card">
+<div class="icon">🏹</div>
+<h2>کماندار طلایی</h2>
+<div class="info">هدف‌ها را دقیق بزن</div>
+<div class="entry">ورود: ۲۰۰ سکه</div>
+<div class="prize">🥇 جایزه: ۵۰۰ سکه</div>
+<a class="btn" href="#">بازی</a>
+</div>
+<div class="card">
+<div class="icon">🚗</div>
+<h2>مسابقه ماشین</h2>
+<div class="info">از حریف جلو بزن</div>
+<div class="entry">ورود: ۲۰۰ سکه</div>
+<div class="prize">🥇 جایزه: ۵۰۰ سکه</div>
+<a class="btn" href="#">بازی</a>
+</div>
+<div class="card">
+<div class="icon">🏓</div>
+<h2>پینگ‌پنگ</h2>
+<div class="info">توپ را برگردان و امتیاز بگیر</div>
+<div class="entry">ورود: ۱۵۰ سکه</div>
+<div class="prize">🥇 جایزه: ۴۰۰ سکه</div>
+<a class="btn" href="#">بازی</a>
+</div>
+<div class="card">
+<div class="icon">💣</div>
+<h2>مین‌یاب</h2>
+<div class="info">خانه امن را پیدا کن</div>
+<div class="entry">ورود: ۱۰۰ سکه</div>
+<div class="prize">🥇 جایزه: ۳۰۰ سکه</div>
+<a class="btn" href="#">بازی</a>
+</div>
+<div class="card">
+<div class="icon">🎈</div>
+<h2>ترکاندن بادکنک</h2>
+<div class="info">در زمان محدود بادکنک‌ها را بترکان</div>
+<div class="entry">ورود: ۱۰۰ سکه</div>
+<div class="prize">🥇 جایزه: ۲۵۰ سکه</div>
+<a class="btn" href="#">بازی</a>
+</div>
+<div class="card">
+<div class="icon">🟢</div>
+<h2>واکنش سریع</h2>
+<div class="info">به‌موقع صفحه را لمس کن</div>
+<div class="entry">ورود: ۱۵۰ سکه</div>
+<div class="prize">🥇 جایزه: ۴۰۰ سکه</div>
+<a class="btn" href="#">بازی</a>
+</div>
+<div class="card">
+<div class="icon">🎯</div>
+<h2>رولت شانسی</h2>
+<div class="info">خانه‌های شانسی را انتخاب کن</div>
+<div class="entry">ورود: ۲۰۰ سکه</div>
+<div class="prize">🥇 نفر اول: ۲۰۰ | 🥈 نفر دوم: ۱۰۰</div>
+<a class="btn" href="#">بازی</a>
+</div>
+</div>
+<a class="back" href="games.html">
+⬅️ برگشت به بازی‌های سرگرمی
+</a>
+<script>
+
+let coins =
+Number(localStorage.getItem("coins"));
+
+if(!Number.isFinite(coins)){
+coins = 30000;
+localStorage.setItem("coins",coins);
+}
+
+document.getElementById("coins").textContent =
+coins.toLocaleString("fa-IR");
+
+</script>
+</body>
+  </html>
