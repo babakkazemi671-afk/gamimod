@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📋 مأموریت‌ها | GAMIMOD</title>
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:tahoma;
+background:#101010;
+color:white;
+padding-bottom:30px;
+}
+
+header{
+background:linear-gradient(135deg,#00bcd4,#006b7a);
+padding:25px 15px;
+text-align:center;
+}
+
+header h1{
+margin:0 0 8px;
+}
+
+header p{
+margin:0;
+color:#dffaff;
+}
+
+.wallet{
+width:94%;
+max-width:700px;
+margin:18px auto;
+padding:18px;
+background:#1c1c1c;
+border-radius:16px;
+text-align:center;
+font-size:20px;
+box-shadow:0 5px 15px #000;
+}
+
+.missions{
+width:94%;
+max-width:800px;
+margin:auto;
+display:grid;
+gap:15px;
+}
+
+.mission{
+background:#1c1c1c;
+border-radius:18px;
+padding:18px;
+box-shadow:0 5px 15px #000;
+}
+
+.mission h2{
+margin:0 0 8px;
+color:#00e5ff;
+font-size:19px;
+}
+
+.description{
+color:#ddd;
+line-height:1.8;
+}
+
+.reward{
+color:#ffd700;
+font-weight:bold;
+margin:12px 0;
+}
+
+.progress{
+height:12px;
+background:#333;
+border-radius:20px;
+overflow:hidden;
+margin:10px 0;
+}
+
+.progress-bar{
+height:100%;
+width:0%;
+background:#00ff99;
+transition:.3s;
+}
+
+.status{
+font-size:14px;
+color:#aaa;
+}
+
+button{
+width:100%;
+border:0;
+border-radius:12px;
+padding:13px;
+font-family:tahoma;
+font-weight:bold;
+font-size:15px;
+cursor:pointer;
+background:#00bcd4;
+color:white;
+}
+
+button:disabled{
+background:#555;
+color:#aaa;
+cursor:not-allowed;
+}
+
+.back{
+display:block;
+width:240px;
+margin:25px auto;
+padding:14px;
+background:#333;
+color:white;
+text-decoration:none;
+border-radius:12px;
+text-align:center;
+font-weight:bold;
+}
+
+</style>
+</head>
+<body>
+<header>
+<h1>📋 مأموریت‌ها</h1>
+<p>
+بازی کن، مأموریت انجام بده و سکه بگیر!
+</p>
+</header>
+<div class="wallet">
+💰 سکه شما:
+<strong id="coins">0</strong>
+</div>
+<div class="missions">
+<!-- مأموریت ۱ -->
+<div class="mission">
+<h2>🎮 بازیکن تازه‌کار</h2>
+<div class="description">
+۱۰ بار یکی از بازی‌های سایت را انجام بده.
+</div>
+<div class="reward">
+🎁 جایزه: ۵۰۰ سکه
+</div>
+<div class="progress">
+<div class="progress-bar" id="bar1"></div>
+</div>
+<div class="status" id="status1">
+۰ از ۱۰ بازی
+</div>
+<br>
+<button id="btn1" onclick="claimMission(1)">
+🎁 دریافت جایزه
+</button>
+</div>
+<!-- مأموریت ۲ -->
+<div class="mission">
+<h2>🔥 گیمر حرفه‌ای</h2>
+<div class="description">
+۲۰ بار بازی کن.
+</div>
+<div class="reward">
+🎁 جایزه: ۱۰۰۰ سکه
+</div>
+<div class="progress">
+<div class="progress-bar" id="bar2"></div>
+</div>
+<div class="status" id="status2">
+۰ از ۲۰ بازی
+</div>
+<br>
+<button id="btn2" onclick="claimMission(2)">
+🎁 دریافت جایزه
+</button>
+</div>
+<!-- مأموریت ۳ -->
+<div class="mission">
+<h2>🏆 برنده</h2>
+<div class="description">
+۵ بار در بازی‌های سایت برنده شو.
+</div>
+<div class="reward">
+🎁 جایزه: ۷۵۰ سکه
+</div>
+<div class="progress">
+<div class="progress-bar" id="bar3"></div>
+</div>
+<div class="status" id="status3">
+۰ از ۵ برد
+</div>
+<br>
+<button id="btn3" onclick="claimMission(3)">
+🎁 دریافت جایزه
+</button>
+</div>
+<!-- مأموریت ۴ -->
+<div class="mission">
+<h2>🎮 همه‌فن‌حریف</h2>
+<div class="description">
+۳ بازی متفاوت را حداقل یک بار انجام بده.
+</div>
+<div class="reward">
+🎁 جایزه: ۶۰۰ سکه
+</div>
+<div class="progress">
+<div class="progress-bar" id="bar4"></div>
+</div>
+<div class="status" id="status4">
+۰ از ۳ بازی متفاوت
+</div>
+<br>
+<button id="btn4" onclick="claimMission(4)">
+🎁 دریافت جایزه
+</button>
+</div>
+<!-- مأموریت ۵ -->
+<div class="mission">
+<h2>💰 اولین ورود</h2>
+<div class="description">
+یک بار یک بازی جایزه‌ای انجام بده.
+</div>
+<div class="reward">
+🎁 جایزه: ۲۰۰ سکه
+</div>
+<div class="progress">
+<div class="progress-bar" id="bar5"></div>
+</div>
+<div class="status" id="status5">
+۰ از ۱ بازی
+</div>
+<br>
+<button id="btn5" onclick="claimMission(5)">
+🎁 دریافت جایزه
+</button>
+</div>
+<!-- مأموریت ۶ -->
+<div class="mission">
+<h2>🎡 شانس‌آزمایی</h2>
+<div class="description">
+یک بار گردونه شانس را بچرخان.
+</div>
+<div class="reward">
+🎁 جایزه: ۳۰۰ سکه
+</div>
+<div class="progress">
+<div class="progress-bar" id="bar6"></div>
+</div>
+<div class="status" id="status6">
+گردونه هنوز انجام نشده
+</div>
+<br>
+<button id="btn6" onclick="claimMission(6)">
+🎁 دریافت جایزه
+</button>
+</div>
+</div>
+<a class="back" href="index.html">
+⬅️ برگشت به خانه
+</a>
+<script>
+
+/* =========================
+   سکه
+========================= */
+
+let coins =
+Number(localStorage.getItem("coins"));
+
+if(!Number.isFinite(coins)){
+
+coins = 30000;
+
+localStorage.setItem(
+"coins",
+coins
+);
+
+}
+
+
+/* =========================
+   آمار بازی
+========================= */
+
+let gamesPlayed =
+Number(localStorage.getItem("gamesPlayed")) || 0;
+
+let gamesWon =
+Number(localStorage.getItem("gamesWon")) || 0;
+
+let differentGames =
+Number(localStorage.getItem("differentGames")) || 0;
+
+let prizeGames =
+Number(localStorage.getItem("prizeGames")) || 0;
+
+let wheelPlayed =
+Number(localStorage.getItem("wheelPlayed")) || 0;
+
+
+/* =========================
+   مأموریت‌های دریافت‌شده
+========================= */
+
+let claimed =
+JSON.parse(
+localStorage.getItem("claimedMissions")
+) || [];
+
+
+/* =========================
+   نمایش سکه
+========================= */
+
+function updateCoins(){
+
+document.getElementById("coins").textContent =
+coins.toLocaleString("fa-IR");
+
+}
+
+
+/* =========================
+   نمایش مأموریت‌ها
+========================= */
+
+function renderMissions(){
+
+/* مأموریت ۱ */
+
+let p1 =
+Math.min(gamesPlayed,10);
+
+document.getElementById("bar1").style.width =
+(p1/10*100)+"%";
+
+document.getElementById("status1").textContent =
+p1.toLocaleString("fa-IR")+" از ۱۰ بازی";
+
+
+/* مأموریت ۲ */
+
+let p2 =
+Math.min(gamesPlayed,20);
+
+document.getElementById("bar2").style.width =
+(p2/20*100)+"%";
+
+document.getElementById("status2").textContent =
+p2.toLocaleString("fa-IR")+" از ۲۰ بازی";
+
+
+/* مأموریت ۳ */
+
+let p3 =
+Math.min(gamesWon,5);
+
+document.getElementById("bar3").style.width =
+(p3/5*100)+"%";
+
+document.getElementById("status3").textContent =
+p3.toLocaleString("fa-IR")+" از ۵ برد";
+
+
+/* مأموریت ۴ */
+
+let p4 =
+Math.min(differentGames,3);
+
+document.getElementById("bar4").style.width =
+(p4/3*100)+"%";
+
+document.getElementById("status4").textContent =
+p4.toLocaleString("fa-IR")+" از ۳ بازی متفاوت";
+
+
+/* مأموریت ۵ */
+
+let p5 =
+Math.min(prizeGames,1);
+
+document.getElementById("bar5").style.width =
+(p5*100)+"%";
+
+document.getElementById("status5").textContent =
+p5+
+" از ۱ بازی";
+
+
+/* مأموریت ۶ */
+
+let p6 =
+Math.min(wheelPlayed,1);
+
+document.getElementById("bar6").style.width =
+(p6*100)+"%";
+
+document.getElementById("status6").textContent =
+p6
+? "✅ گردونه انجام شده"
+: "گردونه هنوز انجام نشده";
+
+
+/* وضعیت دکمه‌ها */
+
+for(let i=1;i<=6;i++){
+
+let button =
+document.getElementById("btn"+i);
+
+if(claimed.includes(i)){
+
+button.disabled=true;
+button.textContent="✅ جایزه گرفته شد";
+
+}
+
+}
+
+}
+
+
+/* =========================
+   گرفتن جایزه
+========================= */
+
+function claimMission(id){
+
+if(claimed.includes(id)){
+
+alert("این جایزه را قبلاً گرفتی!");
+
+return;
+
+}
+
+
+let complete=false;
+let reward=0;
+
+
+/* مأموریت ۱ */
+
+if(id===1){
+
+complete =
+gamesPlayed>=10;
+
+reward=500;
+
+}
+
+
+/* مأموریت ۲ */
+
+if(id===2){
+
+complete =
+gamesPlayed>=20;
+
+reward=1000;
+
+}
+
+
+/* مأموریت ۳ */
+
+if(id===3){
+
+complete =
+gamesWon>=5;
+
+reward=750;
+
+}
+
+
+/* مأموریت ۴ */
+
+if(id===4){
+
+complete =
+differentGames>=3;
+
+reward=600;
+
+}
+
+
+/* مأموریت ۵ */
+
+if(id===5){
+
+complete =
+prizeGames>=1;
+
+reward=200;
+
+}
+
+
+/* مأموریت ۶ */
+
+if(id===6){
+
+complete =
+wheelPlayed>=1;
+
+reward=300;
+
+}
+
+
+if(!complete){
+
+alert("❌ هنوز این مأموریت کامل نشده!");
+
+return;
+
+}
+
+
+/* اضافه کردن سکه */
+
+coins += reward;
+
+localStorage.setItem(
+"coins",
+coins
+);
+
+
+/* ذخیره مأموریت */
+
+claimed.push(id);
+
+localStorage.setItem(
+"claimedMissions",
+JSON.stringify(claimed)
+);
+
+
+updateCoins();
+
+renderMissions();
+
+
+alert(
+"🎉 مأموریت کامل شد!\n"+
+"💰 "+
+reward.toLocaleString("fa-IR")+
+" سکه گرفتی!"
+);
+
+}
+
+
+/* شروع */
+
+updateCoins();
+
+renderMissions();
+
+</script>
+</body>
+</html>
