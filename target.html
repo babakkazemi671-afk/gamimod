@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🎯 شکار هدف | گیمی‌مود</title>
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:tahoma;
+    background:#101010;
+    color:white;
+    text-align:center;
+}
+
+header{
+    background:#00bcd4;
+    padding:20px;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.balance{
+    margin:20px;
+    padding:20px;
+    background:linear-gradient(135deg,#302b63,#24243e);
+    border-radius:20px;
+}
+
+.coins{
+    font-size:32px;
+    font-weight:bold;
+}
+
+.game{
+    width:94%;
+    max-width:650px;
+    margin:20px auto;
+    padding:20px 15px;
+    background:#202020;
+    border-radius:20px;
+    box-shadow:0 0 15px #000;
+}
+
+.info{
+    color:#00e5ff;
+    line-height:2;
+}
+
+.arena{
+    position:relative;
+    width:100%;
+    max-width:550px;
+    height:400px;
+    margin:20px auto;
+    background:
+    radial-gradient(
+        circle,
+        #263238,
+        #101010
+    );
+    border:3px solid #00bcd4;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.target{
+    position:absolute;
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    border:5px solid white;
+    background:#e53935;
+    color:white;
+    font-size:25px;
+    cursor:pointer;
+    box-shadow:0 0 15px #e53935;
+}
+
+.target::after{
+    content:"";
+    position:absolute;
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    background:white;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+}
+
+.start{
+    padding:14px 30px;
+    border:0;
+    border-radius:12px;
+    background:#00bcd4;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.start:disabled{
+    background:#555;
+}
+
+.result{
+    margin:20px auto;
+    padding:15px;
+    background:#151515;
+    border-radius:12px;
+    line-height:2;
+}
+
+.back{
+    display:block;
+    width:230px;
+    margin:25px auto;
+    padding:14px;
+    background:#333;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+</style>
+</head>
+<body>
+<header>
+🎯 شکار هدف گیمی‌مود
+</header>
+<section class="balance">
+<h2>🐷 موجودی قلک</h2>
+<div class="coins" id="coins">
+0 🪙
+</div>
+</section>
+<section class="game">
+<h2>🎯 هدف‌ها را بزن!</h2>
+<div class="info">
+⏱️ زمان بازی: 30 ثانیه<br>
+🎯 هر هدف = 15 🪙
+</div>
+<div class="arena" id="arena">
+</div>
+<button
+class="start"
+id="startButton"
+onclick="startGame()">
+🚀 شروع بازی
+</button>
+<div class="result" id="result">
+برای شروع بازی روی دکمه بزن!
+</div>
+</section>
+<a class="back" href="coin.html">
+⬅️ برگشت به مرکز سرگرمی
+</a>
+<script>
+
+/* =========================
+   سکه مشترک
+========================= */
+
+let coins =
+Number(localStorage.getItem("gamimodCoins")) || 0;
+
+
+function updateCoins(){
+
+    document.getElementById(
+        "coins"
+    ).innerHTML =
+    coins + " 🪙";
+
+}
+
+
+function saveCoins(){
+
+    localStorage.setItem(
+        "gamimodCoins",
+        coins
+    );
+
+    updateCoins();
+
+}
+
+
+updateCoins();
+
+
+/* =========================
+   بازی
+========================= */
+
+let playing = false;
+
+let score = 0;
+
+let time = 30;
+
+let timer;
+
+
+function startGame(){
+
+    if(playing){
+
+        return;
+
+    }
+
+
+    playing = true;
+
+    score = 0;
+
+    time = 30;
+
+
+    document.getElementById(
+        "startButton"
+    ).disabled = true;
+
+
+    document.getElementById(
+        "result"
+    ).innerHTML =
+    "🔥 شروع شد! هدف‌ها را سریع بزن!";
+
+
+    spawnTarget();
+
+
+    timer =
+    setInterval(function(){
+
+        time--;
+
+
+        document.getElementById(
+            "result"
+        ).innerHTML =
+        "⏱️ " +
+        time +
+        " ثانیه باقی مانده<br>" +
+        "🎯 هدف‌های زده شده: " +
+        score;
+
+
+        if(time <= 0){
+
+            endGame();
+
+        }
+
+    },1000);
+
+}
+
+
+/* =========================
+   ساخت هدف
+========================= */
+
+function spawnTarget(){
+
+    if(!playing){
+
+        return;
+
+    }
+
+
+    const arena =
+    document.getElementById(
+        "arena"
+    );
+
+
+    arena.innerHTML = "";
+
+
+    const target =
+    document.createElement(
+        "button"
+    );
+
+
+    target.className =
+    "target";
+
+
+    const maxX =
+    arena.clientWidth - 70;
+
+
+    const maxY =
+    arena.clientHeight - 70;
+
+
+    const x =
+    Math.floor(
+        Math.random() *
+        maxX
+    );
+
+
+    const y =
+    Math.floor(
+        Math.random() *
+        maxY
+    );
+
+
+    target.style.left =
+    x + "px";
+
+
+    target.style.top =
+    y + "px";
+
+
+    target.onclick =
+    function(){
+
+        hitTarget();
+
+    };
+
+
+    arena.appendChild(
+        target
+    );
+
+}
+
+
+/* =========================
+   زدن هدف
+========================= */
+
+function hitTarget(){
+
+    if(!playing){
+
+        return;
+
+    }
+
+
+    score++;
+
+
+    coins += 15;
+
+    saveCoins();
+
+
+    spawnTarget();
+
+}
+
+
+/* =========================
+   پایان
+========================= */
+
+function endGame(){
+
+    playing = false;
+
+
+    clearInterval(timer);
+
+
+    document.getElementById(
+        "arena"
+    ).innerHTML = "";
+
+
+    document.getElementById(
+        "startButton"
+    ).disabled = false;
+
+
+    document.getElementById(
+        "result"
+    ).innerHTML =
+    "🏁 بازی تمام شد!<br>" +
+    "🎯 هدف‌های زده شده: " +
+    score +
+    "<br>" +
+    "💰 جایزه این دور: " +
+    (score * 15) +
+    " 🪙";
+
+}
+
+</script>
+</body>
+</html>
