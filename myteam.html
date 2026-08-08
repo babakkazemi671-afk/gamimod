@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>👥 تیم من | گیمی‌مود</title>
+<title>⚽ تیم من | گیمی‌مود</title>
 <style>
 *{box-sizing:border-box}
 
@@ -18,102 +18,55 @@ header{
 background:linear-gradient(135deg,#00bcd4,#006b7a);
 padding:20px;
 text-align:center;
-font-size:27px;
-font-weight:bold;
 }
 
-.box{
-width:95%;
-max-width:1050px;
+header h1{
+margin:0 0 8px;
+}
+
+.container{
+width:94%;
+max-width:1000px;
 margin:18px auto;
-padding:18px;
-background:#202020;
-border-radius:20px;
-box-shadow:0 0 15px #000;
 }
 
-.stats{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(140px,1fr));
-gap:10px;
-}
-
-.stat{
-background:#151515;
-padding:13px;
-border-radius:12px;
+.info{
+background:#1c1c1c;
+padding:15px;
+border-radius:15px;
+margin-bottom:15px;
 text-align:center;
-}
-
-.stat span{
-display:block;
-color:#aaa;
-font-size:13px;
-}
-
-.stat b{
-display:block;
-margin-top:7px;
-font-size:21px;
-color:#00e5ff;
 }
 
 .formations{
 display:flex;
 gap:8px;
-flex-wrap:wrap;
-justify-content:center;
+overflow-x:auto;
+padding:5px;
+margin-bottom:15px;
 }
 
 .formation{
-background:#333;
+min-width:90px;
+background:#292929;
 color:white;
-border:0;
-padding:12px 18px;
-border-radius:10px;
-font-weight:bold;
-cursor:pointer;
 }
 
 .formation.active{
 background:#00bcd4;
 }
 
-.tactics{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-justify-content:center;
-}
-
-.tactic{
-background:#333;
-color:white;
-border:0;
-padding:12px 18px;
-border-radius:10px;
-font-weight:bold;
-cursor:pointer;
-}
-
-.tactic.active{
-background:#16a085;
-}
-
 .field{
 position:relative;
-height:560px;
-max-width:850px;
-margin:20px auto;
-border:4px solid white;
-border-radius:15px;
+height:570px;
+border:5px solid white;
+border-radius:16px;
 overflow:hidden;
 
 background:
 repeating-linear-gradient(
 90deg,
-#147636 0px,
+#147636 0,
 #147636 70px,
 #18813b 70px,
 #18813b 140px
@@ -122,152 +75,100 @@ repeating-linear-gradient(
 
 .line{
 position:absolute;
-background:white;
-}
-
-.midLine{
-width:3px;
-height:100%;
 left:50%;
 top:0;
+height:100%;
+width:3px;
+background:white;
 }
 
 .circle{
 position:absolute;
-width:115px;
-height:115px;
+left:50%;
+top:50%;
+width:110px;
+height:110px;
 border:3px solid white;
 border-radius:50%;
-left:50%;
-top:50%;
 transform:translate(-50%,-50%);
 }
 
-.spot{
+.player{
 position:absolute;
-width:10px;
-height:10px;
-background:white;
+width:55px;
+height:55px;
 border-radius:50%;
-left:50%;
-top:50%;
-transform:translate(-50%,-50%);
-}
-
-.goal{
-position:absolute;
-width:35px;
-height:125px;
-border:4px solid white;
-top:38%;
-}
-
-.goal.left{
-left:-4px;
-}
-
-.goal.right{
-right:-4px;
-}
-
-.slot{
-position:absolute;
-transform:translate(-50%,-50%);
-width:82px;
-min-height:70px;
-background:#151515;
-border:2px solid #00e5ff;
-border-radius:14px;
-text-align:center;
-padding:8px 4px;
-cursor:pointer;
-}
-
-.slot .shirt{
-font-size:22px;
-}
-
-.slot .slotName{
-font-size:11px;
+background:#d71920;
+border:3px solid white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:10px;
 font-weight:bold;
-margin-top:3px;
+text-align:center;
+padding:3px;
+cursor:pointer;
+transform:translate(-50%,-50%);
 }
 
-.slot .slotRating{
-font-size:12px;
-color:#ffd700;
+.player.gk{
+box-shadow:0 0 0 4px #ffd700;
 }
 
-.selectBox{
-display:none;
-background:#151515;
-padding:15px;
-border-radius:14px;
+.player.empty{
+background:#333;
+color:#aaa;
+border-style:dashed;
+}
+
+.playersBox{
 margin-top:15px;
+background:#1c1c1c;
+border-radius:16px;
+padding:15px;
 }
 
-.selectBox.show{
-display:block;
-}
-
-.playerList{
+.playersGrid{
 display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(160px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
 gap:10px;
+margin-top:12px;
 }
 
-.playerButton{
-background:#252525;
-border:1px solid #444;
-border-radius:10px;
+.playerCard{
+background:#292929;
 padding:12px;
-color:white;
-cursor:pointer;
+border-radius:12px;
 }
 
-.playerButton:hover{
+.playerCard b{
+font-size:17px;
+}
+
+.playerCard button{
+width:100%;
+margin-top:8px;
+padding:9px;
+border:0;
+border-radius:9px;
 background:#00bcd4;
-}
-
-.result{
-margin-top:15px;
-padding:15px;
-background:#151515;
-border-radius:12px;
-text-align:center;
-line-height:2;
-}
-
-.actions{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(180px,1fr));
-gap:10px;
-}
-
-.actions a{
-text-decoration:none;
 color:white;
-padding:14px;
-border-radius:12px;
-text-align:center;
 font-weight:bold;
 }
 
-.market{
-background:#16a085;
+.save{
+width:100%;
+padding:15px;
+margin-top:15px;
+border:0;
+border-radius:12px;
+background:#00c853;
+color:white;
+font-size:18px;
+font-weight:bold;
 }
 
-.packs{
-background:#8e44ad;
-}
-
-.football{
-background:#e67e22;
-}
-
-.home{
+.back{
 display:block;
 width:230px;
 margin:25px auto;
@@ -279,598 +180,242 @@ border-radius:12px;
 text-align:center;
 }
 
+.status{
+margin-top:12px;
+background:#151515;
+padding:12px;
+border-radius:12px;
+text-align:center;
+}
+
 </style>
 </head>
 <body>
 <header>
-👥 تیم من ⚽
+<h1>👕 تیم من</h1>
+<div>
+ترکیب تیم خودت را بساز
+</div>
 </header>
-<section class="box">
-<h2 id="clubName">
-تیم من
-</h2>
-<div class="stats">
-<div class="stat">
-<span>⭐ قدرت باشگاه</span>
-<b id="power">60</b>
-</div>
-<div class="stat">
-<span>🪙 سکه</span>
-<b id="coins">0</b>
-</div>
-<div class="stat">
-<span>💎 الماس</span>
-<b id="diamonds">0</b>
-</div>
-<div class="stat">
-<span>👥 بازیکنان</span>
+<div class="container">
+<div class="info">
+💰 ارزش باشگاه:
+<b id="clubValue">0</b>
+<br><br>
+👥 تعداد بازیکنان:
 <b id="playerCount">0</b>
 </div>
-<div class="stat">
-<span>🏆 جام‌ها</span>
-<b id="cups">0</b>
-</div>
-</div>
-</section>
-<section class="box">
-<h2>📋 انتخاب ترکیب</h2>
 <div class="formations">
 <button
 class="formation active"
-onclick="setFormation('4-3-3',this)">
+onclick="chooseFormation('4-3-3',this)">
 4-3-3
 </button>
 <button
 class="formation"
-onclick="setFormation('4-4-2',this)">
+onclick="chooseFormation('4-4-2',this)">
 4-4-2
 </button>
 <button
 class="formation"
-onclick="setFormation('3-4-3',this)">
+onclick="chooseFormation('3-4-3',this)">
 3-4-3
 </button>
 <button
 class="formation"
-onclick="setFormation('5-3-2',this)">
+onclick="chooseFormation('5-3-2',this)">
 5-3-2
 </button>
-</div>
-</section>
-<section class="box">
-<h2>🎯 تاکتیک</h2>
-<div class="tactics">
 <button
-class="tactic active"
-onclick="setTactic('balanced',this)">
-⚖️ متعادل
-</button>
-<button
-class="tactic"
-onclick="setTactic('attack',this)">
-🔥 هجومی
-</button>
-<button
-class="tactic"
-onclick="setTactic('defend',this)">
-🛡️ دفاعی
+class="formation"
+onclick="chooseFormation('3-5-2',this)">
+3-5-2
 </button>
 </div>
-</section>
-<section class="box">
-<h2>
-⚽ ترکیب
-<span id="formationText">4-3-3</span>
-</h2>
 <div class="field">
-<div class="line midLine"></div>
+<div class="line"></div>
 <div class="circle"></div>
-<div class="spot"></div>
-<div class="goal left"></div>
-<div class="goal right"></div>
-<div id="slots"></div>
+<div id="fieldPlayers"></div>
 </div>
+<div class="status" id="status">
+ترکیب 4-3-3 انتخاب شده است.
+</div>
+<div class="playersBox">
+<h2>👥 بازیکنان من</h2>
 <div
-class="result"
-id="message">
-روی یک جایگاه بازیکن بزن و بازیکنت را انتخاب کن.
-</div>
-<div
-class="selectBox"
-id="selectBox">
-<h3 id="selectTitle">
-انتخاب بازیکن
-</h3>
-<div
-class="playerList"
-id="playerList">
+class="playersGrid"
+id="playersGrid">
 </div>
 </div>
-</section>
-<section class="box">
-<div class="actions">
+<button
+class="save"
+onclick="saveLineup()">
+💾 ذخیره ترکیب
+</button>
 <a
-class="market"
+class="back"
 href="players.html">
-🛒 بازار بازیکنان
-</a>
-<a
-class="packs"
-href="packs.html">
-🎁 پک فوتبال
-</a>
-<a
-class="football"
-href="football.html">
-⚽ ورود به بازی
+🛒 رفتن به بازار بازیکنان
 </a>
 </div>
-</section>
-<a
-class="home"
-href="index.html">
-🏠 برگشت به خانه
-</a>
 <script>
 
-/* =========================
-   اطلاعات
-========================= */
+/* ==============================
+   اطلاعات بازیکنان
+============================== */
 
-let clubName=
-localStorage.getItem(
-"clubName"
-) || "تیم من";
-
-let power=
-Number(
-localStorage.getItem(
-"clubPower"
-)
-) || 60;
-
-let coins=
-Number(
-localStorage.getItem(
-"coins"
-)
-) || 10000;
-
-let diamonds=
-Number(
-localStorage.getItem(
-"footballDiamonds"
-)
-) || 0;
-
-let cups=
-Number(
-localStorage.getItem(
-"cups"
-)
-) || 0;
-
-let myPlayers=
+let owned=
 JSON.parse(
-localStorage.getItem(
-"myPlayers"
-)
+localStorage.getItem("ownedPlayers")
 ) || [];
 
 
-/* =========================
-   ترکیب ذخیره شده
-========================= */
+/*
+ اگر بازیکن‌های قبلی در ownedPlayers
+ نبودند، از lineup هم استفاده می‌کنیم.
+*/
+
+if(!owned.length){
+
+let oldLineup=
+JSON.parse(
+localStorage.getItem("lineup")
+) || {};
+
+owned=
+Object.values(oldLineup);
+
+}
+
+
+/* ==============================
+   آرایش فعلی
+============================== */
 
 let formation=
-localStorage.getItem(
-"formation"
-) || "4-3-3";
+localStorage.getItem("formation")
+||"4-3-3";
 
-let tactic=
-localStorage.getItem(
-"tactic"
-) || "balanced";
+
+/* ==============================
+   ترکیب فعلی
+============================== */
 
 let lineup=
 JSON.parse(
-localStorage.getItem(
-"lineup"
-)
+localStorage.getItem("lineup")
 ) || {};
 
 
-/* =========================
-   موقعیت‌ها
-========================= */
+/* ==============================
+   محل بازیکنان
+============================== */
 
-const formations={
+const positions={
 
 "4-3-3":[
-["GK",50,91],
-["DEF",25,72],
-["DEF",42,77],
-["DEF",58,77],
-["DEF",75,72],
-["MID",30,53],
-["MID",50,58],
-["MID",70,53],
-["ATT",27,25],
-["ATT",50,18],
-["ATT",73,25]
+
+{role:"GK",x:8,y:50},
+
+{role:"DEF",x:25,y:18},
+{role:"DEF",x:22,y:40},
+{role:"DEF",x:22,y:60},
+{role:"DEF",x:25,y:82},
+
+{role:"MID",x:43,y:25},
+{role:"MID",x:43,y:50},
+{role:"MID",x:43,y:75},
+
+{role:"ATT",x:67,y:25},
+{role:"ATT",x:70,y:50},
+{role:"ATT",x:67,y:75}
+
 ],
 
 "4-4-2":[
-["GK",50,91],
-["DEF",25,72],
-["DEF",42,77],
-["DEF",58,77],
-["DEF",75,72],
-["MID",22,52],
-["MID",40,57],
-["MID",60,57],
-["MID",78,52],
-["ATT",38,25],
-["ATT",62,25]
+
+{role:"GK",x:8,y:50},
+
+{role:"DEF",x:25,y:18},
+{role:"DEF",x:22,y:40},
+{role:"DEF",x:22,y:60},
+{role:"DEF",x:25,y:82},
+
+{role:"MID",x:42,y:18},
+{role:"MID",x:42,y:40},
+{role:"MID",x:42,y:60},
+{role:"MID",x:42,y:82},
+
+{role:"ATT",x:68,y:40},
+{role:"ATT",x:68,y:60}
+
 ],
 
 "3-4-3":[
-["GK",50,91],
-["DEF",30,70],
-["DEF",50,75],
-["DEF",70,70],
-["MID",20,53],
-["MID",40,58],
-["MID",60,58],
-["MID",80,53],
-["ATT",27,25],
-["ATT",50,18],
-["ATT",73,25]
+
+{role:"GK",x:8,y:50},
+
+{role:"DEF",x:25,y:25},
+{role:"DEF",x:22,y:50},
+{role:"DEF",x:25,y:75},
+
+{role:"MID",x:42,y:18},
+{role:"MID",x:42,y:40},
+{role:"MID",x:42,y:60},
+{role:"MID",x:42,y:82},
+
+{role:"ATT",x:68,y:25},
+{role:"ATT",x:70,y:50},
+{role:"ATT",x:68,y:75}
+
 ],
 
 "5-3-2":[
-["GK",50,91],
-["DEF",18,70],
-["DEF",34,77],
-["DEF",50,80],
-["DEF",66,77],
-["DEF",82,70],
-["MID",30,52],
-["MID",50,57],
-["MID",70,52],
-["ATT",40,25],
-["ATT",60,25]
+
+{role:"GK",x:8,y:50},
+
+{role:"DEF",x:23,y:12},
+{role:"DEF",x:20,y:32},
+{role:"DEF",x:20,y:50},
+{role:"DEF",x:20,y:68},
+{role:"DEF",x:23,y:88},
+
+{role:"MID",x:43,y:25},
+{role:"MID",x:43,y:50},
+{role:"MID",x:43,y:75},
+
+{role:"ATT",x:68,y:40},
+{role:"ATT",x:68,y:60}
+
+],
+
+"3-5-2":[
+
+{role:"GK",x:8,y:50},
+
+{role:"DEF",x:25,y:25},
+{role:"DEF",x:22,y:50},
+{role:"DEF",x:25,y:75},
+
+{role:"MID",x:42,y:12},
+{role:"MID",x:42,y:30},
+{role:"MID",x:42,y:50},
+{role:"MID",x:42,y:70},
+{role:"MID",x:42,y:88},
+
+{role:"ATT",x:68,y:40},
+{role:"ATT",x:68,y:60}
+
 ]
 
 };
 
 
-/* =========================
-   نمایش اطلاعات
-========================= */
-
-document.getElementById(
-"clubName"
-).innerHTML=
-clubName;
-
-document.getElementById(
-"power"
-).innerHTML=
-power;
-
-document.getElementById(
-"coins"
-).innerHTML=
-coins.toLocaleString();
-
-document.getElementById(
-"diamonds"
-).innerHTML=
-diamonds;
-
-document.getElementById(
-"playerCount"
-).innerHTML=
-myPlayers.length;
-
-document.getElementById(
-"cups"
-).innerHTML=
-cups;
-
-document.getElementById(
-"formationText"
-).innerHTML=
-formation;
-
-
-/* =========================
-   ساخت زمین
-========================= */
-
-function renderField(){
-
-const slots=
-document.getElementById(
-"slots"
-);
-
-slots.innerHTML="";
-
-
-const positions=
-formations[formation];
-
-
-positions.forEach(
-function(pos,index){
-
-let div=
-document.createElement(
-"div"
-);
-
-div.className="slot";
-
-div.style.left=
-pos[1]+"%";
-
-div.style.top=
-pos[2]+"%";
-
-
-let player=
-lineup[index];
-
-
-if(player){
-
-div.innerHTML=
-
-"<div class='shirt'>"+
-shirtIcon(pos[0])+
-"</div>"+
-
-"<div class='slotName'>"+
-player.name+
-"</div>"+
-
-"<div class='slotRating'>⭐ "+
-player.rating+
-"</div>";
-
-}
-else{
-
-div.innerHTML=
-
-"<div class='shirt'>"+
-shirtIcon(pos[0])+
-"</div>"+
-
-"<div class='slotName'>"+
-pos[0]+
-"<br>انتخاب"+
-"</div>";
-
-}
-
-
-div.onclick=
-function(){
-
-openPlayerSelector(
-index,
-pos[0]
-);
-
-};
-
-
-slots.appendChild(
-div
-);
-
-});
-
-}
-
-
-/* =========================
-   آیکون پست
-========================= */
-
-function shirtIcon(position){
-
-if(position==="GK")
-return"🧤";
-
-if(position==="DEF")
-return"🛡️";
-
-if(position==="MID")
-return"⚡";
-
-return"🔥";
-
-}
-
-
-/* =========================
-   انتخاب بازیکن
-========================= */
-
-let selectedSlot=null;
-
-function openPlayerSelector(
-index,
-position
-){
-
-selectedSlot=index;
-
-
-const box=
-document.getElementById(
-"selectBox"
-);
-
-const list=
-document.getElementById(
-"playerList"
-);
-
-const title=
-document.getElementById(
-"selectTitle"
-);
-
-
-box.classList.add("show");
-
-
-title.innerHTML=
-"انتخاب "+
-positionName(position);
-
-
-list.innerHTML="";
-
-
-let available=
-myPlayers.filter(
-function(player){
-
-return compatible(
-player.position,
-position
-);
-
-});
-
-
-if(available.length===0){
-
-list.innerHTML=
-"<div class='result'>"+
-"❌ بازیکن مناسب برای این پست نداری."+
-"</div>";
-
-return;
-
-}
-
-
-available.forEach(
-function(player){
-
-let button=
-document.createElement(
-"button"
-);
-
-button.className=
-"playerButton";
-
-button.innerHTML=
-
-"⚽ "+
-player.name+
-"<br>"+
-"⭐ "+
-player.rating+
-"<br>"+
-positionName(
-player.position
-);
-
-
-button.onclick=
-function(){
-
-selectPlayer(player);
-
-};
-
-
-list.appendChild(
-button
-);
-
-});
-
-}
-
-
-/* =========================
-   سازگاری پست
-========================= */
-
-function compatible(
-playerPosition,
-needed
-){
-
-if(needed==="GK")
-return playerPosition==="GK";
-
-if(needed==="DEF")
-return playerPosition==="DEF";
-
-if(needed==="MID")
-return playerPosition==="MID";
-
-if(needed==="ATT")
-return playerPosition==="ATT";
-
-return false;
-
-}
-
-
-/* =========================
-   انتخاب
-========================= */
-
-function selectPlayer(player){
-
-lineup[selectedSlot]=player;
-
-
-localStorage.setItem(
-"lineup",
-JSON.stringify(
-lineup
-)
-);
-
-
-document.getElementById(
-"selectBox"
-).classList.remove(
-"show"
-);
-
-
-document.getElementById(
-"message"
-).innerHTML=
-"✅ "+
-player.name+
-" در ترکیب قرار گرفت.";
-
-
-renderField();
-
-}
-
-
-/* =========================
-   تغییر ترکیب
-========================= */
-
-function setFormation(
+/* ==============================
+   انتخاب آرایش
+============================== */
+
+function chooseFormation(
 newFormation,
 button
 ){
@@ -878,146 +423,349 @@ button
 formation=
 newFormation;
 
+localStorage.setItem(
+"formation",
+formation
+);
 
-lineup={};
 
+document
+.querySelectorAll(".formation")
+.forEach(
+b=>b.classList.remove("active")
+);
+
+button.classList.add("active");
+
+
+document.getElementById(
+"status"
+).innerHTML=
+"ترکیب "+
+formation+
+" انتخاب شد.";
+
+renderField();
+
+}
+
+
+/* ==============================
+   نمایش زمین
+============================== */
+
+function renderField(){
+
+let container=
+document.getElementById(
+"fieldPlayers"
+);
+
+container.innerHTML="";
+
+
+let spots=
+positions[formation];
+
+
+spots.forEach(
+(spot,index)=>{
+
+let p=
+getLineupPlayer(index);
+
+let div=
+document.createElement("div");
+
+div.className=
+"player";
+
+if(!p){
+
+div.classList.add("empty");
+
+div.innerHTML=
+spot.role+
+"<br>خالی";
+
+}
+else{
+
+div.innerHTML=
+p.name+
+"<br>"+
+"قدرت "+p.power;
+
+if(spot.role==="GK"){
+div.classList.add("gk");
+}
+
+}
+
+
+div.style.left=
+spot.x+"%";
+
+div.style.top=
+spot.y+"%";
+
+
+container.appendChild(div);
+
+}
+);
+
+}
+
+
+/* ==============================
+   بازیکن ترکیب
+============================== */
+
+function getLineupPlayer(index){
+
+let keys=
+Object.keys(lineup);
+
+if(
+!keys[index]
+)return null;
+
+return lineup[
+keys[index]
+];
+
+}
+
+
+/* ==============================
+   نمایش بازیکنان
+============================== */
+
+function renderPlayers(){
+
+let container=
+document.getElementById(
+"playersGrid"
+);
+
+container.innerHTML="";
+
+
+owned.forEach(
+(player,index)=>{
+
+let card=
+document.createElement("div");
+
+card.className=
+"playerCard";
+
+card.innerHTML=
+
+"<b>"+
+player.name+
+"</b>"+
+"<br>"+
+"قدرت: "+
+player.power+
+"<br>"+
+"پست: "+
+positionName(
+player.position
+)+
+
+"<button onclick='addToLineup("+
+index+
+")'>"+
+"➕ گذاشتن در ترکیب"+
+"</button>";
+
+
+container.appendChild(card);
+
+}
+);
+
+
+document.getElementById(
+"playerCount"
+).innerHTML=
+owned.length;
+
+
+let value=
+owned.reduce(
+(sum,p)=>
+sum+
+Number(p.price||0),
+0
+);
+
+document.getElementById(
+"clubValue"
+).innerHTML=
+value.toLocaleString("fa-IR")+
+" سکه";
+
+}
+
+
+/* ==============================
+   اضافه کردن به ترکیب
+============================== */
+
+function addToLineup(index){
+
+let player=
+owned[index];
+
+let keys=
+Object.keys(lineup);
+
+let spots=
+positions[formation];
+
+
+/*
+ بازیکن را در اولین جای خالی
+ قرار می‌دهیم.
+*/
+
+if(
+keys.length>=spots.length
+){
+
+alert(
+"ترکیب پر است! اول یک بازیکن را حذف کن."
+);
+
+return;
+
+}
+
+
+let key=
+"player_"+Date.now()+"_"+index;
+
+
+lineup[key]={
+
+id:player.id,
+
+name:player.name,
+
+power:player.power,
+
+position:player.position,
+
+country:player.country
+
+};
+
+
+localStorage.setItem(
+"lineup",
+JSON.stringify(lineup)
+);
+
+
+renderField();
+
+
+document.getElementById(
+"status"
+).innerHTML=
+"✅ "+
+player.name+
+" به ترکیب اضافه شد.";
+
+}
+
+
+/* ==============================
+   ذخیره
+============================== */
+
+function saveLineup(){
+
+localStorage.setItem(
+"lineup",
+JSON.stringify(lineup)
+);
 
 localStorage.setItem(
 "formation",
 formation
 );
 
-localStorage.setItem(
-"lineup",
-JSON.stringify(
-lineup
-)
-);
 
-
-document.querySelectorAll(
-".formation"
-).forEach(
-function(btn){
-
-btn.classList.remove(
-"active"
-);
-
-});
-
-
-button.classList.add(
-"active"
-);
-
-
-document.getElementById(
-"formationText"
-).innerHTML=
-formation;
-
-
-renderField();
-
-
-document.getElementById(
-"message"
-).innerHTML=
-"⚽ ترکیب "+
+alert(
+"✅ ترکیب "+
 formation+
-" انتخاب شد.";
+" ذخیره شد!"
+);
 
 }
 
 
-/* =========================
-   تاکتیک
-========================= */
+/* ==============================
+   نام پست
+============================== */
 
-function setTactic(
-newTactic,
-button
+function positionName(position){
+
+if(position==="GK")
+return "🧤 دروازه‌بان";
+
+if(position==="DEF")
+return "🛡️ مدافع";
+
+if(position==="MID")
+return "🎯 هافبک";
+
+return "⚡ مهاجم";
+
+}
+
+
+/* ==============================
+   شروع صفحه
+============================== */
+
+function activateFormationButton(){
+
+document
+.querySelectorAll(".formation")
+.forEach(
+button=>{
+
+if(
+button.innerText.trim()===
+formation
 ){
 
-tactic=
-newTactic;
+button.classList.add("active");
 
+}
+else{
 
-localStorage.setItem(
-"tactic",
-tactic
-);
+button.classList.remove("active");
 
-
-document.querySelectorAll(
-".tactic"
-).forEach(
-function(btn){
-
-btn.classList.remove(
-"active"
-);
+}
 
 });
 
-
-button.classList.add(
-"active"
-);
-
-
-let text="⚖️ تاکتیک متعادل";
-
-if(tactic==="attack"){
-text=
-"🔥 تاکتیک هجومی فعال شد؛ تیم بیشتر برای گل تلاش می‌کند.";
-}
-
-if(tactic==="defend"){
-text=
-"🛡️ تاکتیک دفاعی فعال شد؛ تیم بیشتر روی دفاع تمرکز می‌کند.";
 }
 
 
-document.getElementById(
-"message"
-).innerHTML=
-text;
+activateFormationButton();
 
-}
-
-
-/* =========================
-   نام پست
-========================= */
-
-function positionName(p){
-
-if(p==="GK")
-return"دروازه‌بان";
-
-if(p==="DEF")
-return"مدافع";
-
-if(p==="MID")
-return"هافبک";
-
-if(p==="ATT")
-return"مهاجم";
-
-return"بازیکن";
-
-}
-
-
-/* =========================
-   شروع
-========================= */
+renderPlayers();
 
 renderField();
 
 </script>
 </body>
 
-   </html>
+</html>
