@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🃏 کارت شانس | گیمی‌مود</title>
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:tahoma;
+    background:#101010;
+    color:white;
+    text-align:center;
+}
+
+header{
+    background:#00bcd4;
+    padding:20px;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.balance{
+    margin:20px;
+    padding:20px;
+    background:linear-gradient(135deg,#302b63,#24243e);
+    border-radius:20px;
+}
+
+.coins{
+    font-size:32px;
+    font-weight:bold;
+}
+
+.game{
+    width:92%;
+    max-width:650px;
+    margin:20px auto;
+    padding:25px 15px;
+    background:#202020;
+    border-radius:20px;
+    box-shadow:0 0 15px #000;
+}
+
+.cards{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin:25px 0;
+}
+
+.card{
+    width:140px;
+    height:190px;
+    border:0;
+    border-radius:16px;
+    background:linear-gradient(135deg,#263238,#111);
+    color:white;
+    font-size:45px;
+    cursor:pointer;
+    box-shadow:0 0 12px #000;
+    transition:.2s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.card:disabled{
+    cursor:not-allowed;
+    opacity:.65;
+}
+
+.result{
+    margin-top:20px;
+    padding:18px;
+    background:#151515;
+    border-radius:12px;
+    line-height:2;
+    font-size:17px;
+}
+
+.reset{
+    margin-top:15px;
+    padding:12px 25px;
+    border:0;
+    border-radius:10px;
+    background:#00bcd4;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.back{
+    display:block;
+    width:230px;
+    margin:25px auto;
+    padding:14px;
+    background:#333;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+</style>
+</head>
+<body>
+<header>
+🃏 کارت شانس گیمی‌مود
+</header>
+<section class="balance">
+<h2>🐷 موجودی قلک</h2>
+<div class="coins" id="coins">
+0 🪙
+</div>
+</section>
+<section class="game">
+<h2>🎴 یک کارت انتخاب کن!</h2>
+<p>
+فقط یکی از کارت‌ها را انتخاب کن.
+</p>
+<div class="cards">
+<button
+class="card"
+onclick="chooseCard(0)">
+❓
+</button>
+<button
+class="card"
+onclick="chooseCard(1)">
+❓
+</button>
+<button
+class="card"
+onclick="chooseCard(2)">
+❓
+</button>
+</div>
+<div class="result" id="result">
+🎁 جایزه کارت هنوز مشخص نشده!
+</div>
+<button
+class="reset"
+onclick="resetCards()">
+🔄 بازی دوباره
+</button>
+</section>
+<a class="back" href="coin.html">
+⬅️ برگشت به مرکز سرگرمی
+</a>
+<script>
+
+/* =========================
+   سکه مشترک
+========================= */
+
+let coins =
+Number(localStorage.getItem("gamimodCoins")) || 0;
+
+
+function updateCoins(){
+
+    document.getElementById(
+        "coins"
+    ).innerHTML =
+    coins + " 🪙";
+
+}
+
+
+function saveCoins(){
+
+    localStorage.setItem(
+        "gamimodCoins",
+        coins
+    );
+
+    updateCoins();
+
+}
+
+
+updateCoins();
+
+
+/* =========================
+   وضعیت کارت
+========================= */
+
+let used = false;
+
+
+/* =========================
+   انتخاب کارت
+========================= */
+
+function chooseCard(card){
+
+    if(used){
+
+        return;
+
+    }
+
+
+    used = true;
+
+
+    const buttons =
+    document.querySelectorAll(
+        ".card"
+    );
+
+
+    buttons.forEach(
+    function(button){
+
+        button.disabled = true;
+
+    });
+
+
+    /*
+       جایزه‌ها:
+
+       30٪ → 10 سکه
+       25٪ → 20 سکه
+       20٪ → 30 سکه
+       15٪ → 50 سکه
+       8٪  → 100 سکه
+       2٪  → 250 سکه
+    */
+
+
+    let random =
+    Math.random() * 100;
+
+
+    let reward;
+
+
+    if(random < 30){
+
+        reward = 10;
+
+    }
+
+    else if(random < 55){
+
+        reward = 20;
+
+    }
+
+    else if(random < 75){
+
+        reward = 30;
+
+    }
+
+    else if(random < 90){
+
+        reward = 50;
+
+    }
+
+    else if(random < 98){
+
+        reward = 100;
+
+    }
+
+    else{
+
+        reward = 250;
+
+    }
+
+
+    coins += reward;
+
+    saveCoins();
+
+
+    buttons.forEach(
+    function(button,index){
+
+        if(index === card){
+
+            button.innerHTML =
+            "🎁";
+
+        }
+
+        else{
+
+            button.innerHTML =
+            "❌";
+
+        }
+
+    });
+
+
+    document.getElementById(
+        "result"
+    ).innerHTML =
+    "🎉 کارتت باز شد!<br>" +
+    "🪙 جایزه: +" +
+    reward +
+    " سکه";
+
+}
+
+
+/* =========================
+   بازی دوباره
+========================= */
+
+function resetCards(){
+
+    used = false;
+
+
+    const buttons =
+    document.querySelectorAll(
+        ".card"
+    );
+
+
+    buttons.forEach(
+    function(button){
+
+        button.disabled = false;
+
+        button.innerHTML =
+        "❓";
+
+    });
+
+
+    document.getElementById(
+        "result"
+    ).innerHTML =
+    "🎁 یک کارت انتخاب کن!";
+
+}
+
+</script>
+</body>
+
+  </html>
