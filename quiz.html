@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🧠 بازی هوش | گیمی‌مود</title>
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:tahoma;
+    background:#101010;
+    color:white;
+    text-align:center;
+}
+
+header{
+    background:#00bcd4;
+    padding:20px;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.balance{
+    margin:20px;
+    padding:20px;
+    background:linear-gradient(135deg,#302b63,#24243e);
+    border-radius:20px;
+}
+
+.coins{
+    font-size:32px;
+    font-weight:bold;
+}
+
+.game{
+    width:92%;
+    max-width:600px;
+    margin:20px auto;
+    padding:25px 18px;
+    background:#202020;
+    border-radius:20px;
+    box-shadow:0 0 15px #000;
+}
+
+.question{
+    font-size:21px;
+    line-height:2;
+    margin-bottom:20px;
+}
+
+.answers{
+    display:grid;
+    gap:12px;
+}
+
+.answer{
+    padding:15px;
+    border:0;
+    border-radius:12px;
+    background:#333;
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+}
+
+.answer:hover{
+    background:#00bcd4;
+}
+
+.answer:disabled{
+    cursor:not-allowed;
+    opacity:.7;
+}
+
+.progress{
+    margin:15px;
+    color:#00e5ff;
+}
+
+.result{
+    margin-top:20px;
+    padding:15px;
+    background:#151515;
+    border-radius:12px;
+    line-height:2;
+}
+
+.start{
+    padding:14px 30px;
+    border:0;
+    border-radius:12px;
+    background:#00bcd4;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.back{
+    display:block;
+    width:230px;
+    margin:25px auto;
+    padding:14px;
+    background:#333;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+</style>
+</head>
+<body>
+<header>
+🧠 بازی هوش گیمی‌مود
+</header>
+<section class="balance">
+<h2>🐷 موجودی قلک</h2>
+<div class="coins" id="coins">
+0 🪙
+</div>
+</section>
+<section class="game">
+<div class="progress" id="progress">
+آماده شروع
+</div>
+<div class="question" id="question">
+برای شروع روی دکمه زیر بزن.
+</div>
+<div class="answers" id="answers">
+</div>
+<button
+class="start"
+id="startButton"
+onclick="startQuiz()">
+🧠 شروع بازی
+</button>
+<div class="result" id="result">
+هر جواب درست = ۲۰ 🪙
+</div>
+</section>
+<a class="back" href="coin.html">
+⬅️ برگشت به مرکز سرگرمی
+</a>
+<script>
+
+/* =========================
+   سکه مشترک
+========================= */
+
+let coins =
+Number(localStorage.getItem("gamimodCoins")) || 0;
+
+
+function updateCoins(){
+
+    document.getElementById(
+        "coins"
+    ).innerHTML =
+    coins + " 🪙";
+
+}
+
+
+function saveCoins(){
+
+    localStorage.setItem(
+        "gamimodCoins",
+        coins
+    );
+
+    updateCoins();
+
+}
+
+
+updateCoins();
+
+
+/* =========================
+   سوالات
+========================= */
+
+const questions = [
+
+{
+    q:"پایتخت ایران کدام شهر است؟",
+    a:["تهران","شیراز","تبریز","مشهد"],
+    correct:0
+},
+
+{
+    q:"۵ + ۷ چند می‌شود؟",
+    a:["۱۰","۱۱","۱۲","۱۳"],
+    correct:2
+},
+
+{
+    q:"کدام سیاره به خورشید نزدیک‌تر است؟",
+    a:["زمین","مریخ","عطارد","زحل"],
+    correct:2
+},
+
+{
+    q:"کدام حیوان به سلطان جنگل معروف است؟",
+    a:["فیل","شیر","گرگ","خرس"],
+    correct:1
+},
+
+{
+    q:"۱۰ × ۵ چند می‌شود؟",
+    a:["۳۰","۴۰","۵۰","۶۰"],
+    correct:2
+},
+
+{
+    q:"کدام رنگ از ترکیب آبی و زرد ساخته می‌شود؟",
+    a:["قرمز","سبز","بنفش","نارنجی"],
+    correct:1
+},
+
+{
+    q:"بزرگ‌ترین قاره جهان کدام است؟",
+    a:["آفریقا","اروپا","آسیا","استرالیا"],
+    correct:2
+},
+
+{
+    q:"یک ساعت چند دقیقه دارد؟",
+    a:["۳۰","۴۵","۶۰","۹۰"],
+    correct:2
+}
+
+];
+
+
+let current = 0;
+
+let score = 0;
+
+let playing = false;
+
+
+/* =========================
+   شروع
+========================= */
+
+function startQuiz(){
+
+    current = 0;
+
+    score = 0;
+
+    playing = true;
+
+
+    document.getElementById(
+        "startButton"
+    ).style.display =
+    "none";
+
+
+    document.getElementById(
+        "result"
+    ).innerHTML =
+    "🎯 جواب درست بده و سکه بگیر!";
+
+
+    showQuestion();
+
+}
+
+
+/* =========================
+   نمایش سوال
+========================= */
+
+function showQuestion(){
+
+    const data =
+    questions[current];
+
+
+    document.getElementById(
+        "progress"
+    ).innerHTML =
+    "سؤال " +
+    (current + 1) +
+    " از " +
+    questions.length;
+
+
+    document.getElementById(
+        "question"
+    ).innerHTML =
+    data.q;
+
+
+    const answers =
+    document.getElementById(
+        "answers"
+    );
+
+
+    answers.innerHTML = "";
+
+
+    data.a.forEach(
+    function(answer,index){
+
+        const button =
+        document.createElement(
+            "button"
+        );
+
+
+        button.className =
+        "answer";
+
+
+        button.innerHTML =
+        answer;
+
+
+        button.onclick =
+        function(){
+
+            checkAnswer(
+                index
+            );
+
+        };
+
+
+        answers.appendChild(
+            button
+        );
+
+    });
+
+}
+
+
+/* =========================
+   بررسی
+========================= */
+
+function checkAnswer(index){
+
+    if(!playing){
+
+        return;
+
+    }
+
+
+    const data =
+    questions[current];
+
+
+    const buttons =
+    document.querySelectorAll(
+        ".answer"
+    );
+
+
+    buttons.forEach(
+    function(button){
+
+        button.disabled =
+        true;
+
+    });
+
+
+    if(index === data.correct){
+
+        score++;
+
+
+        coins += 20;
+
+        saveCoins();
+
+
+        document.getElementById(
+            "result"
+        ).innerHTML =
+        "✅ جواب درست!<br>" +
+        "+20 🪙";
+
+    }
+
+    else{
+
+        document.getElementById(
+            "result"
+        ).innerHTML =
+        "❌ جواب اشتباه بود.<br>" +
+        "این سؤال سکه‌ای نداد.";
+
+    }
+
+
+    setTimeout(
+    function(){
+
+        current++;
+
+
+        if(
+            current >=
+            questions.length
+        ){
+
+            finishQuiz();
+
+        }
+
+        else{
+
+            showQuestion();
+
+        }
+
+    },1000);
+
+}
+
+
+/* =========================
+   پایان
+========================= */
+
+function finishQuiz(){
+
+    playing = false;
+
+
+    document.getElementById(
+        "question"
+    ).innerHTML =
+    "🎉 بازی تمام شد!";
+
+
+    document.getElementById(
+        "progress"
+    ).innerHTML =
+    "نتیجه نهایی";
+
+
+    document.getElementById(
+        "answers"
+    ).innerHTML = "";
+
+
+    document.getElementById(
+        "result"
+    ).innerHTML =
+    "🧠 جواب درست: " +
+    score +
+    " از " +
+    questions.length +
+    "<br>" +
+    "🪙 سکه‌های این دور: " +
+    (score * 20);
+
+
+    document.getElementById(
+        "startButton"
+    ).style.display =
+    "inline-block";
+
+}
+
+</script>
+</body>
+
+  </html>
