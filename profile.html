@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>👤 پروفایل | GAMIMOD</title>
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+padding-bottom:85px;
+font-family:tahoma;
+background:#101010;
+color:white;
+}
+
+header{
+padding:22px;
+text-align:center;
+background:linear-gradient(135deg,#00bcd4,#006b7a);
+font-size:27px;
+font-weight:bold;
+}
+
+.profile{
+width:94%;
+max-width:700px;
+margin:25px auto;
+}
+
+.avatar{
+width:110px;
+height:110px;
+margin:auto;
+border-radius:50%;
+background:#202020;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:55px;
+border:3px solid #00e5ff;
+}
+
+.name{
+text-align:center;
+font-size:24px;
+font-weight:bold;
+margin-top:15px;
+}
+
+.subtitle{
+text-align:center;
+color:#aaa;
+margin-top:7px;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+margin-top:25px;
+}
+
+.stat{
+background:#202020;
+padding:20px;
+border-radius:16px;
+text-align:center;
+box-shadow:0 0 10px #000;
+}
+
+.stat-icon{
+font-size:32px;
+}
+
+.stat-title{
+color:#aaa;
+margin-top:8px;
+}
+
+.stat-value{
+font-size:22px;
+font-weight:bold;
+color:#00e5ff;
+margin-top:5px;
+}
+
+.card{
+background:#202020;
+padding:20px;
+border-radius:16px;
+margin-top:15px;
+box-shadow:0 0 10px #000;
+text-align:center;
+}
+
+.card h2{
+color:#00e5ff;
+margin-top:0;
+}
+
+.home{
+display:block;
+width:230px;
+margin:25px auto;
+padding:14px;
+background:#00bcd4;
+color:white;
+text-decoration:none;
+border-radius:12px;
+text-align:center;
+font-weight:bold;
+}
+
+.bottom{
+position:fixed;
+bottom:0;
+right:0;
+left:0;
+height:75px;
+display:flex;
+justify-content:space-around;
+align-items:center;
+background:#181818;
+border-top:2px solid #333;
+z-index:100;
+}
+
+.nav{
+color:#aaa;
+text-decoration:none;
+text-align:center;
+font-size:12px;
+padding:5px;
+}
+
+.nav span{
+display:block;
+font-size:27px;
+margin-bottom:3px;
+}
+
+.nav.active{
+color:#00e5ff;
+font-weight:bold;
+}
+
+@media(max-width:500px){
+
+.stats{
+grid-template-columns:1fr 1fr;
+}
+
+}
+
+</style>
+</head>
+<body>
+<header>
+👤 پروفایل من
+</header>
+<div class="profile">
+<div class="avatar">
+👤
+</div>
+<div class="name">
+بازیکن گیمی‌مود
+</div>
+<div class="subtitle">
+🎮 خوش آمدی به پروفایل خودت
+</div>
+<div class="stats">
+<div class="stat">
+<div class="stat-icon">
+💰
+</div>
+<div class="stat-title">
+سکه
+</div>
+<div class="stat-value" id="coins">
+0
+</div>
+</div>
+<div class="stat">
+<div class="stat-icon">
+💎
+</div>
+<div class="stat-title">
+الماس
+</div>
+<div class="stat-value" id="diamonds">
+0
+</div>
+</div>
+<div class="stat">
+<div class="stat-icon">
+🎮
+</div>
+<div class="stat-title">
+بازی‌ها
+</div>
+<div class="stat-value">
+100
+</div>
+</div>
+<div class="stat">
+<div class="stat-icon">
+🏆
+</div>
+<div class="stat-title">
+امتیاز
+</div>
+<div class="stat-value">
+0
+</div>
+</div>
+</div>
+<div class="card">
+<h2>
+🔥 وضعیت حساب
+</h2>
+<p>
+حساب شما فعال است.
+</p>
+<p>
+🎮 از بازی‌های GAMIMOD لذت ببر!
+</p>
+</div>
+<a class="home" href="index.html">
+🏠 برگشت به خانه
+</a>
+</div>
+<nav class="bottom">
+<a class="nav" href="index.html">
+<span>🏠</span>
+خانه
+</a>
+<a class="nav" href="games.html">
+<span>🎮</span>
+بازی‌ها
+</a>
+<a class="nav active" href="profile.html">
+<span>👤</span>
+پروفایل
+</a>
+</nav>
+<script>
+
+let coins =
+Number(localStorage.getItem("coins"));
+
+if(!Number.isFinite(coins)){
+coins = 30000;
+}
+
+let diamonds =
+Number(localStorage.getItem("diamonds"));
+
+if(!Number.isFinite(diamonds)){
+diamonds = 0;
+}
+
+document.getElementById("coins").textContent =
+coins.toLocaleString("fa-IR");
+
+document.getElementById("diamonds").textContent =
+diamonds.toLocaleString("fa-IR");
+
+</script>
+</body>
+</html>
