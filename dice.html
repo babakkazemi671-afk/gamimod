@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🎲 تاس | گیمی‌مود</title>
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:tahoma;
+    background:#101010;
+    color:white;
+    text-align:center;
+}
+
+header{
+    background:#00bcd4;
+    padding:20px;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.balance{
+    margin:20px;
+    padding:20px;
+    background:linear-gradient(135deg,#302b63,#24243e);
+    border-radius:20px;
+}
+
+.coins{
+    font-size:32px;
+    font-weight:bold;
+}
+
+.game{
+    width:92%;
+    max-width:600px;
+    margin:20px auto;
+    padding:25px 15px;
+    background:#202020;
+    border-radius:20px;
+    box-shadow:0 0 15px #000;
+}
+
+.dice{
+    width:130px;
+    height:130px;
+    margin:25px auto;
+    background:white;
+    color:#111;
+    border-radius:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:80px;
+    box-shadow:0 0 15px #000;
+}
+
+.number-buttons{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    max-width:400px;
+    margin:20px auto;
+}
+
+.number{
+    padding:15px;
+    border:0;
+    border-radius:12px;
+    background:#333;
+    color:white;
+    font-size:20px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.number:hover{
+    background:#00bcd4;
+}
+
+.number:disabled{
+    background:#555;
+    cursor:not-allowed;
+}
+
+.roll{
+    padding:14px 30px;
+    border:0;
+    border-radius:12px;
+    background:#00bcd4;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.roll:disabled{
+    background:#555;
+}
+
+.result{
+    margin-top:20px;
+    padding:15px;
+    background:#151515;
+    border-radius:12px;
+    line-height:2;
+}
+
+.back{
+    display:block;
+    width:230px;
+    margin:25px auto;
+    padding:14px;
+    background:#333;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+</style>
+</head>
+<body>
+<header>
+🎲 تاس گیمی‌مود
+</header>
+<section class="balance">
+<h2>🐷 موجودی قلک</h2>
+<div class="coins" id="coins">
+0 🪙
+</div>
+</section>
+<section class="game">
+<h2>🎯 عدد تاس را حدس بزن!</h2>
+<p>
+اول یک عدد از ۱ تا ۶ انتخاب کن، سپس تاس را بینداز.
+</p>
+<div class="dice" id="dice">
+🎲
+</div>
+<div class="number-buttons">
+<button class="number" onclick="choose(1)">1</button>
+<button class="number" onclick="choose(2)">2</button>
+<button class="number" onclick="choose(3)">3</button>
+<button class="number" onclick="choose(4)">4</button>
+<button class="number" onclick="choose(5)">5</button>
+<button class="number" onclick="choose(6)">6</button>
+</div>
+<button
+class="roll"
+id="rollButton"
+onclick="rollDice()"
+disabled>
+🎲 انداختن تاس
+</button>
+<div class="result" id="result">
+یک عدد انتخاب کن!
+</div>
+</section>
+<a class="back" href="coin.html">
+⬅️ برگشت به مرکز سرگرمی
+</a>
+<script>
+
+/* =========================
+   سکه مشترک
+========================= */
+
+let coins =
+Number(localStorage.getItem("gamimodCoins")) || 0;
+
+
+function updateCoins(){
+
+    document.getElementById(
+        "coins"
+    ).innerHTML =
+    coins + " 🪙";
+
+}
+
+
+function saveCoins(){
+
+    localStorage.setItem(
+        "gamimodCoins",
+        coins
+    );
+
+    updateCoins();
+
+}
+
+
+updateCoins();
+
+
+/* =========================
+   بازی
+========================= */
+
+let selected = 0;
+
+let playing = false;
+
+
+function choose(number){
+
+    if(playing){
+
+        return;
+
+    }
+
+
+    selected = number;
+
+
+    const buttons =
+    document.querySelectorAll(
+        ".number"
+    );
+
+
+    buttons.forEach(
+    function(button){
+
+        button.style.background =
+        "#333";
+
+    });
+
+
+    buttons[number - 1].style.background =
+    "#00bcd4";
+
+
+    document.getElementById(
+        "rollButton"
+    ).disabled = false;
+
+
+    document.getElementById(
+        "result"
+    ).innerHTML =
+    "🎯 عدد " +
+    number +
+    " را انتخاب کردی.<br>" +
+    "حالا تاس را بینداز!";
+
+}
+
+
+/* =========================
+   انداختن تاس
+========================= */
+
+function rollDice(){
+
+    if(
+        selected === 0 ||
+        playing
+    ){
+
+        return;
+
+    }
+
+
+    playing = true;
+
+
+    document.getElementById(
+        "rollButton"
+    ).disabled = true;
+
+
+    const buttons =
+    document.querySelectorAll(
+        ".number"
+    );
+
+
+    buttons.forEach(
+    function(button){
+
+        button.disabled = true;
+
+    });
+
+
+    let rolls = 0;
+
+
+    let animation =
+    setInterval(function(){
+
+        let fake =
+        Math.floor(
+            Math.random() * 6
+        ) + 1;
+
+
+        showDice(fake);
+
+
+        rolls++;
+
+
+        if(rolls >= 12){
+
+            clearInterval(animation);
+
+            finishRoll();
+
+        }
+
+    },100);
+
+}
+
+
+/* =========================
+   نمایش تاس
+========================= */
+
+function showDice(number){
+
+    const faces = [
+        "⚀",
+        "⚁",
+        "⚂",
+        "⚃",
+        "⚄",
+        "⚅"
+    ];
+
+
+    document.getElementById(
+        "dice"
+    ).innerHTML =
+    faces[number - 1];
+
+}
+
+
+/* =========================
+   نتیجه
+========================= */
+
+function finishRoll(){
+
+    let result =
+    Math.floor(
+        Math.random() * 6
+    ) + 1;
+
+
+    showDice(result);
+
+
+    if(result === selected){
+
+        coins += 50;
+
+        saveCoins();
+
+
+        document.getElementById(
+            "result"
+        ).innerHTML =
+        "🎉 درست حدس زدی!<br>" +
+        "🎲 عدد تاس: " +
+        result +
+        "<br>" +
+        "🏆 +50 🪙";
+
+    }
+
+    else{
+
+        document.getElementById(
+            "result"
+        ).innerHTML =
+        "❌ اشتباه بود!<br>" +
+        "🎲 عدد تاس: " +
+        result +
+        "<br>" +
+        "این بار سکه‌ای نگرفتی.";
+
+    }
+
+
+    selected = 0;
+
+    playing = false;
+
+
+    const buttons =
+    document.querySelectorAll(
+        ".number"
+    );
+
+
+    buttons.forEach(
+    function(button){
+
+        button.disabled = false;
+
+        button.style.background =
+        "#333";
+
+    });
+
+
+    document.getElementById(
+        "rollButton"
+    ).disabled = true;
+
+}
+
+</script>
+</body>
+  </html>
