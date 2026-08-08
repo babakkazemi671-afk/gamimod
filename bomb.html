@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>💣 فرار از بمب | GAMIMOD</title>
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:tahoma;
+background:#09090d;
+color:white;
+text-align:center;
+padding-bottom:30px;
+}
+
+header{
+padding:22px 15px;
+background:linear-gradient(135deg,#e53935,#7f0000);
+box-shadow:0 4px 15px #000;
+}
+
+header h1{
+margin:0;
+font-size:27px;
+}
+
+header p{
+margin:8px 0 0;
+color:#ffdede;
+}
+
+.wallet{
+width:94%;
+max-width:500px;
+margin:15px auto;
+display:flex;
+gap:10px;
+}
+
+.money{
+flex:1;
+background:#1c1c23;
+padding:13px;
+border-radius:14px;
+font-weight:bold;
+}
+
+.coin{
+color:#ffd700;
+}
+
+.best{
+color:#00e5ff;
+}
+
+.game{
+width:94%;
+max-width:520px;
+margin:15px auto;
+background:#17171e;
+border-radius:22px;
+padding:22px;
+box-shadow:0 5px 20px #000;
+}
+
+.bomb{
+font-size:90px;
+margin:5px;
+animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1)}
+50%{transform:scale(1.08)}
+100%{transform:scale(1)}
+}
+
+.timer{
+font-size:28px;
+font-weight:bold;
+color:#ff5252;
+margin:10px;
+}
+
+.level{
+color:#00e5ff;
+font-size:20px;
+font-weight:bold;
+}
+
+.instruction{
+line-height:1.9;
+color:#ccc;
+margin:12px 0 18px;
+}
+
+.wires{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+}
+
+.wire{
+border:0;
+min-height:65px;
+border-radius:15px;
+font-family:tahoma;
+font-weight:bold;
+font-size:17px;
+color:white;
+cursor:pointer;
+box-shadow:0 4px 10px #000;
+}
+
+.red{
+background:#d32f2f;
+}
+
+.blue{
+background:#1976d2;
+}
+
+.green{
+background:#388e3c;
+}
+
+.yellow{
+background:#f9a825;
+color:#111;
+}
+
+.purple{
+background:#7b1fa2;
+}
+
+.orange{
+background:#ef6c00;
+}
+
+.start{
+border:0;
+background:#00c853;
+color:white;
+padding:15px 35px;
+border-radius:30px;
+font-family:tahoma;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.start:active,
+.wire:active{
+transform:scale(.96);
+}
+
+.message{
+min-height:50px;
+margin-top:18px;
+line-height:1.8;
+font-weight:bold;
+}
+
+.reward{
+color:#ffd700;
+font-size:19px;
+}
+
+.back{
+display:block;
+width:230px;
+margin:20px auto;
+padding:13px;
+background:#333;
+color:white;
+text-decoration:none;
+border-radius:12px;
+font-weight:bold;
+}
+
+.hidden{
+display:none;
+}
+
+@media(max-width:420px){
+
+.game{
+padding:16px;
+}
+
+.bomb{
+font-size:75px;
+}
+
+.wire{
+font-size:15px;
+}
+
+}
+
+</style>
+</head>
+<body>
+<header>
+<h1>💣 فرار از بمب</h1>
+<p>سیم درست را پیدا کن و بمب را خنثی کن!</p>
+</header>
+<div class="wallet">
+<div class="money coin">
+💰 سکه:
+<span id="coins">0</span>
+</div>
+<div class="money best">
+🏆 رکورد:
+<span id="best">0</span>
+</div>
+</div>
+<div class="game">
+<div class="bomb" id="bomb">
+💣
+</div>
+<div class="level">
+مرحله <span id="level">1</span>
+</div>
+<div class="timer">
+⏱️ <span id="timer">20</span>
+</div>
+<div class="instruction">
+سیم درست را انتخاب کن!<br>
+اگر اشتباه بزنی یا زمان تمام شود، بازی تمام می‌شود.
+</div>
+<div
+id="startArea">
+<button
+class="start"
+onclick="startGame()">
+▶️ شروع بازی
+</button>
+</div>
+<div
+id="wireArea"
+class="wires hidden">
+</div>
+<div
+id="message"
+class="message">
+برای شروع روی دکمه بزن 👆
+</div>
+</div>
+<a
+class="back"
+href="games.html">
+⬅️ برگشت به بازی‌ها
+</a>
+<script>
+
+/* =========================
+   اطلاعات بازیکن
+========================= */
+
+let coins =
+Number(localStorage.getItem("coins")) || 0;
+
+let best =
+Number(localStorage.getItem("bombBest")) || 0;
+
+let level=1;
+
+let correctWire=0;
+
+let time=20;
+
+let timerInterval=null;
+
+let playing=false;
+
+
+/* نمایش */
+
+document.getElementById("coins")
+.textContent=
+coins.toLocaleString("fa-IR");
+
+document.getElementById("best")
+.textContent=
+best.toLocaleString("fa-IR");
+
+
+/* =========================
+   رنگ سیم‌ها
+========================= */
+
+const wires=[
+
+{
+name:"قرمز",
+class:"red"
+},
+
+{
+name:"آبی",
+class:"blue"
+},
+
+{
+name:"سبز",
+class:"green"
+},
+
+{
+name:"زرد",
+class:"yellow"
+},
+
+{
+name:"بنفش",
+class:"purple"
+},
+
+{
+name:"نارنجی",
+class:"orange"
+}
+
+];
+
+
+/* =========================
+   شروع
+========================= */
+
+function startGame(){
+
+level=1;
+
+playing=true;
+
+document.getElementById(
+"startArea"
+).classList.add("hidden");
+
+document.getElementById(
+"wireArea"
+).classList.remove("hidden");
+
+document.getElementById(
+"message"
+).textContent=
+"💣 سریع باش! سیم درست را پیدا کن.";
+
+startLevel();
+
+}
+
+
+/* =========================
+   شروع مرحله
+========================= */
+
+function startLevel(){
+
+clearInterval(timerInterval);
+
+document.getElementById(
+"level"
+).textContent=
+level.toLocaleString("fa-IR");
+
+
+/* زمان */
+
+time=
+Math.max(
+7,
+20-Math.floor(level/3)
+);
+
+document.getElementById(
+"timer"
+).textContent=
+time.toLocaleString("fa-IR");
+
+
+/* انتخاب سیم صحیح */
+
+correctWire=
+Math.floor(
+Math.random()*wires.length
+);
+
+
+/* ساخت دکمه‌ها */
+
+const area=
+document.getElementById(
+"wireArea"
+);
+
+area.innerHTML="";
+
+
+/* ترتیب تصادفی */
+
+let order=
+[0,1,2,3,4,5]
+.sort(
+()=>Math.random()-.5
+);
+
+
+order.forEach(index=>{
+
+const button=
+document.createElement("button");
+
+button.className=
+"wire "+
+wires[index].class;
+
+button.textContent=
+"✂️ "+wires[index].name;
+
+button.onclick=
+function(){
+
+cutWire(index);
+
+};
+
+area.appendChild(button);
+
+});
+
+
+/* تایمر */
+
+timerInterval=
+setInterval(()=>{
+
+time--;
+
+document.getElementById(
+"timer"
+).textContent=
+time.toLocaleString("fa-IR");
+
+
+if(time<=0){
+
+gameOver(
+"⏰ زمان تمام شد!"
+);
+
+}
+
+},1000);
+
+}
+
+
+/* =========================
+   انتخاب سیم
+========================= */
+
+function cutWire(index){
+
+if(!playing)return;
+
+
+if(index===correctWire){
+
+/* برد مرحله */
+
+clearInterval(timerInterval);
+
+let reward=
+100+(level*25);
+
+coins+=reward;
+
+localStorage.setItem(
+"coins",
+coins
+);
+
+if(level>best){
+
+best=level;
+
+localStorage.setItem(
+"bombBest",
+best
+);
+
+document.getElementById(
+"best"
+).textContent=
+best.toLocaleString("fa-IR");
+
+}
+
+
+document.getElementById(
+"coins"
+).textContent=
+coins.toLocaleString("fa-IR");
+
+
+document.getElementById(
+"message"
+).innerHTML=
+"✅ بمب خنثی شد!<br>"+
+'<span class="reward">💰 +'+
+reward.toLocaleString("fa-IR")+
+" سکه</span>";
+
+
+level++;
+
+setTimeout(()=>{
+
+if(playing){
+
+startLevel();
+
+}
+
+},1200);
+
+}
+else{
+
+gameOver(
+"💥 وای! سیم اشتباه را بریدی!"
+);
+
+}
+
+}
+
+
+/* =========================
+   پایان
+========================= */
+
+function gameOver(reason){
+
+clearInterval(timerInterval);
+
+playing=false;
+
+document.getElementById(
+"wireArea"
+).classList.add("hidden");
+
+
+document.getElementById(
+"bomb"
+).textContent="💥";
+
+
+document.getElementById(
+"message"
+).innerHTML=
+reason+
+"<br><br>"+
+"🏆 تا مرحله "+
+level+
+" رسیدی.";
+
+
+setTimeout(()=>{
+
+document.getElementById(
+"bomb"
+).textContent="💣";
+
+document.getElementById(
+"startArea"
+).classList.remove("hidden");
+
+document.getElementById(
+"message"
+).textContent=
+"دوباره امتحان کن! 🔥";
+
+},1800);
+
+}
+
+</script>
+</body>
+  </html>
