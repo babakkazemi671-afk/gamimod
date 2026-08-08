@@ -20,27 +20,27 @@ padding-bottom:30px;
 
 header{
 background:linear-gradient(135deg,#00bcd4,#006b7a);
-padding:25px 15px;
+padding:25px;
 text-align:center;
 }
 
 header h1{
-margin:0 0 10px;
+margin:0;
 font-size:28px;
 }
 
 header p{
-margin:0;
 color:#dffaff;
 }
 
 .games{
 width:94%;
 max-width:1100px;
-margin:25px auto;
+margin:20px auto;
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-gap:16px;
+grid-template-columns:
+repeat(auto-fit,minmax(210px,1fr));
+gap:15px;
 }
 
 .card{
@@ -49,6 +49,7 @@ padding:20px;
 border-radius:20px;
 text-align:center;
 box-shadow:0 5px 15px #000;
+border:1px solid #292930;
 transition:.2s;
 }
 
@@ -57,64 +58,51 @@ transform:translateY(-4px);
 }
 
 .icon{
-width:100px;
 height:100px;
-margin:0 auto 15px;
-border-radius:25px;
-background:linear-gradient(135deg,#252535,#101018);
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:55px;
-box-shadow:inset 0 0 15px #000;
+font-size:58px;
+background:linear-gradient(135deg,#252535,#111118);
+border-radius:15px;
+margin-bottom:15px;
 }
 
 .card h2{
-margin:10px 0;
 color:#00e5ff;
-font-size:20px;
+font-size:19px;
 }
 
-.description{
-color:#ddd;
-line-height:1.9;
-min-height:55px;
-}
-
-.type{
-display:inline-block;
-margin:10px 0;
-padding:6px 10px;
-border-radius:10px;
-background:#292936;
-color:#aaa;
-font-size:13px;
+.info{
+color:#ccc;
+line-height:2;
+font-size:14px;
 }
 
 .btn{
-display:block;
-background:#00ff99;
-color:#06140f;
-padding:12px;
-border-radius:13px;
+display:inline-block;
+background:#00e5ff;
+color:#001014;
+padding:12px 25px;
+border-radius:25px;
 text-decoration:none;
 font-weight:bold;
-margin-top:10px;
+margin-top:8px;
 }
 
 .btn:hover{
-background:#00e5ff;
+background:#00ff99;
 }
 
 .back{
 display:block;
-width:240px;
-margin:30px auto;
+width:230px;
+margin:25px auto;
 padding:14px;
-background:#252525;
+background:#333;
 color:white;
 text-decoration:none;
-border-radius:13px;
+border-radius:12px;
 text-align:center;
 font-weight:bold;
 }
@@ -125,215 +113,185 @@ font-weight:bold;
 <header>
 <h1>🎮 بازی‌های GAMIMOD</h1>
 <p>
-بازی کن، سرگرم شو و رکورد بزن!
+بازی‌های رایگان و سرگرم‌کننده برای موبایل
 </p>
 </header>
 <div class="games">
 <!-- 1 -->
 <div class="card">
 <div class="icon">🧠</div>
-<h2>بازی هوش</h2>
-<div class="description">
-سؤال‌های فکری و معماهای مختلف را حل کن.
-</div>
-<div class="type">
-🧩 فکری
+<h2>🧠 بازی هوش</h2>
+<div class="info">
+🧩 معمای هوشی<br>
+⭐ فکری
 </div>
 <a class="btn" href="quiz.html">
-🎮 بازی
+🎮 بازی کن
 </a>
 </div>
 <!-- 2 -->
 <div class="card">
 <div class="icon">🎲</div>
-<h2>تاس شانس</h2>
-<div class="description">
-تاس بنداز و ببین چه عددی نصیبت می‌شود.
-</div>
-<div class="type">
-🍀 شانسی
+<h2>🎲 تاس شانس</h2>
+<div class="info">
+🎲 تاس بنداز<br>
+⭐ شانسی
 </div>
 <a class="btn" href="dice.html">
-🎮 بازی
+🎮 بازی کن
 </a>
 </div>
 <!-- 3 -->
 <div class="card">
 <div class="icon">🪙</div>
-<h2>شیر یا خط</h2>
-<div class="description">
-حدس بزن سکه شیر می‌آید یا خط.
-</div>
-<div class="type">
-🍀 شانسی
+<h2>🪙 شیر یا خط</h2>
+<div class="info">
+🪙 انتخاب کن<br>
+⭐ شانسی
 </div>
 <a class="btn" href="coin.html">
-🎮 بازی
+🎮 بازی کن
 </a>
 </div>
 <!-- 4 -->
 <div class="card">
 <div class="icon">🧩</div>
-<h2>پازل</h2>
-<div class="description">
-قطعه‌ها را درست کنار هم قرار بده.
-</div>
-<div class="type">
-🧠 فکری
+<h2>🧩 پازل</h2>
+<div class="info">
+🧩 پازل حل کن<br>
+⭐ فکری
 </div>
 <a class="btn" href="puzzle.html">
-🎮 بازی
+🎮 بازی کن
 </a>
 </div>
 <!-- 5 -->
 <div class="card">
 <div class="icon">⚽</div>
-<h2>پنالتی</h2>
-<div class="description">
-شوت بزن و دروازه‌بان را شکست بده.
-</div>
-<div class="type">
-⚽ ورزشی
+<h2>⚽ پنالتی</h2>
+<div class="info">
+⚽ گل بزن<br>
+⭐ ورزشی
 </div>
 <a class="btn" href="penalty.html">
-🎮 بازی
+🎮 بازی کن
 </a>
 </div>
 <!-- 6 -->
 <div class="card">
 <div class="icon">🎯</div>
-<h2>تیراندازی</h2>
-<div class="description">
-هدف‌ها را بزن و رکورد خودت را بالا ببر.
-</div>
-<div class="type">
-🎯 رکوردی
+<h2>🎯 تیراندازی</h2>
+<div class="info">
+🎯 هدف را بزن<br>
+⭐ رکوردی
 </div>
 <a class="btn" href="shooting.html">
-🎮 بازی
+🎮 بازی کن
 </a>
 </div>
 <!-- 7 -->
 <div class="card">
 <div class="icon">🎯</div>
-<h2>هدف‌گیری</h2>
-<div class="description">
-با سرعت و دقت هدف‌های مختلف را بزن.
-</div>
-<div class="type">
-⚡ مهارتی
+<h2>🎯 هدف‌گیری</h2>
+<div class="info">
+⚡ سرعت عمل<br>
+🏆 رکوردی
 </div>
 <a class="btn" href="target.html">
-🎮 بازی
+🎮 بازی کن
 </a>
 </div>
 <!-- 8 -->
 <div class="card">
 <div class="icon">🃏</div>
-<h2>کارت‌ها</h2>
-<div class="description">
-یک کارت انتخاب کن و شانس خودت را امتحان کن.
-</div>
-<div class="type">
-🍀 شانسی
+<h2>🃏 کارت‌ها</h2>
+<div class="info">
+🃏 کارت انتخاب کن<br>
+⭐ شانس
 </div>
 <a class="btn" href="cards.html">
-🎮 بازی
+🎮 بازی کن
 </a>
 </div>
 <!-- 9 -->
 <div class="card">
 <div class="icon">💰</div>
-<h2>شکار سکه</h2>
-<div class="description">
-سکه‌ها را جمع کن و رکورد بزن.
-</div>
-<div class="type">
-💰 رکوردی
+<h2>💰 شکار سکه</h2>
+<div class="info">
+💰 سکه جمع کن<br>
+🏆 رکورد بزن
 </div>
 <a class="btn" href="coinhunt.html">
-🎮 بازی
+🎮 بازی کن
 </a>
 </div>
 <!-- 10 -->
 <div class="card">
 <div class="icon">🎡</div>
-<h2>گردونه شانس</h2>
-<div class="description">
-گردونه را بچرخان و جایزه خودت را بگیر.
-</div>
-<div class="type">
-🎁 جایزه
+<h2>🎡 گردونه شانس</h2>
+<div class="info">
+🎡 گردونه جایزه<br>
+⭐ شانس
 </div>
 <a class="btn" href="wheel.html">
-🎮 بازی
+🎮 بازی کن
 </a>
 </div>
 <!-- 11 -->
 <div class="card">
 <div class="icon">👀</div>
-<h2>حافظه</h2>
-<div class="description">
-کارت‌های مشابه را پیدا کن و حافظه‌ات را امتحان کن.
-</div>
-<div class="type">
-🧠 فکری
+<h2>👀 حافظه</h2>
+<div class="info">
+🧠 حافظه‌ات را امتحان کن<br>
+⭐ فکری
 </div>
 <a class="btn" href="memory.html">
-🎮 بازی
+🎮 بازی کن
 </a>
 </div>
 <!-- 12 -->
 <div class="card">
 <div class="icon">⚽</div>
-<h2>فوتبال</h2>
-<div class="description">
-یک بازی فوتبالی سرگرم‌کننده انجام بده.
-</div>
-<div class="type">
-⚽ ورزشی
+<h2>⚽ فوتبال</h2>
+<div class="info">
+⚽ بازی فوتبالی<br>
+⭐ ورزشی
 </div>
 <a class="btn" href="football.html">
-🎮 بازی
+🎮 بازی کن
 </a>
 </div>
 <!-- 13 -->
 <div class="card">
 <div class="icon">🏆</div>
-<h2>لیگ</h2>
-<div class="description">
-در رقابت‌های فوتبالی شرکت کن و امتیاز بگیر.
-</div>
-<div class="type">
-🏆 ورزشی
+<h2>🏆 لیگ</h2>
+<div class="info">
+🏆 رقابت فوتبالی<br>
+⭐ ورزشی
 </div>
 <a class="btn" href="league.html">
-🎮 بازی
+🎮 بازی کن
 </a>
 </div>
 <!-- 14 -->
 <div class="card">
 <div class="icon">🏆</div>
-<h2>جام حذفی</h2>
-<div class="description">
-مسابقات حذفی را انجام بده و قهرمان شو.
-</div>
-<div class="type">
-🏆 ورزشی
+<h2>🏆 جام حذفی</h2>
+<div class="info">
+🏆 مسابقات حذفی<br>
+⭐ ورزشی
 </div>
 <a class="btn" href="hazfi.html">
-🎮 بازی
+🎮 بازی کن
 </a>
 </div>
 <!-- 15 -->
 <div class="card">
 <div class="icon">🏀</div>
-<h2>بسکتبال</h2>
-<div class="description">
-توپ را داخل سبد بینداز و امتیاز بگیر.
-</div>
-<div class="type">
-🏀 ورزشی
+<h2>🏀 بسکتبال</h2>
+<div class="info">
+🏀 پرتاب توپ<br>
+⭐ ورزشی
 </div>
 <a class="btn" href="#">
 🎮 به‌زودی
@@ -342,12 +300,10 @@ font-weight:bold;
 <!-- 16 -->
 <div class="card">
 <div class="icon">🏎️</div>
-<h2>مسابقه ماشین</h2>
-<div class="description">
-با سرعت حرکت کن و از رقیب جلو بزن.
-</div>
-<div class="type">
-🏎️ سرعتی
+<h2>🏎️ مسابقه ماشین</h2>
+<div class="info">
+🏎️ مسابقه بده<br>
+⭐ سرعتی
 </div>
 <a class="btn" href="#">
 🎮 به‌زودی
@@ -355,13 +311,11 @@ font-weight:bold;
 </div>
 <!-- 17 -->
 <div class="card">
-<div class="icon">🐍</div>
-<h2>مار</h2>
-<div class="description">
-سکه‌ها را جمع کن و طول مار را بیشتر کن.
-</div>
-<div class="type">
-🐍 کلاسیک
+<div class="icon">🏍️</div>
+<h2>🏍️ موتورسواری</h2>
+<div class="info">
+🏍️ از موانع رد شو<br>
+⭐ سرعتی
 </div>
 <a class="btn" href="#">
 🎮 به‌زودی
@@ -369,13 +323,11 @@ font-weight:bold;
 </div>
 <!-- 18 -->
 <div class="card">
-<div class="icon">🚀</div>
-<h2>نبرد فضایی</h2>
-<div class="description">
-در فضا حرکت کن و دشمن‌ها را شکست بده.
-</div>
-<div class="type">
-🚀 اکشن
+<div class="icon">🐍</div>
+<h2>🐍 مار</h2>
+<div class="info">
+🐍 رکورد بزن<br>
+⭐ کلاسیک
 </div>
 <a class="btn" href="#">
 🎮 به‌زودی
@@ -383,13 +335,11 @@ font-weight:bold;
 </div>
 <!-- 19 -->
 <div class="card">
-<div class="icon">🧟</div>
-<h2>زامبی‌کش</h2>
-<div class="description">
-در برابر موج زامبی‌ها مقاومت کن.
-</div>
-<div class="type">
-🧟 اکشن
+<div class="icon">🚀</div>
+<h2>🚀 نبرد فضایی</h2>
+<div class="info">
+🚀 دشمن‌ها را شکست بده<br>
+⭐ اکشن
 </div>
 <a class="btn" href="#">
 🎮 به‌زودی
@@ -397,13 +347,11 @@ font-weight:bold;
 </div>
 <!-- 20 -->
 <div class="card">
-<div class="icon">🏹</div>
-<h2>کماندار</h2>
-<div class="description">
-با تیر و کمان به هدف‌ها شلیک کن.
-</div>
-<div class="type">
-🏹 مهارتی
+<div class="icon">🧟</div>
+<h2>🧟 زامبی‌کش</h2>
+<div class="info">
+🧟 زامبی‌ها را شکست بده<br>
+⭐ اکشن
 </div>
 <a class="btn" href="#">
 🎮 به‌زودی
@@ -411,13 +359,11 @@ font-weight:bold;
 </div>
 <!-- 21 -->
 <div class="card">
-<div class="icon">🎣</div>
-<h2>ماهیگیری</h2>
-<div class="description">
-ماهی بگیر و رکورد خودت را ثبت کن.
-</div>
-<div class="type">
-🎣 سرگرمی
+<div class="icon">🏹</div>
+<h2>🏹 کماندار</h2>
+<div class="info">
+🏹 به هدف بزن<br>
+⭐ مهارتی
 </div>
 <a class="btn" href="#">
 🎮 به‌زودی
@@ -425,13 +371,11 @@ font-weight:bold;
 </div>
 <!-- 22 -->
 <div class="card">
-<div class="icon">🍔</div>
-<h2>همبرگرساز</h2>
-<div class="description">
-سفارش مشتری‌ها را سریع آماده کن.
-</div>
-<div class="type">
-🍔 آشپزی
+<div class="icon">🎣</div>
+<h2>🎣 ماهیگیری</h2>
+<div class="info">
+🎣 ماهی بگیر<br>
+⭐ سرگرمی
 </div>
 <a class="btn" href="#">
 🎮 به‌زودی
@@ -439,13 +383,11 @@ font-weight:bold;
 </div>
 <!-- 23 -->
 <div class="card">
-<div class="icon">🍕</div>
-<h2>پیتزاساز</h2>
-<div class="description">
-پیتزا درست کن و سفارش‌ها را تحویل بده.
-</div>
-<div class="type">
-🍕 آشپزی
+<div class="icon">🍔</div>
+<h2>🍔 همبرگرساز</h2>
+<div class="info">
+🍔 سفارش آماده کن<br>
+⭐ آشپزی
 </div>
 <a class="btn" href="#">
 🎮 به‌زودی
@@ -453,13 +395,11 @@ font-weight:bold;
 </div>
 <!-- 24 -->
 <div class="card">
-<div class="icon">🍰</div>
-<h2>کیک‌ساز</h2>
-<div class="description">
-کیک‌های مختلف درست کن و امتیاز بگیر.
-</div>
-<div class="type">
-🍰 آشپزی
+<div class="icon">🍕</div>
+<h2>🍕 پیتزاساز</h2>
+<div class="info">
+🍕 پیتزا درست کن<br>
+⭐ آشپزی
 </div>
 <a class="btn" href="#">
 🎮 به‌زودی
@@ -467,13 +407,11 @@ font-weight:bold;
 </div>
 <!-- 25 -->
 <div class="card">
-<div class="icon">🍦</div>
-<h2>بستنی‌فروشی</h2>
-<div class="description">
-بستنی درست کن و مشتری‌ها را راضی کن.
-</div>
-<div class="type">
-🍦 مدیریتی
+<div class="icon">🍰</div>
+<h2>🍰 کیک‌ساز</h2>
+<div class="info">
+🍰 کیک درست کن<br>
+⭐ آشپزی
 </div>
 <a class="btn" href="#">
 🎮 به‌زودی
@@ -481,13 +419,11 @@ font-weight:bold;
 </div>
 <!-- 26 -->
 <div class="card">
-<div class="icon">☕</div>
-<h2>کافه</h2>
-<div class="description">
-سفارش مشتری‌ها را آماده و سرو کن.
-</div>
-<div class="type">
-☕ مدیریتی
+<div class="icon">🍦</div>
+<h2>🍦 بستنی‌فروشی</h2>
+<div class="info">
+🍦 بستنی بفروش<br>
+⭐ مدیریتی
 </div>
 <a class="btn" href="#">
 🎮 به‌زودی
@@ -495,13 +431,11 @@ font-weight:bold;
 </div>
 <!-- 27 -->
 <div class="card">
-<div class="icon">🏪</div>
-<h2>فروشگاه</h2>
-<div class="description">
-فروشگاه خودت را مدیریت و بزرگ‌تر کن.
-</div>
-<div class="type">
-🏪 مدیریتی
+<div class="icon">☕</div>
+<h2>☕ کافه</h2>
+<div class="info">
+☕ مشتری‌ها را سرو کن<br>
+⭐ مدیریتی
 </div>
 <a class="btn" href="#">
 🎮 به‌زودی
@@ -509,21 +443,44 @@ font-weight:bold;
 </div>
 <!-- 28 -->
 <div class="card">
-<div class="icon">🏰</div>
-<h2>دفاع از قلعه</h2>
-<div class="description">
-از قلعه در برابر دشمنان دفاع کن.
-</div>
-<div class="type">
-🏰 استراتژی
+<div class="icon">🏪</div>
+<h2>🏪 فروشگاه</h2>
+<div class="info">
+🏪 فروشگاه را مدیریت کن<br>
+⭐ مدیریتی
 </div>
 <a class="btn" href="#">
 🎮 به‌زودی
 </a>
 </div>
+<!-- 29 -->
+<div class="card">
+<div class="icon">🏰</div>
+<h2>🏰 دفاع از قلعه</h2>
+<div class="info">
+🏰 قلعه را حفظ کن<br>
+⭐ استراتژی
+</div>
+<a class="btn" href="#">
+🎮 به‌زودی
+</a>
+</div>
+<!-- 30 -->
+<div class="card">
+<div class="icon">💣</div>
+<h2>💣 فرار از بمب</h2>
+<div class="info">
+🧠 سرعت عمل و دقت<br>
+💰 جایزه سکه<br>
+🏆 رکوردی
+</div>
+<a class="btn" href="bomb.html">
+🎮 شروع بازی
+</a>
+</div>
 </div>
 <a class="back" href="index.html">
-⬅️ برگشت به خانه
+🏠 برگشت به خانه
 </a>
 </body>
-</html>
+  </html>
