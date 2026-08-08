@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🧠 حافظه | گیمی‌مود</title>
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:tahoma;
+    background:#101010;
+    color:white;
+    text-align:center;
+}
+
+header{
+    background:#00bcd4;
+    padding:20px;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.balance{
+    margin:20px;
+    padding:20px;
+    background:linear-gradient(135deg,#302b63,#24243e);
+    border-radius:20px;
+}
+
+.coins{
+    font-size:32px;
+    font-weight:bold;
+}
+
+.game{
+    width:94%;
+    max-width:600px;
+    margin:20px auto;
+    padding:25px 15px;
+    background:#202020;
+    border-radius:20px;
+    box-shadow:0 0 15px #000;
+}
+
+.board{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    max-width:430px;
+    margin:25px auto;
+}
+
+.card{
+    height:80px;
+    border:0;
+    border-radius:12px;
+    background:#333;
+    color:white;
+    font-size:32px;
+    cursor:pointer;
+}
+
+.card.open{
+    background:#00bcd4;
+}
+
+.card.matched{
+    background:#176b3a;
+    cursor:default;
+}
+
+.card:disabled{
+    cursor:default;
+}
+
+.result{
+    padding:15px;
+    background:#151515;
+    border-radius:12px;
+    line-height:2;
+}
+
+.restart{
+    margin-top:15px;
+    padding:13px 25px;
+    border:0;
+    border-radius:12px;
+    background:#00bcd4;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.back{
+    display:block;
+    width:230px;
+    margin:25px auto;
+    padding:14px;
+    background:#333;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+</style>
+</head>
+<body>
+<header>
+🧠 بازی حافظه گیمی‌مود
+</header>
+<section class="balance">
+<h2>🐷 موجودی قلک</h2>
+<div class="coins" id="coins">
+0 🪙
+</div>
+</section>
+<section class="game">
+<h2>🧠 جفت کارت‌ها را پیدا کن!</h2>
+<p>
+هر جفت درست = ۵۰ 🪙
+</p>
+<div class="board" id="board"></div>
+<div class="result" id="result">
+کارت‌ها را باز کن و جفت‌ها را پیدا کن!
+</div>
+<button
+class="restart"
+onclick="startGame()">
+🔄 بازی دوباره
+</button>
+</section>
+<a class="back" href="coin.html">
+⬅️ برگشت به مرکز سرگرمی
+</a>
+<script>
+
+/* =========================
+   سکه مشترک
+========================= */
+
+let coins =
+Number(localStorage.getItem("gamimodCoins")) || 0;
+
+function updateCoins(){
+
+    document.getElementById("coins").innerHTML =
+    coins + " 🪙";
+
+}
+
+function saveCoins(){
+
+    localStorage.setItem(
+        "gamimodCoins",
+        coins
+    );
+
+    updateCoins();
+
+}
+
+updateCoins();
+
+
+/* =========================
+   بازی حافظه
+========================= */
+
+const symbols = [
+    "🍎","🍎",
+    "🚀","🚀",
+    "⚽","⚽",
+    "🎮","🎮",
+    "⭐","⭐",
+    "🔥","🔥",
+    "💎","💎",
+    "👑","👑"
+];
+
+let cards = [];
+
+let firstCard = null;
+
+let secondCard = null;
+
+let locked = false;
+
+let matched = 0;
+
+let reward = 0;
+
+
+/* =========================
+   مخلوط کردن
+========================= */
+
+function shuffle(array){
+
+    for(
+        let i = array.length - 1;
+        i > 0;
+        i--
+    ){
+
+        const j =
+        Math.floor(
+            Math.random() * (i + 1)
+        );
+
+        [
+            array[i],
+            array[j]
+        ] =
+        [
+            array[j],
+            array[i]
+        ];
+
+    }
+
+}
+
+
+/* =========================
+   شروع بازی
+========================= */
+
+function startGame(){
+
+    cards = [...symbols];
+
+    shuffle(cards);
+
+    firstCard = null;
+
+    secondCard = null;
+
+    locked = false;
+
+    matched = 0;
+
+    reward = 0;
+
+    const board =
+    document.getElementById("board");
+
+    board.innerHTML = "";
+
+    document.getElementById(
+        "result"
+    ).innerHTML =
+    "🎯 جفت‌ها را پیدا کن!";
+
+
+    cards.forEach(
+    function(symbol,index){
+
+        const button =
+        document.createElement("button");
+
+        button.className = "card";
+
+        button.dataset.symbol =
+        symbol;
+
+        button.dataset.index =
+        index;
+
+        button.innerHTML = "❓";
+
+        button.onclick =
+        function(){
+
+            flipCard(button);
+
+        };
+
+        board.appendChild(button);
+
+    });
+
+}
+
+
+/* =========================
+   باز کردن کارت
+========================= */
+
+function flipCard(card){
+
+    if(
+        locked ||
+        card.classList.contains("open") ||
+        card.classList.contains("matched")
+    ){
+
+        return;
+
+    }
+
+
+    card.classList.add("open");
+
+    card.innerHTML =
+    card.dataset.symbol;
+
+
+    if(firstCard === null){
+
+        firstCard = card;
+
+        return;
+
+    }
+
+
+    secondCard = card;
+
+    locked = true;
+
+
+    if(
+        firstCard.dataset.symbol ===
+        secondCard.dataset.symbol
+    ){
+
+        matchCards();
+
+    }
+
+    else{
+
+        setTimeout(
+            hideCards,
+            800
+        );
+
+    }
+
+}
+
+
+/* =========================
+   جفت درست
+========================= */
+
+function matchCards(){
+
+    firstCard.classList.add(
+        "matched"
+    );
+
+    secondCard.classList.add(
+        "matched"
+    );
+
+    firstCard.disabled = true;
+
+    secondCard.disabled = true;
+
+
+    matched++;
+
+    reward += 50;
+
+    coins += 50;
+
+    saveCoins();
+
+
+    document.getElementById(
+        "result"
+    ).innerHTML =
+    "🎉 جفت پیدا شد!<br>" +
+    "+50 🪙";
+
+
+    firstCard = null;
+
+    secondCard = null;
+
+    locked = false;
+
+
+    if(matched === 8){
+
+        finishGame();
+
+    }
+
+}
+
+
+/* =========================
+   کارت اشتباه
+========================= */
+
+function hideCards(){
+
+    firstCard.classList.remove(
+        "open"
+    );
+
+    secondCard.classList.remove(
+        "open"
+    );
+
+    firstCard.innerHTML =
+    "❓";
+
+    secondCard.innerHTML =
+    "❓";
+
+
+    firstCard = null;
+
+    secondCard = null;
+
+    locked = false;
+
+
+    document.getElementById(
+        "result"
+    ).innerHTML =
+    "❌ جفت نبود! دوباره امتحان کن.";
+
+}
+
+
+/* =========================
+   پایان
+========================= */
+
+function finishGame(){
+
+    document.getElementById(
+        "result"
+    ).innerHTML =
+    "🏆 فوق‌العاده! همه جفت‌ها را پیدا کردی!<br>" +
+    "🪙 جایزه این بازی: " +
+    reward +
+    " سکه";
+
+}
+
+startGame();
+
+</script>
+</body>
+</html>
