@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>🎯 مرکز سرگرمی | گیمی‌مود</title>
+<title>🐷 قلک گیمی‌مود</title>
 <style>
 
 *{
@@ -27,251 +27,289 @@ header{
 
 .balance{
     margin:20px;
-    padding:25px;
+    padding:30px 20px;
     text-align:center;
     background:linear-gradient(135deg,#302b63,#24243e);
-    border-radius:20px;
-    box-shadow:0 0 15px #000;
+    border-radius:22px;
+    box-shadow:0 0 20px #000;
 }
 
-.balance h2{
+.balance h1{
+    margin:5px;
     color:#00e5ff;
 }
 
 .coins{
-    font-size:34px;
+    font-size:42px;
     font-weight:bold;
+    margin:15px;
 }
 
-.section{
-    margin:20px;
-    padding:20px;
-    background:#202020;
-    border-radius:20px;
-    box-shadow:0 0 12px #000;
-}
-
-.section h2{
-    color:#00e5ff;
-    text-align:center;
-}
-
-.menu{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:15px;
-}
-
-.box{
-    background:#292929;
-    padding:20px;
-    border-radius:16px;
-    text-align:center;
-}
-
-.box h3{
-    color:#00e5ff;
-    font-size:20px;
-}
-
-.box p{
-    line-height:1.8;
+.description{
+    line-height:2;
     color:#ddd;
 }
 
-.btn{
-    display:inline-block;
-    background:#00bcd4;
-    color:white;
-    padding:12px 20px;
-    border-radius:10px;
-    text-decoration:none;
-    font-weight:bold;
+.section{
+    padding:20px;
 }
 
-.store{
-    background:linear-gradient(135deg,#432371,#faae7b);
-}
-
-.store .btn{
-    background:#111;
-}
-
-.back{
-    display:block;
-    width:220px;
-    margin:25px auto;
-    padding:14px;
+.section-title{
     text-align:center;
-    background:#333;
+    color:#00e5ff;
+    font-size:24px;
+    margin-bottom:20px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(180px,1fr));
+    gap:15px;
+}
+
+.card{
+    display:block;
+    padding:22px 12px;
+    background:#222;
     color:white;
     text-decoration:none;
-    border-radius:12px;
-    font-weight:bold;
+    border-radius:18px;
+    text-align:center;
+    box-shadow:0 0 10px #000;
+    transition:.2s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    background:#292929;
+}
+
+.icon{
+    font-size:48px;
+    margin-bottom:10px;
+}
+
+.card h3{
+    margin:8px 0;
+    color:#00e5ff;
+}
+
+.card p{
+    margin:5px 0;
+    color:#bbb;
+    line-height:1.7;
+}
+
+.shop-card{
+    background:
+    linear-gradient(
+        135deg,
+        #3b2460,
+        #172d55
+    );
+}
+
+.bitcoin-card{
+    background:
+    linear-gradient(
+        135deg,
+        #553d13,
+        #29200d
+    );
+}
+
+.wheel-card{
+    background:
+    linear-gradient(
+        135deg,
+        #4b194f,
+        #241333
+    );
+}
+
+.note{
+    margin:20px;
+    padding:18px;
+    background:#181818;
+    border-radius:15px;
+    text-align:center;
+    line-height:2;
+    color:#bbb;
+}
+
+footer{
+    background:#000;
+    margin-top:25px;
+    padding:20px;
+    text-align:center;
+    color:#aaa;
 }
 
 </style>
 </head>
 <body>
 <header>
-🎯 مرکز سرگرمی گیمی‌مود
+🐷 قلک و مرکز سرگرمی گیمی‌مود
 </header>
-<!-- قلک -->
 <section class="balance">
-<h2>🐷 قلک گیمی‌مود</h2>
+<h1>🐷 موجودی قلک</h1>
 <div class="coins" id="coins">
 0 🪙
 </div>
-<p>
-سکه‌هایت را از بازی‌ها بگیر و در فروشگاه خرج کن.
-</p>
+<div class="description">
+با بازی کردن سکه جمع کن،
+بعد با سکه‌ها از فروشگاه خرید کن! 🎮
+</div>
 </section>
-<!-- پیش بینی -->
 <section class="section">
-<h2>₿ پیش‌بینی ساختگی بیت‌کوین</h2>
-<div class="box">
+<div class="section-title">
+🎮 بازی‌های سکه‌ای
+</div>
+<div class="grid">
+<a class="card bitcoin-card"
+href="bitcoin.html">
+<div class="icon">
+₿
+</div>
 <h3>
-📈 بالا یا 📉 پایین؟
+پیش‌بینی بیت‌کوین
 </h3>
 <p>
-قیمت کاملاً ساختگی گیمی‌مود را پیش‌بینی کن.
+قیمت ساختگی بالا یا پایین می‌رود.
 </p>
-<a class="btn" href="bitcoin.html">
-🎯 ورود به پیش‌بینی
 </a>
+<a class="card wheel-card"
+href="wheel.html">
+<div class="icon">
+🎡
 </div>
-</section>
-<!-- گردونه -->
-<section class="section">
-<h2>🎡 گردونه سکه</h2>
-<div class="box">
 <h3>
-🎁 جایزه‌های گردونه
+گردونه سکه
 </h3>
 <p>
-😵 پوچ × ۳
-<br>
-🪙 ۱۰ سکه
-<br>
-🪙 ۱۵ سکه
-<br>
-🪙 ۲۰ سکه
-<br>
-🪙 ۳۰ سکه
-<br>
-🪙 ۵۰ سکه
-<br>
-🪙 ۱۰۰ سکه
-<br>
-🏆 سکه طلایی ۵۰۰ سکه — احتمال ۱٪
+جایزه‌های مختلف و سکه طلایی!
 </p>
-<a class="btn" href="wheel.html">
-🎡 رفتن به گردونه
 </a>
+<a class="card"
+href="quiz.html">
+<div class="icon">
+🧠
 </div>
-</section>
-<!-- بازی ها -->
-<section class="section">
-<h2>🎮 بازی‌های سکه‌ای</h2>
-<div class="menu">
-<div class="box">
-<h3>🎯 تیراندازی</h3>
+<h3>
+بازی هوش
+</h3>
 <p>
-هدف‌ها را بزن و سکه بگیر.
+سؤال جواب بده و سکه بگیر.
 </p>
-<a class="btn" href="shooting.html">
-🎯 بازی
 </a>
+<a class="card"
+href="dice.html">
+<div class="icon">
+🎲
 </div>
-<div class="box">
-<h3>🧠 هوش</h3>
-<p>
-به سؤال‌ها جواب بده و جایزه بگیر.
-</p>
-<a class="btn" href="quiz.html">
-🧠 بازی
-</a>
-</div>
-<div class="box">
-<h3>🃏 کارت شانس</h3>
-<p>
-یک کارت را انتخاب کن.
-</p>
-<a class="btn" href="cards.html">
-🃏 بازی
-</a>
-</div>
-<div class="box">
-<h3>🎲 تاس</h3>
+<h3>
+بازی تاس
+</h3>
 <p>
 عدد تاس را حدس بزن.
 </p>
-<a class="btn" href="dice.html">
-🎲 بازی
 </a>
+<a class="card"
+href="puzzle.html">
+<div class="icon">
+🧩
 </div>
-<div class="box">
-<h3>🧩 پازل</h3>
-<p>
-پازل را سریع حل کن.
-</p>
-<a class="btn" href="puzzle.html">
-🧩 بازی
-</a>
-</div>
-<div class="box">
-<h3>🏎️ مسابقه</h3>
-<p>
-در مسابقه برنده شو.
-</p>
-<a class="btn" href="race.html">
-🏎️ بازی
-</a>
-</div>
-<div class="box">
-<h3>🥅 پنالتی</h3>
-<p>
-دروازه را هدف بگیر.
-</p>
-<a class="btn" href="penalty.html">
-🥅 بازی
-</a>
-</div>
-<div class="box">
-<h3>🪙 شیر یا خط</h3>
-<p>
-شیر یا خط را درست حدس بزن.
-</p>
-<a class="btn" href="coinflip.html">
-🪙 بازی
-</a>
-</div>
-</div>
-</section>
-<!-- فروشگاه -->
-<section class="section store">
-<h2>🏪 فروشگاه گیمی‌مود</h2>
-<div class="box">
 <h3>
-🛒 خرید با سکه
+پازل
 </h3>
 <p>
-تم، پس‌زمینه، نشان VIP، آیتم و امکانات جدید بخر.
+پازل را حل کن و جایزه بگیر.
 </p>
-<a class="btn" href="shop.html">
-🏪 ورود به فروشگاه
+</a>
+<a class="card"
+href="penalty.html">
+<div class="icon">
+⚽
+</div>
+<h3>
+پنالتی
+</h3>
+<p>
+گل بزن و سکه جمع کن.
+</p>
+</a>
+<a class="card"
+href="coinhunt.html">
+<div class="icon">
+🪙
+</div>
+<h3>
+شکار سکه
+</h3>
+<p>
+سکه‌ها را سریع شکار کن.
+</p>
+</a>
+<a class="card"
+href="target.html">
+<div class="icon">
+🎯
+</div>
+<h3>
+شکار هدف
+</h3>
+<p>
+هدف‌ها را بزن و سکه بگیر.
+</p>
+</a>
+<a class="card"
+href="memory.html">
+<div class="icon">
+🧠
+</div>
+<h3>
+بازی حافظه
+</h3>
+<p>
+جفت کارت‌ها را پیدا کن.
+</p>
+</a>
+<a class="card shop-card"
+href="shop.html">
+<div class="icon">
+🏪
+</div>
+<h3>
+فروشگاه
+</h3>
+<p>
+با سکه آیتم‌های ویژه بخر.
+</p>
 </a>
 </div>
 </section>
-<a class="back" href="index.html">
-⬅️ برگشت به گیمی‌مود
-</a>
+<div class="note">
+💡 هر بازی سکه‌های خودش را به همین قلک مشترک اضافه می‌کند.
+<br>
+🪙 سکه‌ها در مرورگر ذخیره می‌شوند.
+</div>
+<footer>
+© 2026 گیمی‌مود | مرکز سرگرمی
+</footer>
 <script>
 
 let coins =
-Number(localStorage.getItem("gamimodCoins")) || 0;
+Number(
+    localStorage.getItem(
+        "gamimodCoins"
+    )
+) || 0;
 
-document.getElementById("coins").innerHTML =
+
+document.getElementById(
+    "coins"
+).innerHTML =
 coins + " 🪙";
 
 </script>
