@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>🏆 لیگ گیمی‌مود</title>
+<title>🏆 لیگ | گیمی‌مود</title>
 <style>
 
 *{
@@ -15,19 +15,20 @@ body{
     font-family:tahoma;
     background:#101010;
     color:white;
+    text-align:center;
+    padding-bottom:30px;
 }
 
 header{
-    background:#00bcd4;
+    background:linear-gradient(135deg,#00bcd4,#006b7a);
     padding:20px;
-    text-align:center;
     font-size:27px;
     font-weight:bold;
 }
 
-.panel{
+.box{
     width:94%;
-    max-width:1000px;
+    max-width:900px;
     margin:20px auto;
     padding:20px;
     background:#202020;
@@ -35,101 +36,93 @@ header{
     box-shadow:0 0 15px #000;
 }
 
-h2{
-    text-align:center;
+.title{
     color:#00e5ff;
+    font-size:25px;
+    font-weight:bold;
 }
 
-.tableBox{
-    overflow-x:auto;
+.info{
+    line-height:2;
+    color:#ddd;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin:20px 0;
+}
+
+.stat{
+    background:#151515;
+    padding:15px;
+    border-radius:12px;
+}
+
+.stat b{
+    display:block;
+    color:#00e5ff;
+    font-size:22px;
+    margin-top:6px;
+}
+
+.next{
+    background:#181818;
+    padding:20px;
+    border-radius:15px;
+    margin-top:20px;
+}
+
+.opponent{
+    font-size:24px;
+    color:#ffd700;
+    font-weight:bold;
+    margin:12px;
+}
+
+button{
+    width:100%;
+    padding:16px;
+    border:0;
+    border-radius:13px;
+    background:#00bcd4;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:disabled{
+    background:#555;
 }
 
 table{
     width:100%;
     border-collapse:collapse;
-    min-width:600px;
+    margin-top:15px;
+}
+
+th,td{
+    padding:10px 5px;
+    border-bottom:1px solid #333;
 }
 
 th{
-    background:#00bcd4;
-    padding:12px;
-}
-
-td{
-    padding:11px;
-    border-bottom:1px solid #333;
-    text-align:center;
-}
-
-tr:nth-child(even){
-    background:#181818;
-}
-
-.rank1{
-    color:#ffd700;
-    font-weight:bold;
-}
-
-.rank2{
-    color:#c0c0c0;
-    font-weight:bold;
-}
-
-.rank3{
-    color:#cd7f32;
-    font-weight:bold;
-}
-
-.match{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    padding:14px;
-    margin:8px 0;
-    background:#181818;
-    border-radius:12px;
-}
-
-.score{
     color:#00e5ff;
-    font-weight:bold;
-    font-size:20px;
 }
 
-.play{
-    border:0;
-    padding:10px 18px;
-    border-radius:10px;
-    background:#00bcd4;
-    color:white;
+.me{
+    background:#263238;
     font-weight:bold;
-    cursor:pointer;
 }
 
 .message{
-    padding:15px;
     margin-top:15px;
+    padding:15px;
     background:#151515;
     border-radius:12px;
-    text-align:center;
     line-height:2;
-}
-
-.buttons{
-    text-align:center;
-}
-
-.mainButton{
-    border:0;
-    padding:14px 25px;
-    margin:5px;
-    border-radius:12px;
-    background:#00bcd4;
-    color:white;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
 }
 
 .back{
@@ -141,8 +134,18 @@ tr:nth-child(even){
     color:white;
     text-decoration:none;
     border-radius:12px;
-    text-align:center;
-    font-weight:bold;
+}
+
+@media(max-width:600px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    th,td{
+        font-size:13px;
+    }
+
 }
 
 </style>
@@ -151,400 +154,643 @@ tr:nth-child(even){
 <header>
 🏆 لیگ فوتبال گیمی‌مود
 </header>
-<section class="panel">
-<h2>🏟️ جدول لیگ ایران</h2>
-<div class="tableBox">
+<section class="box">
+<div class="title">
+🟢 لیگ دسته ۲
+</div>
+<div class="info">
+از دسته ۲ شروع کن و برای صعود بجنگ!<br>
+🥇 و 🥈 دو تیم اول به دسته ۱ صعود می‌کنند.
+</div>
+<div class="stats">
+<div class="stat">
+🎮 بازی
+<b id="match">1 / 30</b>
+</div>
+<div class="stat">
+⭐ امتیاز
+<b id="points">0</b>
+</div>
+<div class="stat">
+⚽ برد
+<b id="wins">0</b>
+</div>
+<div class="stat">
+💎 الماس
+<b id="diamonds">0</b>
+</div>
+</div>
+</section>
+<section class="box next">
+<h2>📅 بازی بعدی</h2>
+<div class="opponent" id="opponent">
+در حال انتخاب حریف...
+</div>
+<div id="opponentPower">
+قدرت حریف: -
+</div>
+<br>
+<button
+id="playButton"
+onclick="playMatch()">
+⚽ بازی کن
+</button>
+<div class="message" id="message">
+هر وقت دوست داشتی بازی کن؛
+هیچ زمان واقعی لازم نیست.
+</div>
+</section>
+<section class="box">
+<h2 class="title">
+📊 جدول لیگ
+</h2>
 <table>
 <thead>
 <tr>
-<th>رتبه</th>
+<th>#</th>
 <th>تیم</th>
+<th>قدرت</th>
 <th>بازی</th>
-<th>برد</th>
-<th>مساوی</th>
-<th>باخت</th>
-<th>تفاضل</th>
 <th>امتیاز</th>
 </tr>
 </thead>
-<tbody id="table">
-</tbody>
+<tbody id="table"></tbody>
 </table>
-</div>
 </section>
-<section class="panel">
-<h2>⚽ مسابقات</h2>
-<div id="matches">
-</div>
-<div class="buttons">
-<button
-class="mainButton"
-onclick="simulateMatches()">
-🤖 شبیه‌سازی بازی‌ها
-</button>
-</div>
-<div class="message" id="message">
-نتایج مسابقات را می‌توانی با هوش مصنوعی شبیه‌سازی کنی. 🤖⚽
-</div>
-</section>
-<section class="panel">
-<h2>🏆 جام قهرمانی</h2>
-<div id="champion">
-🥇 قهرمان هنوز مشخص نشده است.
-</div>
-</section>
-<a class="back" href="football.html">
-⬅️ برگشت به فوتبال
+<a class="back" href="myteam.html">
+⬅️ برگشت به تیم من
 </a>
 <script>
 
+/* =========================
+   اطلاعات باشگاه
+========================= */
 
-const teams=[
+let clubName =
+localStorage.getItem(
+"clubName"
+) || "باشگاه من";
 
-"🔴 پرسپولیس",
-"🔵 استقلال",
-"🟡 سپاهان",
-"🔴 تراکتور",
-"🟠 فولاد",
-"🟢 ذوب‌آهن",
-"🔵 گل‌گهر",
-"🟠 مس رفسنجان",
-"🟣 آلومینیوم",
-"🟢 ملوان",
-"🔴 نساجی",
-"🔵 پیکان",
-"🟠 شمس‌آذر",
-"🟢 هوادار",
-"🔴 خیبر خرم‌آباد",
-"🟡 چادرملو",
-"🔵 استقلال خوزستان",
-"🟢 صنعت نفت"
+
+let clubPower =
+Number(
+localStorage.getItem(
+"clubPower"
+)
+) || 64;
+
+
+/* =========================
+   ذخیره فصل
+========================= */
+
+let match =
+Number(
+localStorage.getItem(
+"leagueMatch"
+)
+) || 1;
+
+
+let points =
+Number(
+localStorage.getItem(
+"leaguePoints"
+)
+) || 0;
+
+
+let wins =
+Number(
+localStorage.getItem(
+"leagueWins"
+)
+) || 0;
+
+
+let draws =
+Number(
+localStorage.getItem(
+"leagueDraws"
+)
+) || 0;
+
+
+let losses =
+Number(
+localStorage.getItem(
+"leagueLosses"
+)
+) || 0;
+
+
+let diamonds =
+Number(
+localStorage.getItem(
+"footballDiamonds"
+)
+) || 0;
+
+
+/* =========================
+   تیم‌های دسته ۲
+========================= */
+
+const teams = [
+
+{
+name:"شاهین شمال",
+power:58
+},
+
+{
+name:"پارس جوان",
+power:61
+},
+
+{
+name:"آریا شهر",
+power:63
+},
+
+{
+name:"کویر FC",
+power:56
+},
+
+{
+name:"ستاره جنوب",
+power:60
+},
+
+{
+name:"سپیدار",
+power:65
+},
+
+{
+name:"پاس تهران",
+power:62
+},
+
+{
+name:"دریای خزر",
+power:59
+},
+
+{
+name:"آذرخش",
+power:64
+}
+
 ];
 
 
-let tableData={};
-
-
-teams.forEach(function(team){
-
-    tableData[team]={
-
-        played:0,
-        win:0,
-        draw:0,
-        loss:0,
-        gd:0,
-        points:0
-
-    };
-
-});
-
-
-let matches=[];
-
-
 /* =========================
-   ساخت مسابقات
+   انتخاب حریف
 ========================= */
 
-function createMatches(){
-
-    matches=[];
+let opponent;
 
 
-    for(let i=0;i<teams.length;i+=2){
+function chooseOpponent(){
 
-        if(i+1<teams.length){
+    opponent =
+    teams[
+        Math.floor(
+            Math.random() *
+            teams.length
+        )
+    ];
 
-            matches.push({
-
-                home:teams[i],
-
-                away:teams[i+1],
-
-                homeScore:null,
-
-                awayScore:null
-
-            });
-
-        }
-
-    }
+    document.getElementById(
+        "opponent"
+    ).innerHTML =
+    clubName+
+    " 🆚 "+
+    opponent.name;
 
 
-    showMatches();
+    document.getElementById(
+        "opponentPower"
+    ).innerHTML =
+    "💪 قدرت حریف: "+
+    opponent.power;
 
 }
 
 
-createMatches();
+chooseOpponent();
 
 
 /* =========================
-   نمایش جدول
+   بازی
 ========================= */
 
-function showTable(){
+function playMatch(){
 
-    const tbody=
-    document.getElementById("table");
-
-    tbody.innerHTML="";
-
-
-    const sorted=
-    teams.slice().sort(function(a,b){
-
-        return tableData[b].points
-        -tableData[a].points
-        ||
-        tableData[b].gd
-        -tableData[a].gd;
-
-    });
-
-
-    sorted.forEach(function(team,index){
-
-        const d=
-        tableData[team];
-
-
-        let rankClass="";
-
-
-        if(index===0)
-            rankClass="rank1";
-
-        if(index===1)
-            rankClass="rank2";
-
-        if(index===2)
-            rankClass="rank3";
-
-
-        const tr=
-        document.createElement("tr");
-
-
-        tr.innerHTML=
-
-        "<td class='"+rankClass+"'>"+
-        (index+1)+
-        "</td>"+
-
-        "<td>"+team+"</td>"+
-
-        "<td>"+d.played+"</td>"+
-
-        "<td>"+d.win+"</td>"+
-
-        "<td>"+d.draw+"</td>"+
-
-        "<td>"+d.loss+"</td>"+
-
-        "<td>"+d.gd+"</td>"+
-
-        "<td><b>"+d.points+"</b></td>";
-
-
-        tbody.appendChild(tr);
-
-    });
-
-}
-
-
-showTable();
-
-
-/* =========================
-   نمایش مسابقات
-========================= */
-
-function showMatches(){
-
-    const box=
-    document.getElementById("matches");
-
-    box.innerHTML="";
-
-
-    matches.forEach(function(match,index){
-
-        const div=
-        document.createElement("div");
-
-        div.className="match";
-
-
-        let score="🆚";
-
-
-        if(match.homeScore!==null){
-
-            score=
-            match.homeScore+
-            " - "+
-            match.awayScore;
-
-        }
-
-
-        div.innerHTML=
-
-        "<span>"+
-        match.home+
-        "</span>"+
-
-        "<span class='score'>"+
-        score+
-        "</span>"+
-
-        "<span>"+
-        match.away+
-        "</span>";
-
-
-        box.appendChild(div);
-
-    });
-
-}
-
-
-/* =========================
-   شبیه‌سازی
-========================= */
-
-function simulateMatches(){
-
-    matches.forEach(function(match){
-
-        if(match.homeScore!==null){
-
-            return;
-
-        }
-
-
-        const homeGoals=
-        Math.floor(Math.random()*5);
-
-
-        const awayGoals=
-        Math.floor(Math.random()*5);
-
-
-        match.homeScore=
-        homeGoals;
-
-        match.awayScore=
-        awayGoals;
-
-
-        const home=
-        tableData[match.home];
-
-        const away=
-        tableData[match.away];
-
-
-        home.played++;
-        away.played++;
-
-
-        home.gd+=
-        homeGoals-awayGoals;
-
-        away.gd+=
-        awayGoals-homeGoals;
-
-
-        if(homeGoals>awayGoals){
-
-            home.win++;
-            home.points+=3;
-
-            away.loss++;
-
-        }
-
-        else if(awayGoals>homeGoals){
-
-            away.win++;
-            away.points+=3;
-
-            home.loss++;
-
-        }
-
-        else{
-
-            home.draw++;
-            away.draw++;
-
-            home.points++;
-            away.points++;
-
-        }
-
-    });
-
-
-    showMatches();
-
-    showTable();
-
-
-    document.getElementById("message")
-    .innerHTML=
-    "🤖 نتایج مسابقات شبیه‌سازی شدند!<br>"+
-    "⚽ جدول لیگ به‌روزرسانی شد.";
-
-
-    updateChampion();
-
-}
-
-
-/* =========================
-   قهرمان
-========================= */
-
-function updateChampion(){
-
-    const sorted=
-    teams.slice().sort(function(a,b){
-
-        return tableData[b].points
-        -tableData[a].points;
-
-    });
-
-
-    const champion=
-    sorted[0];
-
-
-    if(tableData[champion].played===0){
+    if(match>30){
 
         return;
 
     }
 
 
-    document.getElementById("champion")
-    .innerHTML=
-    "🏆 صدرنشین فعلی:<br><br>"+
-    "<strong>"+champion+"</strong>"+
-    "<br><br>"+
-    "⭐ "+tableData[champion].points+
-    " امتیاز";
+    const button =
+    document.getElementById(
+        "playButton"
+    );
+
+
+    button.disabled=true;
+
+
+    /*
+       کمی شانس
+    */
+
+    const myChance =
+    clubPower +
+    (Math.random()*20-10);
+
+
+    const enemyChance =
+    opponent.power +
+    (Math.random()*20-10);
+
+
+    let result;
+
+
+    if(myChance>enemyChance+5){
+
+        result="win";
+
+    }
+
+    else if(
+        Math.abs(
+            myChance-enemyChance
+        )<5
+    ){
+
+        result="draw";
+
+    }
+
+    else{
+
+        result="loss";
+
+    }
+
+
+    /*
+       نتیجه
+    */
+
+    if(result==="win"){
+
+        wins++;
+        points+=3;
+
+        document.getElementById(
+        "message"
+        ).innerHTML=
+        "🎉 بردی! +۳ امتیاز<br>"+
+        "💪 قدرت حریف: "+
+        opponent.power;
+
+    }
+
+    else if(result==="draw"){
+
+        draws++;
+        points+=1;
+
+        document.getElementById(
+        "message"
+        ).innerHTML=
+        "🤝 مساوی شد! +۱ امتیاز";
+
+    }
+
+    else{
+
+        losses++;
+
+        document.getElementById(
+        "message"
+        ).innerHTML=
+        "❌ باختی! این بار نشد.";
+
+    }
+
+
+    match++;
+
+
+    save();
+
+
+    setTimeout(
+    function(){
+
+        if(match>30){
+
+            finishLeague();
+
+        }
+
+        else{
+
+            chooseOpponent();
+
+            button.disabled=false;
+
+        }
+
+    },800);
 
 }
+
+
+/* =========================
+   پایان لیگ
+========================= */
+
+function finishLeague(){
+
+    document.getElementById(
+        "playButton"
+    ).disabled=true;
+
+
+    /*
+       امتیاز تقریبی برای رتبه
+    */
+
+    let rank;
+
+
+    if(points>=55){
+
+        rank=1;
+
+    }
+
+    else if(points>=45){
+
+        rank=2;
+
+    }
+
+    else{
+
+        rank=3+
+        Math.floor(
+            Math.random()*5
+        );
+
+    }
+
+
+    if(rank===1){
+
+        diamonds+=5;
+
+        localStorage.setItem(
+            "footballDiamonds",
+            diamonds
+        );
+
+
+        document.getElementById(
+            "message"
+        ).innerHTML=
+        "🏆 قهرمان لیگ دسته ۲ شدی!<br>"+
+        "💎 +۵ الماس<br>"+
+        "⬆️ صعود به لیگ دسته ۱";
+
+        localStorage.setItem(
+            "league",
+            "دسته ۱"
+        );
+
+    }
+
+    else if(rank===2){
+
+        document.getElementById(
+            "message"
+        ).innerHTML=
+        "🥈 دوم شدی!<br>"+
+        "⬆️ صعود به لیگ دسته ۱";
+
+        localStorage.setItem(
+            "league",
+            "دسته ۱"
+        );
+
+    }
+
+    else{
+
+        document.getElementById(
+            "message"
+        ).innerHTML=
+        "🏁 فصل تمام شد.<br>"+
+        "رتبه تو: "+
+        rank;
+
+    }
+
+}
+
+
+/* =========================
+   ذخیره
+========================= */
+
+function save(){
+
+    localStorage.setItem(
+        "leagueMatch",
+        match
+    );
+
+    localStorage.setItem(
+        "leaguePoints",
+        points
+    );
+
+    localStorage.setItem(
+        "leagueWins",
+        wins
+    );
+
+    localStorage.setItem(
+        "leagueDraws",
+        draws
+    );
+
+    localStorage.setItem(
+        "leagueLosses",
+        losses
+    );
+
+    localStorage.setItem(
+        "footballDiamonds",
+        diamonds
+    );
+
+
+    update();
+
+
+}
+
+
+/* =========================
+   نمایش
+========================= */
+
+function update(){
+
+    document.getElementById(
+        "match"
+    ).innerHTML=
+    Math.min(match,30)+
+    " / 30";
+
+
+    document.getElementById(
+        "points"
+    ).innerHTML=
+    points;
+
+
+    document.getElementById(
+        "wins"
+    ).innerHTML=
+    wins;
+
+
+    document.getElementById(
+        "diamonds"
+    ).innerHTML=
+    diamonds;
+
+
+    buildTable();
+
+}
+
+
+/* =========================
+   جدول
+========================= */
+
+function buildTable(){
+
+    let list=[
+        {
+            name:clubName,
+            power:clubPower,
+            points:points
+        }
+    ];
+
+
+    teams.forEach(
+    function(team){
+
+        list.push({
+
+            name:team.name,
+
+            power:team.power,
+
+            points:
+            Math.floor(
+                Math.random()*35
+            )
+
+        });
+
+    });
+
+
+    list.sort(
+    function(a,b){
+
+        return b.points-a.points;
+
+    });
+
+
+    const table =
+    document.getElementById(
+        "table"
+    );
+
+
+    table.innerHTML="";
+
+
+    list.forEach(
+    function(team,index){
+
+        const tr =
+        document.createElement(
+            "tr"
+        );
+
+
+        if(
+            team.name===
+            clubName
+        ){
+
+            tr.className="me";
+
+        }
+
+
+        tr.innerHTML=
+
+        "<td>"+
+        (index+1)+
+        "</td>"+
+
+        "<td>"+
+        team.name+
+        "</td>"+
+
+        "<td>"+
+        team.power+
+        "</td>"+
+
+        "<td>"+
+        Math.min(
+            match-1,
+            30
+        )+
+        "</td>"+
+
+        "<td>"+
+        team.points+
+        "</td>";
+
+
+        table.appendChild(tr);
+
+    });
+
+}
+
+
+update();
 
 </script>
 </body>
