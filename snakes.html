@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🎲 مار و پله | GAMIMOD</title>
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:tahoma;
+background:#09090d;
+color:white;
+text-align:center;
+padding-bottom:30px;
+}
+
+header{
+background:linear-gradient(135deg,#00bcd4,#006b7a);
+padding:22px;
+}
+
+header h1{
+margin:0;
+}
+
+.wallet{
+width:94%;
+max-width:520px;
+margin:15px auto;
+display:flex;
+gap:10px;
+}
+
+.wallet div{
+flex:1;
+background:#1c1c24;
+padding:13px;
+border-radius:14px;
+font-weight:bold;
+}
+
+.coin{
+color:#ffd700;
+}
+
+.board{
+width:94%;
+max-width:520px;
+margin:15px auto;
+display:grid;
+grid-template-columns:repeat(10,1fr);
+gap:3px;
+background:#222;
+padding:5px;
+border-radius:15px;
+}
+
+.cell{
+aspect-ratio:1;
+background:#eee;
+color:#111;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:11px;
+font-weight:bold;
+border-radius:5px;
+position:relative;
+}
+
+.cell:nth-child(3n){
+background:#b9f6c5;
+}
+
+.cell:nth-child(4n){
+background:#b9e7ff;
+}
+
+.cell:nth-child(5n){
+background:#ffe7a8;
+}
+
+.player{
+position:absolute;
+font-size:22px;
+z-index:5;
+}
+
+.ai{
+position:absolute;
+font-size:22px;
+z-index:4;
+margin-top:22px;
+}
+
+.snake{
+position:absolute;
+font-size:19px;
+right:2px;
+top:2px;
+}
+
+.ladder{
+position:absolute;
+font-size:19px;
+left:2px;
+bottom:2px;
+}
+
+.panel{
+width:94%;
+max-width:520px;
+margin:18px auto;
+background:#18181f;
+padding:20px;
+border-radius:20px;
+}
+
+.turn{
+font-size:20px;
+font-weight:bold;
+color:#00e5ff;
+}
+
+.dice{
+font-size:65px;
+margin:10px;
+}
+
+.roll{
+border:0;
+background:#00e5ff;
+color:#001014;
+padding:15px 35px;
+border-radius:30px;
+font-family:tahoma;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.roll:disabled{
+background:#555;
+color:#aaa;
+}
+
+.message{
+min-height:55px;
+line-height:1.9;
+margin-top:15px;
+}
+
+.reward{
+color:#ffd700;
+font-size:19px;
+font-weight:bold;
+}
+
+.back{
+display:block;
+width:230px;
+margin:20px auto;
+padding:13px;
+background:#333;
+color:white;
+text-decoration:none;
+border-radius:12px;
+}
+
+</style>
+</head>
+<body>
+<header>
+<h1>🎲 مار و پله</h1>
+<p>تو 🧑 در برابر کامپیوتر 🤖</p>
+</header>
+<div class="wallet">
+<div class="coin">
+💰 سکه:
+<span id="coins">0</span>
+</div>
+<div>
+🏆 برد:
+<span id="wins">0</span>
+</div>
+</div>
+<div class="board" id="board"></div>
+<div class="panel">
+<div class="turn" id="turn">
+نوبت تو 🧑
+</div>
+<div class="dice" id="dice">
+🎲
+</div>
+<button
+class="roll"
+id="rollButton"
+onclick="playerRoll()">
+🎲 انداختن تاس
+</button>
+<div
+class="message"
+id="message">
+اول تاس را بینداز!
+</div>
+</div>
+<a class="back" href="games.html">
+⬅️ برگشت به بازی‌ها
+</a>
+<script>
+
+/* =========================
+   پول و رکورد
+========================= */
+
+let coins =
+Number(localStorage.getItem("coins")) || 0;
+
+let wins =
+Number(localStorage.getItem("snakeWins")) || 0;
+
+document.getElementById("coins")
+.textContent =
+coins.toLocaleString("fa-IR");
+
+document.getElementById("wins")
+.textContent =
+wins.toLocaleString("fa-IR");
+
+
+/* =========================
+   ساخت صفحه
+========================= */
+
+const board =
+document.getElementById("board");
+
+let cells = [];
+
+for(let i=100;i>=1;i--){
+
+let cell =
+document.createElement("div");
+
+cell.className="cell";
+
+cell.textContent=i;
+
+cell.dataset.number=i;
+
+board.appendChild(cell);
+
+cells[i]=cell;
+
+}
+
+
+/* =========================
+   مارها
+========================= */
+
+const snakes={
+
+98:40,
+84:56,
+73:15,
+62:22,
+47:26,
+35:8,
+27:5
+
+};
+
+
+/* =========================
+   پله‌ها
+========================= */
+
+const ladders={
+
+3:24,
+12:44,
+18:59,
+28:70,
+41:79,
+64:96,
+51:67
+
+};
+
+
+/* نمایش مار */
+
+Object.keys(snakes).forEach(start=>{
+
+let icon =
+document.createElement("span");
+
+icon.className="snake";
+
+icon.textContent="🐍";
+
+cells[start].appendChild(icon);
+
+});
+
+
+/* نمایش پله */
+
+Object.keys(ladders).forEach(start=>{
+
+let icon =
+document.createElement("span");
+
+icon.className="ladder";
+
+icon.textContent="🪜";
+
+cells[start].appendChild(icon);
+
+});
+
+
+/* =========================
+   بازیکن‌ها
+========================= */
+
+let playerPosition=1;
+
+let aiPosition=1;
+
+let player =
+document.createElement("span");
+
+player.className="player";
+
+player.textContent="🧑";
+
+let ai =
+document.createElement("span");
+
+ai.className="ai";
+
+ai.textContent="🤖";
+
+cells[1].appendChild(player);
+
+cells[1].appendChild(ai);
+
+
+/* =========================
+   تاس
+========================= */
+
+const diceFaces=[
+"⚀","⚁","⚂","⚃","⚄","⚅"
+];
+
+
+/* =========================
+   نوبت بازیکن
+========================= */
+
+let gameOver=false;
+
+
+function playerRoll(){
+
+if(gameOver)return;
+
+let number =
+Math.floor(Math.random()*6)+1;
+
+showDice(number);
+
+movePlayer(number);
+
+if(!gameOver){
+
+setTimeout(aiTurn,1200);
+
+}
+
+}
+
+
+/* =========================
+   حرکت بازیکن
+========================= */
+
+function movePlayer(number){
+
+let newPosition =
+playerPosition+number;
+
+if(newPosition>100){
+
+document.getElementById("message")
+.textContent=
+"⛔ باید دقیقاً به خانه ۱۰۰ برسی.";
+
+return;
+
+}
+
+if(player.parentNode){
+
+player.parentNode.removeChild(player);
+
+}
+
+playerPosition=newPosition;
+
+checkSpecialPlayer();
+
+cells[playerPosition]
+.appendChild(player);
+
+document.getElementById("message")
+.textContent=
+"🧑 تو به خانه "+
+playerPosition+
+" رسیدی.";
+
+checkWinner();
+
+}
+
+
+/* =========================
+   مار و پله بازیکن
+========================= */
+
+function checkSpecialPlayer(){
+
+if(snakes[playerPosition]){
+
+let old=playerPosition;
+
+playerPosition=
+snakes[playerPosition];
+
+document.getElementById("message")
+.textContent=
+"🐍 مار! از "+
+old+
+" رفتی به "+
+playerPosition;
+
+}
+
+else if(ladders[playerPosition]){
+
+let old=playerPosition;
+
+playerPosition=
+ladders[playerPosition];
+
+document.getElementById("message")
+.textContent=
+"🪜 پله! از "+
+old+
+" رفتی به "+
+playerPosition;
+
+}
+
+}
+
+
+/* =========================
+   نوبت کامپیوتر
+========================= */
+
+function aiTurn(){
+
+if(gameOver)return;
+
+document.getElementById("turn")
+.textContent=
+"نوبت کامپیوتر 🤖";
+
+document.getElementById("rollButton")
+.disabled=true;
+
+
+setTimeout(()=>{
+
+let number =
+Math.floor(Math.random()*6)+1;
+
+showDice(number);
+
+moveAI(number);
+
+if(!gameOver){
+
+setTimeout(()=>{
+
+document.getElementById("turn")
+.textContent=
+"نوبت تو 🧑";
+
+document.getElementById("rollButton")
+.disabled=false;
+
+},900);
+
+}
+
+},700);
+
+}
+
+
+/* =========================
+   حرکت کامپیوتر
+========================= */
+
+function moveAI(number){
+
+let newPosition =
+aiPosition+number;
+
+if(newPosition>100){
+
+document.getElementById("message")
+.textContent=
+"🤖 کامپیوتر عدد "+
+number+
+" آورد ولی نمی‌تواند حرکت کند.";
+
+return;
+
+}
+
+if(ai.parentNode){
+
+ai.parentNode.removeChild(ai);
+
+}
+
+aiPosition=newPosition;
+
+checkSpecialAI();
+
+cells[aiPosition]
+.appendChild(ai);
+
+document.getElementById("message")
+.textContent=
+"🤖 کامپیوتر به خانه "+
+aiPosition+
+" رسید.";
+
+checkWinner();
+
+}
+
+
+/* =========================
+   مار و پله کامپیوتر
+========================= */
+
+function checkSpecialAI(){
+
+if(snakes[aiPosition]){
+
+let old=aiPosition;
+
+aiPosition=
+snakes[aiPosition];
+
+document.getElementById("message")
+.textContent=
+"🐍 کامپیوتر مار خورد! "+
+old+
+" ← "+
+aiPosition;
+
+}
+
+else if(ladders[aiPosition]){
+
+let old=aiPosition;
+
+aiPosition=
+ladders[aiPosition];
+
+document.getElementById("message")
+.textContent=
+"🪜 کامپیوتر از پله رفت! "+
+old+
+" ← "+
+aiPosition;
+
+}
+
+}
+
+
+/* =========================
+   بررسی برنده
+========================= */
+
+function checkWinner(){
+
+if(playerPosition===100){
+
+gameOver=true;
+
+let reward=500;
+
+coins+=reward;
+
+wins++;
+
+localStorage.setItem(
+"coins",
+coins
+);
+
+localStorage.setItem(
+"snakeWins",
+wins
+);
+
+document.getElementById("coins")
+.textContent=
+coins.toLocaleString("fa-IR");
+
+document.getElementById("wins")
+.textContent=
+wins.toLocaleString("fa-IR");
+
+document.getElementById("turn")
+.textContent=
+"🏆 تو برنده شدی!";
+
+document.getElementById("message")
+.innerHTML=
+"🎉 تبریک! بازی را بردی!<br>"+
+'<span class="reward">💰 +'+
+reward+
+" سکه</span>";
+
+document.getElementById("rollButton")
+.disabled=true;
+
+}
+
+else if(aiPosition===100){
+
+gameOver=true;
+
+document.getElementById("turn")
+.textContent=
+"🤖 کامپیوتر برنده شد!";
+
+document.getElementById("message")
+.textContent=
+"😅 این بار کامپیوتر برد! دوباره تلاش کن.";
+
+document.getElementById("rollButton")
+.disabled=true;
+
+}
+
+}
+
+
+/* =========================
+   نمایش تاس
+========================= */
+
+function showDice(number){
+
+document.getElementById("dice")
+.textContent=
+diceFaces[number-1];
+
+}
+
+</script>
+</body>
+</html>
