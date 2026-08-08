@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🎯 رولت شانسی | GAMIMOD</title>
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:tahoma;
+background:#101010;
+color:white;
+text-align:center;
+padding-bottom:30px;
+}
+
+header{
+padding:22px;
+background:linear-gradient(135deg,#8e24aa,#4a148c);
+}
+
+header h1{
+margin:0 0 8px;
+}
+
+header p{
+margin:0;
+color:#eee;
+}
+
+.info{
+width:94%;
+max-width:600px;
+margin:18px auto;
+background:#1c1c1c;
+padding:18px;
+border-radius:16px;
+line-height:2;
+}
+
+.players{
+width:94%;
+max-width:600px;
+margin:15px auto;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+}
+
+.player{
+background:#242424;
+padding:14px 5px;
+border-radius:12px;
+}
+
+.player.active{
+border:2px solid #00e5ff;
+background:#12343a;
+}
+
+.player.out{
+opacity:.4;
+text-decoration:line-through;
+}
+
+.board{
+width:94%;
+max-width:500px;
+margin:20px auto;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+}
+
+.slot{
+aspect-ratio:1;
+border:0;
+border-radius:16px;
+background:linear-gradient(145deg,#333,#191919);
+color:white;
+font-size:30px;
+cursor:pointer;
+box-shadow:0 5px 12px #000;
+}
+
+.slot:hover{
+transform:scale(1.03);
+}
+
+.slot:disabled{
+cursor:not-allowed;
+}
+
+.safe{
+background:#145c38 !important;
+}
+
+.danger{
+background:#7a2020 !important;
+}
+
+.result{
+width:94%;
+max-width:600px;
+margin:20px auto;
+padding:18px;
+background:#1c1c1c;
+border-radius:16px;
+font-size:18px;
+line-height:2;
+}
+
+button{
+border:0;
+border-radius:12px;
+padding:13px 22px;
+font-family:tahoma;
+font-weight:bold;
+font-size:16px;
+cursor:pointer;
+}
+
+.start{
+background:#00bcd4;
+color:white;
+margin:8px;
+}
+
+.restart{
+background:#333;
+color:white;
+margin:8px;
+}
+
+select{
+padding:12px;
+border-radius:10px;
+font-family:tahoma;
+font-size:16px;
+}
+
+.back{
+display:block;
+width:240px;
+margin:25px auto;
+padding:14px;
+background:#333;
+color:white;
+text-decoration:none;
+border-radius:12px;
+font-weight:bold;
+}
+
+.hidden{
+display:none;
+}
+
+</style>
+</head>
+<body>
+<header>
+<h1>🎯 رولت شانسی</h1>
+<p>
+بازی شانسی چندنفره با سکه
+</p>
+</header>
+<div class="info">
+💰 سکه شما:
+<strong id="coins">0</strong>
+<br>
+💵 هزینه ورود:
+<strong>۲۰۰ سکه</strong>
+<br>
+🥇 نفر اول:
+<strong>۲۰۰ سکه</strong>
+<br>
+🥈 نفر دوم:
+<strong>۱۰۰ سکه</strong>
+</div>
+<div id="setup">
+<h2>👥 تعداد بازیکنان</h2>
+<select id="playerCount">
+<option value="2">
+۲ بازیکن
+</option>
+<option value="3">
+۳ بازیکن
+</option>
+</select>
+<br><br>
+<button class="start" onclick="startGame()">
+🎮 شروع بازی
+</button>
+</div>
+<div id="game" class="hidden">
+<div class="players" id="players"></div>
+<div class="result" id="message">
+نوبت بازیکن ۱
+</div>
+<div class="board" id="board"></div>
+<button class="restart" onclick="location.reload()">
+🔄 بازی دوباره
+</button>
+</div>
+<a class="back" href="prize-games.html">
+⬅️ برگشت به بازی‌های جایزه‌ای
+</a>
+<script>
+
+const ENTRY=200;
+
+const FIRST_PRIZE=200;
+
+const SECOND_PRIZE=100;
+
+
+let coins=
+Number(localStorage.getItem("coins"));
+
+if(!Number.isFinite(coins)){
+
+coins=30000;
+
+localStorage.setItem(
+"coins",
+coins
+);
+
+}
+
+
+function updateCoins(){
+
+document.getElementById("coins").textContent=
+coins.toLocaleString("fa-IR");
+
+}
+
+updateCoins();
+
+
+let playerCount=2;
+
+let currentPlayer=0;
+
+let eliminated=[];
+
+let finished=false;
+
+
+/* شروع بازی */
+
+function startGame(){
+
+if(coins<ENTRY){
+
+alert(
+"❌ سکه کافی نداری! حداقل ۲۰۰ سکه لازم است."
+);
+
+return;
+
+}
+
+
+coins-=ENTRY;
+
+localStorage.setItem(
+"coins",
+coins
+);
+
+updateCoins();
+
+
+playerCount=
+Number(
+document.getElementById("playerCount").value
+);
+
+currentPlayer=0;
+
+eliminated=[];
+
+finished=false;
+
+
+document
+.getElementById("setup")
+.classList.add("hidden");
+
+document
+.getElementById("game")
+.classList.remove("hidden");
+
+
+createPlayers();
+
+createBoard();
+
+updateTurn();
+
+}
+
+
+/* ساخت بازیکنان */
+
+function createPlayers(){
+
+let container=
+document.getElementById("players");
+
+container.innerHTML="";
+
+
+for(let i=0;i<playerCount;i++){
+
+let div=
+document.createElement("div");
+
+div.className="player";
+
+div.id="player-"+i;
+
+div.innerHTML=
+"👤 بازیکن "+
+(i+1);
+
+container.appendChild(div);
+
+}
+
+}
+
+
+/* ساخت خانه‌ها */
+
+function createBoard(){
+
+let board=
+document.getElementById("board");
+
+board.innerHTML="";
+
+
+/*
+۴ خانه به صورت مخفی خطرناک هستند.
+بازیکن نمی‌داند کدام خانه خطرناک است.
+*/
+
+let dangerCount=4;
+
+let dangers=[];
+
+
+while(dangers.length<dangerCount){
+
+let random=
+Math.floor(
+Math.random()*12
+);
+
+if(!dangers.includes(random)){
+
+dangers.push(random);
+
+}
+
+}
+
+
+for(let i=0;i<12;i++){
+
+let button=
+document.createElement("button");
+
+button.className="slot";
+
+button.textContent="❓";
+
+button.dataset.danger=
+dangers.includes(i)
+? "true"
+: "false";
+
+button.onclick=
+function(){
+
+chooseSlot(button);
+
+};
+
+
+board.appendChild(button);
+
+}
+
+}
+
+
+/* نوبت */
+
+function updateTurn(){
+
+document
+.querySelectorAll(".player")
+.forEach(
+p=>p.classList.remove("active")
+);
+
+
+let active=
+document.getElementById(
+"player-"+currentPlayer
+);
+
+if(active){
+
+active.classList.add("active");
+
+}
+
+
+document.getElementById("message").textContent=
+"🎯 نوبت بازیکن "+
+(currentPlayer+1)+
+" است؛ یک خانه را انتخاب کن.";
+
+}
+
+
+/* انتخاب خانه */
+
+function chooseSlot(button){
+
+if(finished)return;
+
+if(button.disabled)return;
+
+
+button.disabled=true;
+
+
+if(button.dataset.danger==="true"){
+
+button.classList.add("danger");
+
+eliminated.push(currentPlayer);
+
+document.getElementById("message").innerHTML=
+"💥 بازیکن "+
+(currentPlayer+1)+
+" حذف شد!";
+
+button.textContent="💥";
+
+setTimeout(nextTurn,900);
+
+}
+
+else{
+
+button.classList.add("safe");
+
+button.textContent="✅";
+
+document.getElementById("message").innerHTML=
+"✅ بازیکن "+
+(currentPlayer+1)+
+" امن ماند!";
+
+setTimeout(nextTurn,700);
+
+}
+
+}
+
+
+/* نوبت بعد */
+
+function nextTurn(){
+
+let alive=[];
+
+for(let i=0;i<playerCount;i++){
+
+if(!eliminated.includes(i)){
+
+alive.push(i);
+
+}
+
+}
+
+
+/*
+اگر فقط یک نفر مانده،
+او برنده است.
+*/
+
+if(alive.length===1){
+
+finishGame(alive[0]);
+
+return;
+
+}
+
+
+/*
+بازیکن حذف‌شده نوبت ندارد.
+*/
+
+do{
+
+currentPlayer++;
+
+if(currentPlayer>=playerCount){
+
+currentPlayer=0;
+
+}
+
+}
+while(
+eliminated.includes(currentPlayer)
+);
+
+
+updateTurn();
+
+}
+
+
+/* پایان */
+
+function finishGame(winner){
+
+finished=true;
+
+
+let prize=0;
+
+let place=1;
+
+
+/*
+برای ۲ یا ۳ نفر،
+آخرین نفر زنده نفر اول است.
+*/
+
+prize=FIRST_PRIZE;
+
+
+coins+=prize;
+
+localStorage.setItem(
+"coins",
+coins
+);
+
+updateCoins();
+
+
+document
+.querySelectorAll(".slot")
+.forEach(
+b=>b.disabled=true
+);
+
+
+document.getElementById(
+"player-"+winner
+).classList.remove("active");
+
+
+document.getElementById(
+"player-"+winner
+).innerHTML=
+"🏆 بازیکن "+
+(winner+1)+
+" - نفر اول";
+
+
+document.getElementById("message").innerHTML=
+"🏆 تبریک! بازیکن "+
+(winner+1)+
+" برنده شد و "+
+prize+
+" سکه گرفت!";
+
+}
+
+
+/* نمایش اولیه */
+
+updateCoins();
+
+</script>
+</body>
+</html>
