@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🎯 تیراندازی | گیمی‌مود</title>
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:tahoma;
+    background:#101010;
+    color:white;
+    text-align:center;
+    overflow-x:hidden;
+}
+
+header{
+    background:#00bcd4;
+    padding:20px;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.balance{
+    margin:15px;
+    padding:18px;
+    background:linear-gradient(135deg,#302b63,#24243e);
+    border-radius:18px;
+}
+
+.coins{
+    font-size:30px;
+    font-weight:bold;
+}
+
+.stats{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin:15px;
+}
+
+.stat{
+    background:#222;
+    padding:12px 20px;
+    border-radius:12px;
+}
+
+.game{
+    position:relative;
+    width:95%;
+    max-width:600px;
+    height:450px;
+    margin:20px auto;
+    background:
+    radial-gradient(circle at center,#263238,#101010);
+    border:3px solid #00bcd4;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 0 20px #000;
+}
+
+.target{
+    position:absolute;
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:#e53935;
+    border:7px solid white;
+    cursor:pointer;
+    box-shadow:0 0 12px #000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+    user-select:none;
+}
+
+.target:active{
+    transform:scale(.85);
+}
+
+.start{
+    padding:14px 30px;
+    border:0;
+    border-radius:12px;
+    background:#00bcd4;
+    color:white;
+    font-size:19px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.start:disabled{
+    background:#555;
+}
+
+.result{
+    margin:20px auto;
+    width:90%;
+    max-width:600px;
+    padding:15px;
+    background:#202020;
+    border-radius:14px;
+    line-height:2;
+}
+
+.back{
+    display:block;
+    width:230px;
+    margin:25px auto;
+    padding:14px;
+    background:#333;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+</style>
+</head>
+<body>
+<header>
+🎯 تیراندازی گیمی‌مود
+</header>
+<section class="balance">
+<h2>🐷 موجودی قلک</h2>
+<div class="coins" id="coins">
+0 🪙
+</div>
+</section>
+<div class="stats">
+<div class="stat">
+⏱️ زمان:
+<span id="time">30</span>
+</div>
+<div class="stat">
+🎯 هدف:
+<span id="score">0</span>
+</div>
+<div class="stat">
+🏆 رکورد:
+<span id="best">0</span>
+</div>
+</div>
+<button
+class="start"
+id="startButton"
+onclick="startGame()">
+🎮 شروع بازی
+</button>
+<div class="game" id="game">
+</div>
+<div class="result" id="result">
+برای شروع بازی روی «شروع بازی» بزن.
+</div>
+<a class="back" href="coin.html">
+⬅️ برگشت به مرکز سرگرمی
+</a>
+<script>
+
+/* =========================
+   سکه مشترک
+========================= */
+
+let coins =
+Number(localStorage.getItem("gamimodCoins")) || 0;
+
+
+function updateCoins(){
+
+    document.getElementById(
+        "coins"
+    ).innerHTML =
+    coins + " 🪙";
+
+}
+
+
+function saveCoins(){
+
+    localStorage.setItem(
+        "gamimodCoins",
+        coins
+    );
+
+    updateCoins();
+
+}
+
+
+updateCoins();
+
+
+/* =========================
+   رکورد
+========================= */
+
+let best =
+Number(
+    localStorage.getItem(
+        "shootingBest"
+    )
+) || 0;
+
+
+document.getElementById(
+    "best"
+).innerHTML = best;
+
+
+/* =========================
+   متغیرهای بازی
+========================= */
+
+let score = 0;
+
+let time = 30;
+
+let playing = false;
+
+let timer;
+
+
+/* =========================
+   شروع بازی
+========================= */
+
+function startGame(){
+
+    if(playing){
+
+        return;
+
+    }
+
+
+    score = 0;
+
+    time = 30;
+
+    playing = true;
+
+
+    document.getElementById(
+        "score"
+    ).innerHTML = score;
+
+
+    document.getElementById(
+        "time"
+    ).innerHTML = time;
+
+
+    document.getElementById(
+        "result"
+    ).innerHTML =
+    "🎯 بازی شروع شد! هدف‌ها را سریع بزن.";
+
+
+    document.getElementById(
+        "startButton"
+    ).disabled = true;
+
+
+    clearInterval(timer);
+
+
+    timer =
+    setInterval(function(){
+
+        time--;
+
+        document.getElementById(
+            "time"
+        ).innerHTML = time;
+
+
+        if(time <= 0){
+
+            endGame();
+
+        }
+
+    },1000);
+
+
+    createTarget();
+
+}
+
+
+/* =========================
+   ساخت هدف
+========================= */
+
+function createTarget(){
+
+    if(!playing){
+
+        return;
+
+    }
+
+
+    const game =
+    document.getElementById(
+        "game"
+    );
+
+
+    const old =
+    document.querySelector(
+        ".target"
+    );
+
+
+    if(old){
+
+        old.remove();
+
+    }
+
+
+    const target =
+    document.createElement(
+        "div"
+    );
+
+
+    target.className =
+    "target";
+
+
+    target.innerHTML =
+    "🎯";
+
+
+    const maxX =
+    game.clientWidth - 75;
+
+
+    const maxY =
+    game.clientHeight - 75;
+
+
+    const x =
+    Math.floor(
+        Math.random() * maxX
+    );
+
+
+    const y =
+    Math.floor(
+        Math.random() * maxY
+    );
+
+
+    target.style.left =
+    x + "px";
+
+
+    target.style.top =
+    y + "px";
+
+
+    target.onclick =
+    function(){
+
+        hitTarget();
+
+    };
+
+
+    game.appendChild(
+        target
+    );
+
+}
+
+
+/* =========================
+   زدن هدف
+========================= */
+
+function hitTarget(){
+
+    if(!playing){
+
+        return;
+
+    }
+
+
+    score++;
+
+
+    document.getElementById(
+        "score"
+    ).innerHTML =
+    score;
+
+
+    /*
+       هر ۵ هدف = ۱۰ سکه
+    */
+
+    if(score % 5 === 0){
+
+        coins += 10;
+
+        saveCoins();
+
+        document.getElementById(
+            "result"
+        ).innerHTML =
+        "🔥 عالی! " +
+        score +
+        " هدف زدی.<br>" +
+        "+10 🪙";
+
+    }
+
+
+    createTarget();
+
+}
+
+
+/* =========================
+   پایان بازی
+========================= */
+
+function endGame(){
+
+    playing = false;
+
+
+    clearInterval(timer);
+
+
+    const target =
+    document.querySelector(
+        ".target"
+    );
+
+
+    if(target){
+
+        target.remove();
+
+    }
+
+
+    document.getElementById(
+        "startButton"
+    ).disabled = false;
+
+
+    if(score > best){
+
+        best = score;
+
+
+        localStorage.setItem(
+            "shootingBest",
+            best
+        );
+
+
+        document.getElementById(
+            "best"
+        ).innerHTML =
+        best;
+
+
+        document.getElementById(
+            "result"
+        ).innerHTML =
+        "🏆 رکورد جدید!<br>" +
+        "🎯 " +
+        score +
+        " هدف";
+
+    }
+
+    else{
+
+        document.getElementById(
+            "result"
+        ).innerHTML =
+        "⏰ زمان تمام شد!<br>" +
+        "🎯 امتیاز: " +
+        score +
+        "<br>" +
+        "🪙 هر ۵ هدف = ۱۰ سکه";
+
+    }
+
+}
+
+</script>
+</body>
+  </html>
