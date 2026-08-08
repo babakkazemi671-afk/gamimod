@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🏆 لیگ گیمی‌مود</title>
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:tahoma;
+    background:#101010;
+    color:white;
+}
+
+header{
+    background:#00bcd4;
+    padding:20px;
+    text-align:center;
+    font-size:27px;
+    font-weight:bold;
+}
+
+.panel{
+    width:94%;
+    max-width:1000px;
+    margin:20px auto;
+    padding:20px;
+    background:#202020;
+    border-radius:20px;
+    box-shadow:0 0 15px #000;
+}
+
+h2{
+    text-align:center;
+    color:#00e5ff;
+}
+
+.tableBox{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:600px;
+}
+
+th{
+    background:#00bcd4;
+    padding:12px;
+}
+
+td{
+    padding:11px;
+    border-bottom:1px solid #333;
+    text-align:center;
+}
+
+tr:nth-child(even){
+    background:#181818;
+}
+
+.rank1{
+    color:#ffd700;
+    font-weight:bold;
+}
+
+.rank2{
+    color:#c0c0c0;
+    font-weight:bold;
+}
+
+.rank3{
+    color:#cd7f32;
+    font-weight:bold;
+}
+
+.match{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    padding:14px;
+    margin:8px 0;
+    background:#181818;
+    border-radius:12px;
+}
+
+.score{
+    color:#00e5ff;
+    font-weight:bold;
+    font-size:20px;
+}
+
+.play{
+    border:0;
+    padding:10px 18px;
+    border-radius:10px;
+    background:#00bcd4;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.message{
+    padding:15px;
+    margin-top:15px;
+    background:#151515;
+    border-radius:12px;
+    text-align:center;
+    line-height:2;
+}
+
+.buttons{
+    text-align:center;
+}
+
+.mainButton{
+    border:0;
+    padding:14px 25px;
+    margin:5px;
+    border-radius:12px;
+    background:#00bcd4;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.back{
+    display:block;
+    width:230px;
+    margin:25px auto;
+    padding:14px;
+    background:#333;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    text-align:center;
+    font-weight:bold;
+}
+
+</style>
+</head>
+<body>
+<header>
+🏆 لیگ فوتبال گیمی‌مود
+</header>
+<section class="panel">
+<h2>🏟️ جدول لیگ ایران</h2>
+<div class="tableBox">
+<table>
+<thead>
+<tr>
+<th>رتبه</th>
+<th>تیم</th>
+<th>بازی</th>
+<th>برد</th>
+<th>مساوی</th>
+<th>باخت</th>
+<th>تفاضل</th>
+<th>امتیاز</th>
+</tr>
+</thead>
+<tbody id="table">
+</tbody>
+</table>
+</div>
+</section>
+<section class="panel">
+<h2>⚽ مسابقات</h2>
+<div id="matches">
+</div>
+<div class="buttons">
+<button
+class="mainButton"
+onclick="simulateMatches()">
+🤖 شبیه‌سازی بازی‌ها
+</button>
+</div>
+<div class="message" id="message">
+نتایج مسابقات را می‌توانی با هوش مصنوعی شبیه‌سازی کنی. 🤖⚽
+</div>
+</section>
+<section class="panel">
+<h2>🏆 جام قهرمانی</h2>
+<div id="champion">
+🥇 قهرمان هنوز مشخص نشده است.
+</div>
+</section>
+<a class="back" href="football.html">
+⬅️ برگشت به فوتبال
+</a>
+<script>
+
+
+const teams=[
+
+"🔴 پرسپولیس",
+"🔵 استقلال",
+"🟡 سپاهان",
+"🔴 تراکتور",
+"🟠 فولاد",
+"🟢 ذوب‌آهن",
+"🔵 گل‌گهر",
+"🟠 مس رفسنجان",
+"🟣 آلومینیوم",
+"🟢 ملوان",
+"🔴 نساجی",
+"🔵 پیکان",
+"🟠 شمس‌آذر",
+"🟢 هوادار",
+"🔴 خیبر خرم‌آباد",
+"🟡 چادرملو",
+"🔵 استقلال خوزستان",
+"🟢 صنعت نفت"
+];
+
+
+let tableData={};
+
+
+teams.forEach(function(team){
+
+    tableData[team]={
+
+        played:0,
+        win:0,
+        draw:0,
+        loss:0,
+        gd:0,
+        points:0
+
+    };
+
+});
+
+
+let matches=[];
+
+
+/* =========================
+   ساخت مسابقات
+========================= */
+
+function createMatches(){
+
+    matches=[];
+
+
+    for(let i=0;i<teams.length;i+=2){
+
+        if(i+1<teams.length){
+
+            matches.push({
+
+                home:teams[i],
+
+                away:teams[i+1],
+
+                homeScore:null,
+
+                awayScore:null
+
+            });
+
+        }
+
+    }
+
+
+    showMatches();
+
+}
+
+
+createMatches();
+
+
+/* =========================
+   نمایش جدول
+========================= */
+
+function showTable(){
+
+    const tbody=
+    document.getElementById("table");
+
+    tbody.innerHTML="";
+
+
+    const sorted=
+    teams.slice().sort(function(a,b){
+
+        return tableData[b].points
+        -tableData[a].points
+        ||
+        tableData[b].gd
+        -tableData[a].gd;
+
+    });
+
+
+    sorted.forEach(function(team,index){
+
+        const d=
+        tableData[team];
+
+
+        let rankClass="";
+
+
+        if(index===0)
+            rankClass="rank1";
+
+        if(index===1)
+            rankClass="rank2";
+
+        if(index===2)
+            rankClass="rank3";
+
+
+        const tr=
+        document.createElement("tr");
+
+
+        tr.innerHTML=
+
+        "<td class='"+rankClass+"'>"+
+        (index+1)+
+        "</td>"+
+
+        "<td>"+team+"</td>"+
+
+        "<td>"+d.played+"</td>"+
+
+        "<td>"+d.win+"</td>"+
+
+        "<td>"+d.draw+"</td>"+
+
+        "<td>"+d.loss+"</td>"+
+
+        "<td>"+d.gd+"</td>"+
+
+        "<td><b>"+d.points+"</b></td>";
+
+
+        tbody.appendChild(tr);
+
+    });
+
+}
+
+
+showTable();
+
+
+/* =========================
+   نمایش مسابقات
+========================= */
+
+function showMatches(){
+
+    const box=
+    document.getElementById("matches");
+
+    box.innerHTML="";
+
+
+    matches.forEach(function(match,index){
+
+        const div=
+        document.createElement("div");
+
+        div.className="match";
+
+
+        let score="🆚";
+
+
+        if(match.homeScore!==null){
+
+            score=
+            match.homeScore+
+            " - "+
+            match.awayScore;
+
+        }
+
+
+        div.innerHTML=
+
+        "<span>"+
+        match.home+
+        "</span>"+
+
+        "<span class='score'>"+
+        score+
+        "</span>"+
+
+        "<span>"+
+        match.away+
+        "</span>";
+
+
+        box.appendChild(div);
+
+    });
+
+}
+
+
+/* =========================
+   شبیه‌سازی
+========================= */
+
+function simulateMatches(){
+
+    matches.forEach(function(match){
+
+        if(match.homeScore!==null){
+
+            return;
+
+        }
+
+
+        const homeGoals=
+        Math.floor(Math.random()*5);
+
+
+        const awayGoals=
+        Math.floor(Math.random()*5);
+
+
+        match.homeScore=
+        homeGoals;
+
+        match.awayScore=
+        awayGoals;
+
+
+        const home=
+        tableData[match.home];
+
+        const away=
+        tableData[match.away];
+
+
+        home.played++;
+        away.played++;
+
+
+        home.gd+=
+        homeGoals-awayGoals;
+
+        away.gd+=
+        awayGoals-homeGoals;
+
+
+        if(homeGoals>awayGoals){
+
+            home.win++;
+            home.points+=3;
+
+            away.loss++;
+
+        }
+
+        else if(awayGoals>homeGoals){
+
+            away.win++;
+            away.points+=3;
+
+            home.loss++;
+
+        }
+
+        else{
+
+            home.draw++;
+            away.draw++;
+
+            home.points++;
+            away.points++;
+
+        }
+
+    });
+
+
+    showMatches();
+
+    showTable();
+
+
+    document.getElementById("message")
+    .innerHTML=
+    "🤖 نتایج مسابقات شبیه‌سازی شدند!<br>"+
+    "⚽ جدول لیگ به‌روزرسانی شد.";
+
+
+    updateChampion();
+
+}
+
+
+/* =========================
+   قهرمان
+========================= */
+
+function updateChampion(){
+
+    const sorted=
+    teams.slice().sort(function(a,b){
+
+        return tableData[b].points
+        -tableData[a].points;
+
+    });
+
+
+    const champion=
+    sorted[0];
+
+
+    if(tableData[champion].played===0){
+
+        return;
+
+    }
+
+
+    document.getElementById("champion")
+    .innerHTML=
+    "🏆 صدرنشین فعلی:<br><br>"+
+    "<strong>"+champion+"</strong>"+
+    "<br><br>"+
+    "⭐ "+tableData[champion].points+
+    " امتیاز";
+
+}
+
+</script>
+</body>
+</html>
