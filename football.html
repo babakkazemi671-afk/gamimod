@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>⚽ مربی گیمی‌مود</title>
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:tahoma;
+    background:#101010;
+    color:white;
+    text-align:center;
+}
+
+header{
+    background:#00bcd4;
+    padding:18px;
+    font-size:26px;
+    font-weight:bold;
+}
+
+.game{
+    width:96%;
+    max-width:900px;
+    margin:20px auto;
+    background:#202020;
+    padding:18px;
+    border-radius:20px;
+    box-shadow:0 0 20px #000;
+}
+
+.score{
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    font-size:20px;
+    margin-bottom:15px;
+}
+
+.team-red{
+    color:#ff3333;
+    font-weight:bold;
+}
+
+.team-white{
+    color:#fff;
+    font-weight:bold;
+}
+
+.minute{
+    color:#00e5ff;
+    font-size:25px;
+    font-weight:bold;
+}
+
+.field{
+    position:relative;
+    width:100%;
+    height:500px;
+    background:
+    repeating-linear-gradient(
+        90deg,
+        #167a36 0px,
+        #167a36 70px,
+        #18843b 70px,
+        #18843b 140px
+    );
+    border:5px solid white;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.line{
+    position:absolute;
+    background:white;
+}
+
+.center-line{
+    width:4px;
+    height:100%;
+    left:50%;
+    top:0;
+}
+
+.center-circle{
+    position:absolute;
+    width:120px;
+    height:120px;
+    border:3px solid white;
+    border-radius:50%;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+}
+
+.goal{
+    position:absolute;
+    top:38%;
+    width:25px;
+    height:120px;
+    border:4px solid white;
+}
+
+.left-goal{
+    left:-5px;
+}
+
+.right-goal{
+    right:-5px;
+}
+
+.player{
+    position:absolute;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:10px;
+    font-weight:bold;
+    color:white;
+    z-index:3;
+    transition:
+    left .25s linear,
+    top .25s linear;
+}
+
+.red{
+    background:#d71920;
+    border:2px solid white;
+}
+
+.white{
+    background:#eeeeee;
+    color:#111;
+    border:2px solid #111;
+}
+
+.ball{
+    position:absolute;
+    width:16px;
+    height:16px;
+    background:white;
+    border-radius:50%;
+    z-index:5;
+    box-shadow:0 0 5px #000;
+    transition:
+    left .2s linear,
+    top .2s linear;
+}
+
+.controls{
+    margin-top:20px;
+}
+
+.start{
+    padding:14px 35px;
+    border:0;
+    border-radius:12px;
+    background:#00bcd4;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.start:disabled{
+    background:#555;
+}
+
+.log{
+    margin-top:18px;
+    padding:15px;
+    height:150px;
+    overflow:auto;
+    background:#151515;
+    border-radius:12px;
+    text-align:right;
+    line-height:2;
+}
+
+.result{
+    margin-top:15px;
+    padding:15px;
+    background:#181818;
+    border-radius:12px;
+    line-height:2;
+}
+
+.back{
+    display:block;
+    width:230px;
+    margin:25px auto;
+    padding:14px;
+    background:#333;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+}
+
+</style>
+</head>
+<body>
+<header>
+⚽ مربی فوتبال گیمی‌مود
+</header>
+<section class="game">
+<div class="score">
+<div class="team-red">
+🔴 پرسپولیس
+<span id="redScore">0</span>
+</div>
+<div class="minute">
+دقیقه <span id="minute">1</span>
+</div>
+<div class="team-white">
+<span id="whiteScore">0</span>
+سپیدار FC ⚪
+</div>
+</div>
+<div class="field" id="field">
+<div class="line center-line"></div>
+<div class="center-circle"></div>
+<div class="goal left-goal"></div>
+<div class="goal right-goal"></div>
+<!-- بازیکنان پرسپولیس -->
+<div class="player red" id="r1">1</div>
+<div class="player red" id="r2">2</div>
+<div class="player red" id="r3">3</div>
+<div class="player red" id="r4">4</div>
+<div class="player red" id="r5">5</div>
+<div class="player red" id="r6">6</div>
+<div class="player red" id="r7">7</div>
+<div class="player red" id="r8">8</div>
+<div class="player red" id="r9">9</div>
+<div class="player red" id="r10">10</div>
+<div class="player red" id="r11">11</div>
+<!-- بازیکنان حریف -->
+<div class="player white" id="w1">1</div>
+<div class="player white" id="w2">2</div>
+<div class="player white" id="w3">3</div>
+<div class="player white" id="w4">4</div>
+<div class="player white" id="w5">5</div>
+<div class="player white" id="w6">6</div>
+<div class="player white" id="w7">7</div>
+<div class="player white" id="w8">8</div>
+<div class="player white" id="w9">9</div>
+<div class="player white" id="w10">10</div>
+<div class="player white" id="w11">11</div>
+<div class="ball" id="ball"></div>
+</div>
+<div class="controls">
+<button
+class="start"
+id="startButton"
+onclick="startMatch()">
+▶️ شروع مسابقه
+</button>
+</div>
+<div class="log" id="log">
+🏟️ آماده شروع مسابقه...
+</div>
+<div class="result" id="result">
+🤖 بازیکن‌ها توسط هوش مصنوعی بازی می‌کنند.
+</div>
+</section>
+<a class="back" href="coin.html">
+⬅️ برگشت به مرکز سرگرمی
+</a>
+<script>
+
+/* =========================
+   بازیکنان
+========================= */
+
+const redPositions = [
+
+    [8,50],
+    [20,20],
+    [20,40],
+    [20,60],
+    [20,80],
+    [35,25],
+    [35,50],
+    [35,75],
+    [48,25],
+    [48,50],
+    [48,75]
+
+];
+
+const whitePositions = [
+
+    [92,50],
+    [80,20],
+    [80,40],
+    [80,60],
+    [80,80],
+    [65,25],
+    [65,50],
+    [65,75],
+    [52,25],
+    [52,50],
+    [52,75]
+
+];
+
+
+/* =========================
+   وضعیت بازی
+========================= */
+
+let playing = false;
+
+let minute = 1;
+
+let redScore = 0;
+
+let whiteScore = 0;
+
+let timer;
+
+
+/* =========================
+   قرار دادن بازیکنان
+========================= */
+
+function placePlayers(){
+
+    for(
+        let i=0;
+        i<11;
+        i++
+    ){
+
+        const r =
+        document.getElementById(
+            "r" + (i+1)
+        );
+
+        const w =
+        document.getElementById(
+            "w" + (i+1)
+        );
+
+
+        r.style.left =
+        redPositions[i][0] + "%";
+
+        r.style.top =
+        redPositions[i][1] + "%";
+
+
+        w.style.left =
+        whitePositions[i][0] + "%";
+
+        w.style.top =
+        whitePositions[i][1] + "%";
+
+    }
+
+}
+
+
+placePlayers();
+
+
+/* =========================
+   شروع مسابقه
+========================= */
+
+function startMatch(){
+
+    if(playing){
+
+        return;
+
+    }
+
+
+    playing = true;
+
+    minute = 1;
+
+    redScore = 0;
+
+    whiteScore = 0;
+
+
+    document.getElementById(
+        "redScore"
+    ).innerHTML = "0";
+
+
+    document.getElementById(
+        "whiteScore"
+    ).innerHTML = "0";
+
+
+    document.getElementById(
+        "minute"
+    ).innerHTML = "1";
+
+
+    document.getElementById(
+        "log"
+    ).innerHTML =
+    "🏟️ سوت شروع مسابقه!";
+
+
+    document.getElementById(
+        "result"
+    ).innerHTML =
+    "🤖 هوش مصنوعی در حال بازی است...";
+
+
+    document.getElementById(
+        "startButton"
+    ).disabled = true;
+
+
+    placePlayers();
+
+    moveBall();
+
+
+    timer =
+    setInterval(
+        gameTick,
+        900
+    );
+
+}
+
+
+/* =========================
+   حرکت مسابقه
+========================= */
+
+function gameTick(){
+
+    if(!playing){
+
+        return;
+
+    }
+
+
+    minute++;
+
+
+    document.getElementById(
+        "minute"
+    ).innerHTML =
+    minute;
+
+
+    movePlayers();
+
+    moveBall();
+
+
+    /*
+       شبیه‌سازی موقعیت گل
+    */
+
+    const chance =
+    Math.random();
+
+
+    if(chance < 0.025){
+
+        scoreGoal("red");
+
+    }
+
+    else if(chance > 0.975){
+
+        scoreGoal("white");
+
+    }
+
+
+    if(minute >= 90){
+
+        finishMatch();
+
+    }
+
+}
+
+
+/* =========================
+   حرکت بازیکنان
+========================= */
+
+function movePlayers(){
+
+    for(
+        let i=1;
+        i<=11;
+        i++
+    ){
+
+        const red =
+        document.getElementById(
+            "r" + i
+        );
+
+        const white =
+        document.getElementById(
+            "w" + i
+        );
+
+
+        let redX =
+        parseFloat(
+            red.style.left
+        );
+
+
+        let redY =
+        parseFloat(
+            red.style.top
+        );
+
+
+        let whiteX =
+        parseFloat(
+            white.style.left
+        );
+
+
+        let whiteY =
+        parseFloat(
+            white.style.top
+        );
+
+
+        redX +=
+        (Math.random() - .5) * 8;
+
+        redY +=
+        (Math.random() - .5) * 10;
+
+
+        whiteX +=
+        (Math.random() - .5) * 8;
+
+        whiteY +=
+        (Math.random() - .5) * 10;
+
+
+        redX =
+        Math.max(
+            4,
+            Math.min(
+                48,
+                redX
+            )
+        );
+
+
+        whiteX =
+        Math.max(
+            52,
+            Math.min(
+                94,
+                whiteX
+            )
+        );
+
+
+        redY =
+        Math.max(
+            5,
+            Math.min(
+                90,
+                redY
+            )
+        );
+
+
+        whiteY =
+        Math.max(
+            5,
+            Math.min(
+                90,
+                whiteY
+            )
+        );
+
+
+        red.style.left =
+        redX + "%";
+
+        red.style.top =
+        redY + "%";
+
+
+        white.style.left =
+        whiteX + "%";
+
+        white.style.top =
+        whiteY + "%";
+
+    }
+
+}
+
+
+/* =========================
+   حرکت توپ
+========================= */
+
+function moveBall(){
+
+    const ball =
+    document.getElementById(
+        "ball"
+    );
+
+
+    ball.style.left =
+    (25 + Math.random() * 50)
+    + "%";
+
+
+    ball.style.top =
+    (15 + Math.random() * 65)
+    + "%";
+
+}
+
+
+/* =========================
+   گل
+========================= */
+
+function scoreGoal(team){
+
+    if(team === "red"){
+
+        redScore++;
+
+
+        document.getElementById(
+            "redScore"
+        ).innerHTML =
+        redScore;
+
+
+        addLog(
+            "🔴⚽ گل برای پرسپولیس! دقیقه " +
+            minute
+        );
+
+    }
+
+    else{
+
+        whiteScore++;
+
+
+        document.getElementById(
+            "whiteScore"
+        ).innerHTML =
+        whiteScore;
+
+
+        addLog(
+            "⚪⚽ گل برای سپیدار FC! دقیقه " +
+            minute
+        );
+
+    }
+
+}
+
+
+/* =========================
+   گزارش بازی
+========================= */
+
+function addLog(text){
+
+    const log =
+    document.getElementById(
+        "log"
+    );
+
+
+    log.innerHTML +=
+    "<br>" + text;
+
+
+    log.scrollTop =
+    log.scrollHeight;
+
+}
+
+
+/* =========================
+   پایان
+========================= */
+
+function finishMatch(){
+
+    clearInterval(timer);
+
+    playing = false;
+
+
+    document.getElementById(
+        "startButton"
+    ).disabled = false;
+
+
+    let text;
+
+
+    if(redScore > whiteScore){
+
+        text =
+        "🏆 پرسپولیس برنده شد!";
+
+    }
+
+    else if(
+        redScore < whiteScore
+    ){
+
+        text =
+        "❌ پرسپولیس شکست خورد.";
+
+    }
+
+    else{
+
+        text =
+        "🤝 مسابقه مساوی شد.";
+
+    }
+
+
+    document.getElementById(
+        "result"
+    ).innerHTML =
+    text +
+    "<br>" +
+    "نتیجه نهایی: " +
+    redScore +
+    " - " +
+    whiteScore;
+
+
+    addLog(
+        "🏁 سوت پایان مسابقه!"
+    );
+
+}
+
+</script>
+</body>
+
+</html>
