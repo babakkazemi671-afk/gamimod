@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🐍 مار و پله | GAMIMOD</title>
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:tahoma;
+background:#101010;
+color:white;
+text-align:center;
+}
+
+header{
+padding:20px;
+background:linear-gradient(135deg,#00bcd4,#006b7a);
+}
+
+header h1{
+margin:0;
+}
+
+.info{
+width:94%;
+max-width:600px;
+margin:15px auto;
+background:#1c1c1c;
+padding:15px;
+border-radius:15px;
+}
+
+.board{
+width:94%;
+max-width:500px;
+margin:20px auto;
+display:grid;
+grid-template-columns:repeat(10,1fr);
+gap:3px;
+}
+
+.cell{
+aspect-ratio:1;
+background:#242424;
+border-radius:5px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:12px;
+position:relative;
+}
+
+.ladder{
+background:#145c38;
+}
+
+.snake{
+background:#702020;
+}
+
+.player{
+font-size:20px;
+}
+
+.controls{
+width:94%;
+max-width:500px;
+margin:20px auto;
+background:#1c1c1c;
+padding:20px;
+border-radius:18px;
+}
+
+.dice{
+font-size:45px;
+margin:10px;
+}
+
+button{
+border:0;
+border-radius:12px;
+padding:14px 25px;
+font-family:tahoma;
+font-weight:bold;
+font-size:16px;
+background:#00bcd4;
+color:white;
+cursor:pointer;
+}
+
+button:disabled{
+background:#555;
+cursor:not-allowed;
+}
+
+.message{
+margin:15px 0;
+line-height:2;
+color:#ddd;
+}
+
+.back{
+display:block;
+width:230px;
+margin:20px auto;
+padding:13px;
+background:#333;
+color:white;
+text-decoration:none;
+border-radius:12px;
+}
+
+</style>
+</head>
+<body>
+<header>
+<h1>🐍 مار و پله</h1>
+</header>
+<div class="info">
+💰 ورود:
+<strong>۲۰۰ سکه</strong>
+<br>
+🥇 جایزه برنده:
+<strong>۵۰۰ سکه</strong>
+<br>
+💰 سکه شما:
+<strong id="coins">0</strong>
+</div>
+<div class="board" id="board"></div>
+<div class="controls">
+<div id="turn">
+نوبت شماست
+</div>
+<div class="dice" id="dice">
+🎲
+</div>
+<button id="roll">
+🎲 انداختن تاس
+</button>
+<div class="message" id="message">
+برای شروع بازی تاس را بینداز.
+</div>
+</div>
+<a class="back" href="prize-games.html">
+⬅️ برگشت به بازی‌های جایزه‌ای
+</a>
+<script>
+
+const ENTRY=200;
+const PRIZE=500;
+
+let coins=
+Number(localStorage.getItem("coins"));
+
+if(!Number.isFinite(coins)){
+coins=30000;
+localStorage.setItem("coins",coins);
+}
+
+
+/* پرداخت ورود */
+
+if(coins<ENTRY){
+
+document.getElementById("message").textContent=
+"❌ برای ورود به بازی حداقل ۲۰۰ سکه لازم داری.";
+
+document.getElementById("roll").disabled=true;
+
+}
+else{
+
+coins-=ENTRY;
+
+localStorage.setItem("coins",coins);
+
+}
+
+
+/* نمایش سکه */
+
+function updateCoins(){
+
+document.getElementById("coins").textContent=
+coins.toLocaleString("fa-IR");
+
+}
+
+updateCoins();
+
+
+/* ساخت صفحه */
+
+const board=
+document.getElementById("board");
+
+
+for(let i=100;i>=1;i--){
+
+let cell=
+document.createElement("div");
+
+cell.className="cell";
+
+cell.id="cell-"+i;
+
+cell.textContent=i;
+
+
+/* مارها */
+
+if(
+i===98||
+i===95||
+i===92||
+i===84
+){
+
+cell.classList.add("snake");
+
+}
+
+
+/* پله‌ها */
+
+if(
+i===8||
+i===21||
+i===28||
+i===36
+){
+
+cell.classList.add("ladder");
+
+}
+
+board.appendChild(cell);
+
+}
+
+
+/* موقعیت */
+
+let player=1;
+
+let bot=1;
+
+let gameOver=false;
+
+
+/* مار و پله */
+
+const snakes={
+
+98:40,
+95:75,
+92:70,
+84:60,
+62:19,
+48:26
+
+};
+
+
+const ladders={
+
+8:27,
+21:42,
+28:50,
+36:57,
+51:72,
+71:91
+
+};
+
+
+/* نمایش مهره‌ها */
+
+function drawPlayers(){
+
+document
+.querySelectorAll(".player")
+.forEach(
+x=>x.remove()
+);
+
+
+let p=
+document.createElement("span");
+
+p.className="player";
+
+p.textContent="🔵";
+
+document
+.getElementById("cell-"+player)
+.appendChild(p);
+
+
+let b=
+document.createElement("span");
+
+b.className="player";
+
+b.textContent="🔴";
+
+document
+.getElementById("cell-"+bot)
+.appendChild(b);
+
+}
+
+
+drawPlayers();
+
+
+/* تاس */
+
+function rollDice(){
+
+if(gameOver)return;
+
+let value=
+Math.floor(Math.random()*6)+1;
+
+document.getElementById("dice").textContent=
+["⚀","⚁","⚂","⚃","⚄","⚅"][value-1];
+
+
+let next=
+player+value;
+
+if(next<=100){
+
+player=next;
+
+}
+
+
+/* پله */
+
+if(ladders[player]){
+
+player=ladders[player];
+
+document.getElementById("message").textContent=
+"🪜 روی پله افتادی! جلو رفتی.";
+
+}
+
+
+/* مار */
+
+else if(snakes[player]){
+
+player=snakes[player];
+
+document.getElementById("message").textContent=
+"🐍 مار تو را پایین آورد!";
+
+}
+
+else{
+
+document.getElementById("message").textContent=
+"🎲 عدد "+value+" آمد.";
+
+}
+
+
+drawPlayers();
+
+
+if(player>=100){
+
+win();
+
+return;
+
+}
+
+
+document.getElementById("turn").textContent=
+"🤖 نوبت حریف";
+
+
+document.getElementById("roll").disabled=true;
+
+
+setTimeout(botTurn,700);
+
+}
+
+
+/* حرکت حریف */
+
+function botTurn(){
+
+let value=
+Math.floor(Math.random()*6)+1;
+
+let next=
+bot+value;
+
+if(next<=100){
+
+bot=next;
+
+}
+
+
+if(ladders[bot]){
+
+bot=ladders[bot];
+
+}
+
+else if(snakes[bot]){
+
+bot=snakes[bot];
+
+}
+
+
+drawPlayers();
+
+
+if(bot>=100){
+
+lose();
+
+return;
+
+}
+
+
+document.getElementById("turn").textContent=
+"🔵 نوبت شماست";
+
+document.getElementById("roll").disabled=false;
+
+}
+
+
+/* برد */
+
+function win(){
+
+gameOver=true;
+
+coins+=PRIZE;
+
+localStorage.setItem("coins",coins);
+
+updateCoins();
+
+document.getElementById("turn").textContent=
+"🏆 شما برنده شدید!";
+
+document.getElementById("message").textContent=
+"🎉 تبریک! ۵۰۰ سکه جایزه گرفتی.";
+
+document.getElementById("roll").disabled=true;
+
+}
+
+
+/* باخت */
+
+function lose(){
+
+gameOver=true;
+
+document.getElementById("turn").textContent=
+"🤖 حریف برنده شد!";
+
+document.getElementById("message").textContent=
+"😅 این بار باختی. سکه ورودی برنمی‌گردد.";
+
+document.getElementById("roll").disabled=true;
+
+}
+
+
+document
+.getElementById("roll")
+.addEventListener(
+"click",
+rollDice
+);
+
+</script>
+</body>
+</html>
