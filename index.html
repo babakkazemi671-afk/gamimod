@@ -5,12 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>گیمی‌مود | دانلود بازی اندروید</title>
 <style>
+
 body{
     margin:0;
     font-family:tahoma;
     background:#111;
     color:white;
 }
+
+/* هدر */
 
 header{
     background:#00bcd4;
@@ -19,6 +22,8 @@ header{
     font-size:32px;
     font-weight:bold;
 }
+
+/* قلک */
 
 .wallet{
     margin:20px;
@@ -31,6 +36,7 @@ header{
 
 .wallet h2{
     color:#00e5ff;
+    font-size:25px;
 }
 
 .coins{
@@ -39,15 +45,17 @@ header{
     margin:15px;
 }
 
-.wallet button{
+.wallet-btn{
+    display:inline-block;
     background:#00bcd4;
     color:white;
-    border:none;
     padding:12px 25px;
     border-radius:10px;
-    font-size:17px;
+    text-decoration:none;
     font-weight:bold;
 }
+
+/* جستجو */
 
 .search{
     padding:15px;
@@ -63,12 +71,16 @@ header{
     font-size:18px;
 }
 
+/* بازی‌ها */
+
 .games{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
     gap:20px;
     padding:20px;
 }
+
+/* کارت بازی */
 
 .card{
     background:#222;
@@ -91,6 +103,8 @@ header{
     padding:10px;
 }
 
+/* دکمه */
+
 .btn{
     display:block;
     background:#00bcd4;
@@ -102,6 +116,8 @@ header{
     text-decoration:none;
     font-weight:bold;
 }
+
+/* پشتیبانی */
 
 .support{
     margin:30px 20px;
@@ -133,31 +149,39 @@ header{
     font-weight:bold;
 }
 
+/* فوتر */
+
 footer{
     background:#000;
     text-align:center;
     padding:20px;
     margin-top:20px;
 }
+
 </style>
 </head>
 <body>
 <header>
 🎮 گیمی‌مود
 </header>
+<!-- قلک -->
 <section class="wallet">
 <h2>🐷 قلک گیمی‌مود</h2>
-<p>🪙 موجودی سکه شما:</p>
 <div class="coins" id="coins">
 0 🪙
 </div>
-<button onclick="addCoin()">
-➕ گرفتن سکه
-</button>
+<a class="wallet-btn" href="coin.html">
+🎯 مرکز سکه
+</a>
 </section>
+<!-- جستجو -->
 <div class="search">
-<input type="text" placeholder="🔎 جستجوی بازی...">
+<input
+type="text"
+placeholder="🔎 جستجوی بازی..."
+
 </div>
+<!-- بازی‌ها -->
 <div class="games">
 <div class="card">
 <img src="Screenshot_۲۰۲۶۰۶۲۰_۲۱۴۳۴۹_Google.jpg">
@@ -171,6 +195,7 @@ footer{
 </div>
 </div>
 </div>
+<!-- پشتیبانی -->
 <section class="support">
 <h2>📞 پشتیبانی گیمی‌مود</h2>
 <p>
@@ -193,23 +218,11 @@ href="mailto:Babakkazemi671@gmail.com?subject=پشتیبانی%20گیمی‌مو
 </footer>
 <script>
 
-let coins = Number(localStorage.getItem("gamimodCoins")) || 0;
+let coins =
+Number(localStorage.getItem("gamimodCoins")) || 0;
 
-function showCoins(){
-    document.getElementById("coins").innerHTML =
-    coins + " 🪙";
-}
-
-function addCoin(){
-
-    coins++;
-
-    localStorage.setItem("gamimodCoins", coins);
-
-    showCoins();
-}
-
-showCoins();
+document.getElementById("coins").innerHTML =
+coins + " 🪙";
 
 </script>
 </body>
