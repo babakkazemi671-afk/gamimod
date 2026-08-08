@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🎡 گردونه سکه | گیمی‌مود</title>
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:tahoma;
+    background:#101010;
+    color:white;
+    text-align:center;
+}
+
+header{
+    background:#00bcd4;
+    padding:20px;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.balance{
+    margin:20px;
+    padding:20px;
+    background:linear-gradient(135deg,#302b63,#24243e);
+    border-radius:20px;
+}
+
+.coins{
+    font-size:32px;
+    font-weight:bold;
+}
+
+.game{
+    margin:20px;
+    padding:25px 15px;
+    background:#202020;
+    border-radius:20px;
+    box-shadow:0 0 15px #000;
+}
+
+.pointer{
+    font-size:40px;
+    margin-bottom:-10px;
+    position:relative;
+    z-index:10;
+}
+
+/* گردونه */
+
+.wheel{
+    width:310px;
+    height:310px;
+    max-width:90vw;
+    max-height:90vw;
+    margin:0 auto 25px;
+    border-radius:50%;
+    border:8px solid white;
+    position:relative;
+    overflow:hidden;
+    background:conic-gradient(
+        #555 0deg 36deg,
+        #2196f3 36deg 72deg,
+        #4caf50 72deg 108deg,
+        #ff9800 108deg 144deg,
+        #e91e63 144deg 180deg,
+        #9c27b0 180deg 216deg,
+        #00bcd4 216deg 252deg,
+        #8bc34a 252deg 288deg,
+        #ffc107 288deg 324deg,
+        #673ab7 324deg 360deg
+    );
+    transition:transform 5s cubic-bezier(.15,.8,.25,1);
+}
+
+/* نوشته های گردونه */
+
+.label{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:100%;
+    height:100%;
+    transform-origin:center;
+}
+
+.label span{
+    position:absolute;
+    left:50%;
+    top:8px;
+    transform:translateX(-50%);
+    font-size:15px;
+    font-weight:bold;
+    white-space:nowrap;
+    text-shadow:0 2px 3px #000;
+}
+
+.l1{transform:rotate(18deg);}
+.l2{transform:rotate(54deg);}
+.l3{transform:rotate(90deg);}
+.l4{transform:rotate(126deg);}
+.l5{transform:rotate(162deg);}
+.l6{transform:rotate(198deg);}
+.l7{transform:rotate(234deg);}
+.l8{transform:rotate(270deg);}
+.l9{transform:rotate(306deg);}
+.l10{transform:rotate(342deg);}
+
+.center{
+    position:absolute;
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    background:#111;
+    border:5px solid white;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    z-index:5;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+}
+
+.spin{
+    background:#00bcd4;
+    border:0;
+    color:white;
+    padding:15px 35px;
+    border-radius:12px;
+    font-size:20px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.spin:disabled{
+    background:#555;
+}
+
+.result{
+    margin-top:20px;
+    padding:15px;
+    background:#151515;
+    border-radius:12px;
+    line-height:2;
+}
+
+.prizes{
+    margin-top:20px;
+    padding:15px;
+    background:#292929;
+    border-radius:15px;
+    line-height:2;
+}
+
+.gold{
+    color:#ffd700;
+    font-weight:bold;
+}
+
+.back{
+    display:block;
+    width:230px;
+    margin:25px auto;
+    padding:14px;
+    background:#333;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+</style>
+</head>
+<body>
+<header>
+🎡 گردونه سکه گیمی‌مود
+</header>
+<section class="balance">
+<h2>🐷 موجودی قلک</h2>
+<div class="coins" id="coins">
+0 🪙
+</div>
+</section>
+<section class="game">
+<div class="pointer">
+🔻
+</div>
+<div class="wheel" id="wheel">
+<div class="label l1">
+<span>😵 پوچ</span>
+</div>
+<div class="label l2">
+<span>😵 پوچ</span>
+</div>
+<div class="label l3">
+<span>😵 پوچ</span>
+</div>
+<div class="label l4">
+<span>🪙 ۱۰</span>
+</div>
+<div class="label l5">
+<span>🪙 ۱۵</span>
+</div>
+<div class="label l6">
+<span>🪙 ۲۰</span>
+</div>
+<div class="label l7">
+<span>🪙 ۳۰</span>
+</div>
+<div class="label l8">
+<span>🪙 ۵۰</span>
+</div>
+<div class="label l9">
+<span>🪙 ۱۰۰</span>
+</div>
+<div class="label l10">
+<span>🏆 ۵۰۰</span>
+</div>
+<div class="center">
+🎡
+</div>
+</div>
+<button
+class="spin"
+id="spinButton"
+onclick="spinWheel()">
+🎡 چرخاندن گردونه
+</button>
+<div class="result" id="result">
+گردونه آماده است!
+</div>
+<div class="prizes">
+<h3>
+🎁 جایزه‌های گردونه
+</h3>
+😵 پوچ × ۳<br>
+🪙 ۱۰ سکه<br>
+🪙 ۱۵ سکه<br>
+🪙 ۲۰ سکه<br>
+🪙 ۳۰ سکه<br>
+🪙 ۵۰ سکه<br>
+🪙 ۱۰۰ سکه<br>
+<span class="gold">
+🏆 سکه طلایی ۵۰۰ سکه — فقط ۱٪ احتمال
+</span>
+</div>
+</section>
+<a class="back" href="coin.html">
+⬅️ برگشت به مرکز سرگرمی
+</a>
+<script>
+
+/* =========================
+   موجودی مشترک
+========================= */
+
+let coins =
+Number(localStorage.getItem("gamimodCoins")) || 0;
+
+
+function updateCoins(){
+
+    document.getElementById(
+        "coins"
+    ).innerHTML =
+    coins + " 🪙";
+
+}
+
+
+function saveCoins(){
+
+    localStorage.setItem(
+        "gamimodCoins",
+        coins
+    );
+
+    updateCoins();
+
+}
+
+
+updateCoins();
+
+
+/* =========================
+   گردونه
+========================= */
+
+let spinning = false;
+
+
+function spinWheel(){
+
+    if(spinning){
+
+        return;
+
+    }
+
+    spinning = true;
+
+    document.getElementById(
+        "spinButton"
+    ).disabled = true;
+
+
+    /*
+       ۵۰۰ سکه طلایی:
+       دقیقاً ۱٪ احتمال
+
+       بقیه:
+       پوچ ×۳
+       ۱۰
+       ۱۵
+       ۲۰
+       ۳۰
+       ۵۰
+       ۱۰۰
+    */
+
+    let random =
+    Math.random() * 100;
+
+
+    let reward;
+
+
+    if(random < 1){
+
+        reward = 500;
+
+    }
+
+    else if(random < 15){
+
+        reward = 100;
+
+    }
+
+    else if(random < 29){
+
+        reward = 50;
+
+    }
+
+    else if(random < 43){
+
+        reward = 30;
+
+    }
+
+    else if(random < 57){
+
+        reward = 20;
+
+    }
+
+    else if(random < 71){
+
+        reward = 15;
+
+    }
+
+    else if(random < 85){
+
+        reward = 10;
+
+    }
+
+    else{
+
+        reward = 0;
+
+    }
+
+
+    /*
+       چرخش ظاهری
+    */
+
+    let rotation =
+    1800 +
+    Math.floor(
+        Math.random()*360
+    );
+
+
+    document.getElementById(
+        "wheel"
+    ).style.transform =
+    "rotate(" + rotation + "deg)";
+
+
+    setTimeout(function(){
+
+
+        if(reward === 0){
+
+            document.getElementById(
+                "result"
+            ).innerHTML =
+            "😵 پوچ شد!<br>" +
+            "این بار سکه‌ای نگرفتی.";
+
+        }
+
+        else if(reward === 500){
+
+            coins += 500;
+
+            saveCoins();
+
+            document.getElementById(
+                "result"
+            ).innerHTML =
+            "🏆🔥 سکه طلایی پیدا کردی!<br>" +
+            "+500 🪙";
+
+        }
+
+        else{
+
+            coins += reward;
+
+            saveCoins();
+
+            document.getElementById(
+                "result"
+            ).innerHTML =
+            "🎉 تبریک!<br>" +
+            "+" + reward +
+            " 🪙 سکه گرفتی!";
+
+        }
+
+
+        spinning = false;
+
+        document.getElementById(
+            "spinButton"
+        ).disabled = false;
+
+
+    },5000);
+
+}
+
+</script>
+</body>
+  </html>
