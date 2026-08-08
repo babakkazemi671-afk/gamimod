@@ -3,791 +3,902 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>🛒 فروشگاه | گیمی مود</title>
+<title>🛒 فروشگاه | GAMIMOD</title>
 <style>
-*{box-sizing:border-box}
+
+*{
+box-sizing:border-box;
+}
 
 body{
 margin:0;
 font-family:tahoma;
-background:#101010;
-color:#fff;
+background:#0b0b0f;
+color:white;
+padding-bottom:30px;
 }
 
 header{
-background:linear-gradient(135deg,#00b894,#00695c);
-padding:20px;
+background:linear-gradient(135deg,#00bcd4,#006b7a);
+padding:25px 15px;
 text-align:center;
-font-size:25px;
-font-weight:bold;
 }
 
-.container{
+header h1{
+margin:0 0 8px;
+font-size:28px;
+}
+
+header p{
+margin:0;
+color:#dffaff;
+}
+
+.wallet{
 width:94%;
-max-width:1000px;
-margin:20px auto;
+max-width:900px;
+margin:18px auto;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
 }
 
-.balance{
-background:#1d1d1d;
-padding:15px;
-border-radius:15px;
-display:flex;
-justify-content:space-around;
-margin-bottom:20px;
-font-weight:bold;
+.money{
+background:#1c1c22;
+padding:17px;
+border-radius:16px;
+text-align:center;
+font-size:19px;
+box-shadow:0 4px 12px #000;
 }
 
-.tabs{
+.coins{
+color:#ffd700;
+}
+
+.diamonds{
+color:#55ddff;
+}
+
+.filters{
+width:94%;
+max-width:1100px;
+margin:15px auto;
 display:flex;
 gap:8px;
-margin-bottom:15px;
+flex-wrap:wrap;
+justify-content:center;
 }
 
-.tabs button{
-flex:1;
-}
-
-button{
+.filter{
 border:0;
+padding:11px 16px;
 border-radius:12px;
-padding:12px;
+background:#25252d;
+color:white;
 font-family:tahoma;
 font-weight:bold;
 cursor:pointer;
 }
 
-.tab{
-background:#333;
-color:#fff;
-}
-
-.tab.active{
-background:#00b894;
-}
-
-.section{
-display:none;
-}
-
-.section.active{
-display:block;
+.filter.active{
+background:#00bcd4;
 }
 
 .grid{
+width:94%;
+max-width:1100px;
+margin:auto;
 display:grid;
-grid-template-columns:repeat(
-auto-fit,
-minmax(210px,1fr)
-);
+grid-template-columns:
+repeat(auto-fit,minmax(210px,1fr));
 gap:15px;
 }
 
-.item{
-background:#1d1d1d;
+.card{
+background:#181820;
 border-radius:18px;
-padding:18px;
+padding:17px;
+box-shadow:0 5px 15px #000;
 text-align:center;
-box-shadow:0 4px 15px #0008;
+transition:.2s;
+border:1px solid #292930;
 }
 
-.icon{
-font-size:55px;
-margin:10px;
+.card:hover{
+transform:translateY(-3px);
 }
 
-.item h3{
-margin:8px 0;
+.preview{
+height:105px;
+border-radius:14px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:48px;
+margin-bottom:12px;
+background:linear-gradient(135deg,#252535,#101018);
 }
 
-.power{
-color:#ffd700;
+.name{
+font-size:17px;
 font-weight:bold;
+margin-bottom:7px;
+}
+
+.category{
+font-size:13px;
+color:#aaa;
+margin-bottom:8px;
 }
 
 .price{
-margin:12px 0;
-color:#00e5ff;
+font-size:17px;
 font-weight:bold;
+margin:12px 0;
+}
+
+.coinPrice{
+color:#ffd700;
+}
+
+.diamondPrice{
+color:#55ddff;
 }
 
 .buy{
-background:#00b894;
-color:#fff;
 width:100%;
+border:0;
+padding:11px;
+border-radius:11px;
+font-family:tahoma;
+font-weight:bold;
+cursor:pointer;
+background:#00bcd4;
+color:white;
 }
 
-.buy:disabled{
-background:#555;
+.buy:hover{
+background:#00e5ff;
 }
 
-.message{
-background:#151515;
-padding:12px;
-border-radius:12px;
-margin-bottom:15px;
+.buy.owned{
+background:#444;
+cursor:not-allowed;
+}
+
+.activeItem{
+border:2px solid #00e5ff;
+}
+
+.notice{
+width:94%;
+max-width:700px;
+margin:18px auto;
+padding:15px;
+background:#15151b;
+border-radius:14px;
 text-align:center;
-min-height:25px;
+color:#ddd;
+line-height:1.8;
 }
 
 .back{
 display:block;
+width:230px;
+margin:25px auto;
+padding:14px;
 background:#333;
-color:#fff;
+color:white;
 text-decoration:none;
-padding:13px;
 border-radius:12px;
 text-align:center;
-margin-top:20px;
+font-weight:bold;
 }
 
-.legendary{
-border:1px solid #d4af37;
+@media(max-width:550px){
+
+.wallet{
+grid-template-columns:1fr;
 }
 
-.foreign{
-border:1px solid #3498db;
+.grid{
+grid-template-columns:
+repeat(2,1fr);
+gap:10px;
 }
 
-.iranian{
-border:1px solid #27ae60;
+.card{
+padding:12px;
 }
+
+.preview{
+height:85px;
+font-size:38px;
+}
+
+.name{
+font-size:14px;
+}
+
+}
+
 </style>
 </head>
 <body>
 <header>
-🛒 فروشگاه گیمی مود
+<h1>🛒 فروشگاه GAMIMOD</h1>
+<p>
+۱۲۰ آیتم برای شخصی‌سازی پروفایل و ظاهر بازی
+</p>
 </header>
-<div class="container">
-<div class="balance">
-<div>🪙 سکه: <span id="coins">0</span></div>
-<div>💎 الماس: <span id="diamonds">0</span></div>
+<div class="wallet">
+<div class="money coins">
+💰 سکه:
+<span id="coins">0</span>
 </div>
-<div id="message" class="message">
-از فروشگاه بازیکن یا پک موردنظرت را انتخاب کن.
+<div class="money diamonds">
+💎 الماس:
+<span id="diamonds">0</span>
 </div>
-<div class="tabs">
-<button
-class="tab active"
-onclick="showSection('players',this)">
-⚽ بازیکنان
-</button>
-<button
-class="tab"
-onclick="showSection('iran',this)">
-🇮🇷 ایرانی
-</button>
-<button
-class="tab"
-onclick="showSection('foreign',this)">
-🌍 خارجی
-</button>
-<button
-class="tab"
-onclick="showSection('packs',this)">
-🎁 پک‌ها
-</button>
 </div>
-<!-- همه بازیکنان -->
-<div id="players" class="section active">
-<div class="grid">
-<div class="item iranian">
-<div class="icon">⚽</div>
-<h3>مهدی طارمی</h3>
-<div class="power">قدرت 88</div>
-<div class="price">🪙 3,000</div>
-<button class="buy"
-onclick="buyPlayer('مهدی طارمی',88,3000,0)">
-خرید بازیکن
+<div class="notice">
+✨ آیتم‌های خریداری‌شده ذخیره می‌شوند و می‌توانی آن‌ها را برای پروفایلت فعال کنی.
+</div>
+<div class="filters">
+<button class="filter active" onclick="setFilter('all',this)">
+🌟 همه
+</button>
+<button class="filter" onclick="setFilter('theme',this)">
+🎨 تم‌ها
+</button>
+<button class="filter" onclick="setFilter('background',this)">
+🖼️ پس‌زمینه
+</button>
+<button class="filter" onclick="setFilter('frame',this)">
+🖼️ قاب عکس
+</button>
+<button class="filter" onclick="setFilter('avatar',this)">
+👤 آواتار
+</button>
+<button class="filter" onclick="setFilter('special',this)">
+💎 ویژه
 </button>
 </div>
-<div class="item iranian">
-<div class="icon">⚽</div>
-<h3>علیرضا جهانبخش</h3>
-<div class="power">قدرت 84</div>
-<div class="price">🪙 2,700</div>
-<button class="buy"
-onclick="buyPlayer('علیرضا جهانبخش',84,2700,0)">
-خرید بازیکن
-</button>
-</div>
-<div class="item foreign">
-<div class="icon">⭐</div>
-<h3>کیلیان امباپه</h3>
-<div class="power">قدرت 100</div>
-<div class="price">💎 80</div>
-<button class="buy"
-onclick="buyPlayer('کیلیان امباپه',100,0,80)">
-خرید بازیکن
-</button>
-</div>
-<div class="item foreign">
-<div class="icon">⭐</div>
-<h3>لامین یامال</h3>
-<div class="power">قدرت 100</div>
-<div class="price">💎 75</div>
-<button class="buy"
-onclick="buyPlayer('لامین یامال',100,0,75)">
-خرید بازیکن
-</button>
-</div>
-<div class="item legendary">
-<div class="icon">👑</div>
-<h3>کریستیانو رونالدو</h3>
-<div class="power">قدرت 100</div>
-<div class="price">💎 100</div>
-<button class="buy"
-onclick="buyPlayer('کریستیانو رونالدو',100,0,100)">
-خرید بازیکن
-</button>
-</div>
-<div class="item legendary">
-<div class="icon">🏆</div>
-<h3>زیدان</h3>
-<div class="power">قدرت 120</div>
-<div class="price">💎 120</div>
-<button class="buy"
-onclick="buyPlayer('زیدان',120,0,120)">
-خرید بازیکن
-</button>
-</div>
-</div>
-</div>
-<!-- ایرانی -->
-<div id="iran" class="section">
-<div class="grid">
-<div class="item iranian">
-<div class="icon">🇮🇷</div>
-<h3>مهدی قایدی</h3>
-<div class="power">قدرت 82</div>
-<div class="price">🪙 2,500</div>
-<button class="buy"
-onclick="buyPlayer('مهدی قایدی',82,2500,0)">
-خرید
-</button>
-</div>
-<div class="item iranian">
-<div class="icon">🇮🇷</div>
-<h3>سردار آزمون</h3>
-<div class="power">قدرت 86</div>
-<div class="price">🪙 2,900</div>
-<button class="buy"
-onclick="buyPlayer('سردار آزمون',86,2900,0)">
-خرید
-</button>
-</div>
-<div class="item iranian">
-<div class="icon">🇮🇷</div>
-<h3>علیرضا بیرانوند</h3>
-<div class="power">قدرت 85</div>
-<div class="price">🪙 2,800</div>
-<button class="buy"
-onclick="buyPlayer('علیرضا بیرانوند',85,2800,0)">
-خرید
-</button>
-</div>
-</div>
-</div>
-<!-- خارجی -->
-<div id="foreign" class="section">
-<div class="grid">
-<div class="item foreign">
-<div class="icon">🌍</div>
-<h3>لیونل مسی</h3>
-<div class="power">قدرت 100</div>
-<div class="price">💎 90</div>
-<button class="buy"
-onclick="buyPlayer('لیونل مسی',100,0,90)">
-خرید
-</button>
-</div>
-<div class="item foreign">
-<div class="icon">🌍</div>
-<h3>هالند</h3>
-<div class="power">قدرت 99</div>
-<div class="price">💎 85</div>
-<button class="buy"
-onclick="buyPlayer('هالند',99,0,85)">
-خرید
-</button>
-</div>
-<div class="item foreign">
-<div class="icon">🌍</div>
-<h3>امباپه</h3>
-<div class="power">قدرت 100</div>
-<div class="price">💎 80</div>
-<button class="buy"
-onclick="buyPlayer('امباپه',100,0,80)">
-خرید
-</button>
-</div>
-</div>
-</div>
-<!-- پک‌ها -->
-<div id="packs" class="section">
-<div class="grid">
-<div class="item">
-<div class="icon">🎁</div>
-<h3>پک ایرانی</h3>
-<p>
-یک بازیکن ایرانی تصادفی
-</p>
-<div class="price">
-🪙 1,500
-</div>
-<button
-class="buy"
-onclick="buyPack('iran')">
-خرید پک
-</button>
-</div>
-<div class="item">
-<div class="icon">🎁</div>
-<h3>پک خارجی</h3>
-<p>
-یک بازیکن خارجی تصادفی
-</p>
-<div class="price">
-💎 25
-</div>
-<button
-class="buy"
-onclick="buyPack('foreign')">
-خرید پک
-</button>
-</div>
-<div class="item legendary">
-<div class="icon">👑</div>
-<h3>پک ویژه</h3>
-<p>
-شانس بازیکن قدرتمند
-</p>
-<div class="price">
-💎 40
-</div>
-<button
-class="buy"
-onclick="buyPack('special')">
-خرید پک
-</button>
-</div>
-</div>
-</div>
+<div class="grid" id="shop"></div>
 <a class="back" href="index.html">
 ⬅️ برگشت به خانه
 </a>
-</div>
 <script>
 
-/* =====================================
- موجودی
-===================================== */
+/* =========================
+   پول
+========================= */
 
-let coins=
-Number(
-localStorage.getItem("coins")
-)||0;
+let coins =
+Number(localStorage.getItem("coins"));
 
-let diamonds=
-Number(
-localStorage.getItem("diamonds")
-)||0;
+if(!Number.isFinite(coins)){
 
-updateBalance();
+coins=30000;
 
-
-function updateBalance(){
-
-document.getElementById(
-"coins"
-).innerHTML=
-coins;
-
-document.getElementById(
-"diamonds"
-).innerHTML=
-diamonds;
+localStorage.setItem("coins",coins);
 
 }
 
 
-/* =====================================
- تغییر بخش
-===================================== */
+let diamonds =
+Number(localStorage.getItem("diamonds"));
 
-function showSection(
-id,
-button
-){
+if(!Number.isFinite(diamonds)){
 
-document.querySelectorAll(
-".section"
-).forEach(
-section=>{
-section.classList.remove(
-"active"
-);
+diamonds=0;
+
+localStorage.setItem("diamonds",diamonds);
+
+}
+
+
+/* =========================
+   آیتم‌ها
+========================= */
+
+const items=[];
+
+
+/* =========================
+   ۳۰ تم
+========================= */
+
+const themes=[
+"تم آبی",
+"تم قرمز",
+"تم سبز",
+"تم بنفش",
+"تم طلایی",
+"تم نارنجی",
+"تم صورتی",
+"تم آسمانی",
+"تم شب",
+"تم نئون",
+"تم آتشی",
+"تم یخی",
+"تم جنگل",
+"تم اقیانوس",
+"تم کهکشانی",
+"تم الماسی",
+"تم مشکی",
+"تم سفید",
+"تم سایبری",
+"تم گیمینگ",
+"تم رعد",
+"تم آذرخش",
+"تم لاوا",
+"تم زمرد",
+"تم یاقوت",
+"تم بنفش سلطنتی",
+"تم طلوع",
+"تم غروب",
+"تم فضایی",
+"تم آینده"
+];
+
+themes.forEach((name,i)=>{
+
+items.push({
+
+id:"theme_"+i,
+
+name:"🎨 "+name,
+
+category:"theme",
+
+categoryName:"تم و ظاهر",
+
+icon:"🎨",
+
+price:1000+i*250,
+
+currency:"coins"
+
 });
 
-document.getElementById(
-id
-).classList.add(
-"active"
-);
-
-document.querySelectorAll(
-".tab"
-).forEach(
-btn=>{
-btn.classList.remove(
-"active"
-);
 });
 
-button.classList.add(
-"active"
+
+/* =========================
+   ۲۵ پس‌زمینه
+========================= */
+
+const backgrounds=[
+"پس‌زمینه شب",
+"پس‌زمینه شهر",
+"پس‌زمینه استادیوم",
+"پس‌زمینه فوتبال",
+"پس‌زمینه آتش",
+"پس‌زمینه یخ",
+"پس‌زمینه جنگل",
+"پس‌زمینه دریا",
+"پس‌زمینه کوهستان",
+"پس‌زمینه فضا",
+"پس‌زمینه کهکشان",
+"پس‌زمینه نئون",
+"پس‌زمینه سایبری",
+"پس‌زمینه طلایی",
+"پس‌زمینه الماسی",
+"پس‌زمینه رعدوبرق",
+"پس‌زمینه غروب",
+"پس‌زمینه طلوع",
+"پس‌زمینه بارانی",
+"پس‌زمینه برفی",
+"پس‌زمینه قرمز",
+"پس‌زمینه آبی",
+"پس‌زمینه بنفش",
+"پس‌زمینه سبز",
+"پس‌زمینه مشکی"
+];
+
+backgrounds.forEach((name,i)=>{
+
+items.push({
+
+id:"bg_"+i,
+
+name:"🖼️ "+name,
+
+category:"background",
+
+categoryName:"پس‌زمینه پروفایل",
+
+icon:"🌌",
+
+price:1500+i*300,
+
+currency:"coins"
+
+});
+
+});
+
+
+/* =========================
+   ۲۵ قاب
+========================= */
+
+const frames=[
+"قاب آبی",
+"قاب قرمز",
+"قاب سبز",
+"قاب بنفش",
+"قاب طلایی",
+"قاب نقره‌ای",
+"قاب نارنجی",
+"قاب صورتی",
+"قاب آتشی",
+"قاب یخی",
+"قاب نئون",
+"قاب رعد",
+"قاب زمرد",
+"قاب یاقوت",
+"قاب الماسی",
+"قاب سلطنتی",
+"قاب ستاره‌ای",
+"قاب کهکشانی",
+"قاب سایبری",
+"قاب گیمینگ",
+"قاب فوتبال",
+"قاب قهرمانی",
+"قاب افسانه‌ای",
+"قاب شاهانه",
+"قاب اسطوره‌ای"
+];
+
+frames.forEach((name,i)=>{
+
+items.push({
+
+id:"frame_"+i,
+
+name:"🖼️ "+name,
+
+category:"frame",
+
+categoryName:"قاب عکس",
+
+icon:"⭕",
+
+price:2000+i*400,
+
+currency:"coins"
+
+});
+
+});
+
+
+/* =========================
+   ۱۵ آواتار
+========================= */
+
+const avatars=[
+"آواتار جنگجو",
+"آواتار فوتبالیست",
+"آواتار گیمر",
+"آواتار نینجا",
+"آواتار ربات",
+"آواتار فضایی",
+"آواتار آتش",
+"آواتار یخ",
+"آواتار رعد",
+"آواتار شاه",
+"آواتار قهرمان",
+"آواتار سایبری",
+"آواتار طلایی",
+"آواتار الماسی",
+"آواتار افسانه‌ای"
+];
+
+avatars.forEach((name,i)=>{
+
+items.push({
+
+id:"avatar_"+i,
+
+name:"👤 "+name,
+
+category:"avatar",
+
+categoryName:"آواتار",
+
+icon:"😎",
+
+price:2500+i*500,
+
+currency:"coins"
+
+});
+
+});
+
+
+/* =========================
+   ۲۵ آیتم ویژه الماسی
+========================= */
+
+const special=[
+"قاب الماس آبی",
+"قاب الماس قرمز",
+"قاب الماس طلایی",
+"قاب الماس بنفش",
+"قاب الماس سبز",
+"پس‌زمینه الماس آبی",
+"پس‌زمینه الماس قرمز",
+"پس‌زمینه الماس طلایی",
+"پس‌زمینه کهکشان الماسی",
+"تم الماس نئون",
+"تم الماس آتش",
+"تم الماس یخ",
+"آواتار الماس",
+"آواتار پادشاه",
+"آواتار اسطوره",
+"قاب فوق‌العاده",
+"قاب اژدها",
+"قاب رعد طلایی",
+"قاب ستاره‌ای الماسی",
+"پس‌زمینه افسانه‌ای",
+"تم افسانه‌ای",
+"تم قهرمانی",
+"تم شاهانه",
+"آواتار افسانه‌ای",
+"پک کامل الماسی"
+];
+
+special.forEach((name,i)=>{
+
+items.push({
+
+id:"special_"+i,
+
+name:"💎 "+name,
+
+category:"special",
+
+categoryName:"ویژه الماسی",
+
+icon:"💎",
+
+price:5+i,
+
+currency:"diamonds"
+
+});
+
+});
+
+
+/* =========================
+   بررسی تعداد
+========================= */
+
+console.log(
+"تعداد آیتم‌ها:",
+items.length
 );
 
-}
+
+/* =========================
+   خریداری شده‌ها
+========================= */
+
+let owned =
+JSON.parse(
+localStorage.getItem("shopItems")
+) || [];
 
 
-/* =====================================
- تیم من
-===================================== */
+/* =========================
+   فیلتر
+========================= */
 
-function getTeam(){
-
-try{
-
-return JSON.parse(
-localStorage.getItem("myteam")
-)||[];
-
-}catch(e){
-
-return[];
-
-}
-
-}
+let filter="all";
 
 
-function saveTeam(team){
+function setFilter(type,button){
 
-localStorage.setItem(
-"myteam",
-JSON.stringify(team)
+filter=type;
+
+document
+.querySelectorAll(".filter")
+.forEach(
+b=>b.classList.remove("active")
 );
 
+button.classList.add("active");
+
+renderShop();
+
 }
 
 
-/* =====================================
- خرید بازیکن
-===================================== */
+/* =========================
+   کیف پول
+========================= */
 
-function buyPlayer(
-name,
-power,
-coinPrice,
-diamondPrice
-){
+function updateWallet(){
 
-if(
-coinPrice>0 &&
-coins<coinPrice
-){
+document.getElementById("coins")
+.textContent=
+coins.toLocaleString("fa-IR");
 
-showMessage(
-"❌ سکه کافی نداری."
+document.getElementById("diamonds")
+.textContent=
+diamonds.toLocaleString("fa-IR");
+
+}
+
+
+/* =========================
+   خرید
+========================= */
+
+function buyItem(id){
+
+const item=
+items.find(
+x=>x.id===id
 );
+
+if(!item)return;
+
+
+if(owned.includes(id)){
+
+alert("✅ این آیتم را قبلاً خریدی!");
 
 return;
 
 }
 
-if(
-diamondPrice>0 &&
-diamonds<diamondPrice
-){
 
-showMessage(
-"❌ الماس کافی نداری."
-);
+if(item.currency==="coins"){
+
+if(coins<item.price){
+
+alert("❌ سکه کافی نداری!");
 
 return;
 
 }
 
-
-/*
- پرداخت
-*/
-
-coins-=coinPrice;
-
-diamonds-=diamondPrice;
-
-
-/*
- اضافه کردن بازیکن
-*/
-
-let team=
-getTeam();
-
-let exists=
-team.some(
-p=>p.name===name
-);
-
-if(exists){
-
-/*
- پول برگردد
-*/
-
-coins+=coinPrice;
-
-diamonds+=diamondPrice;
-
-showMessage(
-"⚠️ این بازیکن را قبلاً داری."
-);
-
-updateBalance();
-
-return;
-
-}
-
-
-team.push({
-
-name:name,
-
-power:power,
-
-source:"shop",
-
-date:Date.now()
-
-});
-
-saveTeam(team);
-
-
-/*
- ذخیره پول
-*/
+coins-=item.price;
 
 localStorage.setItem(
 "coins",
 coins
 );
 
+}
+
+
+if(item.currency==="diamonds"){
+
+if(diamonds<item.price){
+
+alert("💎 الماس کافی نداری!");
+
+return;
+
+}
+
+diamonds-=item.price;
+
 localStorage.setItem(
 "diamonds",
 diamonds
 );
 
-updateBalance();
+}
 
-showMessage(
-"✅ "+name+
-" با قدرت "+power+
-" به «تیم من» اضافه شد!"
+
+owned.push(id);
+
+localStorage.setItem(
+"shopItems",
+JSON.stringify(owned)
+);
+
+
+/* اعمال خودکار آیتم */
+
+applyItem(item);
+
+
+updateWallet();
+
+renderShop();
+
+
+alert(
+"🎉 "+item.name+
+" خریداری شد و اعمال شد!"
 );
 
 }
 
 
-/* =====================================
- خرید پک
-===================================== */
+/* =========================
+   اعمال آیتم
+========================= */
 
-function buyPack(type){
+function applyItem(item){
 
-if(type==="iran"){
+if(item.category==="theme"){
 
-if(coins<1500){
-
-showMessage(
-"❌ برای پک ایرانی ۱۵۰۰ سکه لازم داری."
-);
-
-return;
-
-}
-
-coins-=1500;
-
-let players=[
-["بازیکن ایرانی 1",72],
-["بازیکن ایرانی 2",76],
-["بازیکن ایرانی 3",80],
-["بازیکن ایرانی 4",83],
-["بازیکن ایرانی 5",86]
-];
-
-let chosen=
-players[
-Math.floor(
-Math.random()*players.length
-)
-];
-
-addPackPlayer(
-chosen[0],
-chosen[1]
+localStorage.setItem(
+"activeTheme",
+item.id
 );
 
 }
 
-else if(type==="foreign"){
 
-if(diamonds<25){
+if(item.category==="background"){
 
-showMessage(
-"❌ برای پک خارجی ۲۵ الماس لازم داری."
-);
-
-return;
-
-}
-
-diamonds-=25;
-
-let players=[
-["بازیکن خارجی 1",88],
-["بازیکن خارجی 2",91],
-["بازیکن خارجی 3",94],
-["بازیکن خارجی 4",97],
-["بازیکن خارجی 5",99]
-];
-
-let chosen=
-players[
-Math.floor(
-Math.random()*players.length
-)
-];
-
-addPackPlayer(
-chosen[0],
-chosen[1]
+localStorage.setItem(
+"activeBackground",
+item.id
 );
 
 }
 
+
+if(item.category==="frame"){
+
+localStorage.setItem(
+"activeFrame",
+item.id
+);
+
+}
+
+
+if(item.category==="avatar"){
+
+localStorage.setItem(
+"activeAvatar",
+item.id
+);
+
+}
+
+
+if(item.category==="special"){
+
+localStorage.setItem(
+"activeSpecial",
+item.id
+);
+
+}
+
+}
+
+
+/* =========================
+   نمایش فروشگاه
+========================= */
+
+function renderShop(){
+
+const shop=
+document.getElementById("shop");
+
+shop.innerHTML="";
+
+
+let list=
+items.filter(item=>{
+
+return filter==="all"
+||
+item.category===filter;
+
+});
+
+
+list.forEach(item=>{
+
+const isOwned=
+owned.includes(item.id);
+
+
+const card=
+document.createElement("div");
+
+card.className="card";
+
+
+let priceText=
+item.price.toLocaleString("fa-IR");
+
+
+let priceClass=
+item.currency==="diamonds"
+? "diamondPrice"
+: "coinPrice";
+
+
+let currency=
+item.currency==="diamonds"
+? "💎"
+: "💰";
+
+
+card.innerHTML=
+
+'<div class="preview">'+
+item.icon+
+'</div>'+
+
+'<div class="name">'+
+item.name+
+'</div>'+
+
+'<div class="category">'+
+item.categoryName+
+'</div>'+
+
+'<div class="price '+priceClass+'">'+
+currency+" "+priceText+
+'</div>'+
+
+'<button class="buy">'+
+(
+isOwned
+? "✅ خریداری شده"
+: "🛒 خرید"
+)+
+'</button>';
+
+
+const button=
+card.querySelector(".buy");
+
+
+if(isOwned){
+
+button.disabled=true;
+
+button.classList.add("owned");
+
+}
 else{
 
-if(diamonds<40){
+button.onclick=
+function(){
 
-showMessage(
-"❌ برای پک ویژه ۴۰ الماس لازم داری."
-);
+buyItem(item.id);
 
-return;
-
-}
-
-diamonds-=40;
-
-let players=[
-["بازیکن ویژه 1",95],
-["بازیکن ویژه 2",97],
-["بازیکن ویژه 3",99],
-["بازیکن ویژه 4",100]
-];
-
-let chosen=
-players[
-Math.floor(
-Math.random()*players.length
-)
-];
-
-addPackPlayer(
-chosen[0],
-chosen[1]
-);
+};
 
 }
 
 
-/*
- ذخیره موجودی
-*/
-
-localStorage.setItem(
-"coins",
-coins
-);
-
-localStorage.setItem(
-"diamonds",
-diamonds
-);
-
-updateBalance();
-
-}
-
-
-/* =====================================
- اضافه کردن بازیکن پک
-===================================== */
-
-function addPackPlayer(
-name,
-power
-){
-
-let team=
-getTeam();
-
-team.push({
-
-name:name,
-
-power:power,
-
-source:"pack",
-
-date:Date.now()
+shop.appendChild(card);
 
 });
 
-saveTeam(team);
-
-showMessage(
-"🎁 تبریک! "+
-name+
-" با قدرت "+
-power+
-" از پک به تیم من اضافه شد!"
-);
-
 }
 
 
-/* =====================================
- پیام
-===================================== */
+/* =========================
+   شروع
+========================= */
 
-function showMessage(
-text
-){
+updateWallet();
 
-document.getElementById(
-"message"
-).innerHTML=
-text;
-
-}
+renderShop();
 
 </script>
 </body>
-
 </html>
