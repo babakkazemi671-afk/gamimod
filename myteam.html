@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>🛒 بازار بازیکنان | گیمی‌مود</title>
+<title>👥 تیم من | گیمی‌مود</title>
 <style>
 *{box-sizing:border-box}
 
@@ -23,8 +23,8 @@ font-weight:bold;
 }
 
 .box{
-width:94%;
-max-width:1100px;
+width:95%;
+max-width:1050px;
 margin:18px auto;
 padding:18px;
 background:#202020;
@@ -32,106 +32,242 @@ border-radius:20px;
 box-shadow:0 0 15px #000;
 }
 
-.balance{
-display:flex;
-justify-content:center;
-gap:12px;
-flex-wrap:wrap;
+.stats{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(140px,1fr));
+gap:10px;
 }
 
-.money{
+.stat{
 background:#151515;
-padding:13px 25px;
+padding:13px;
 border-radius:12px;
+text-align:center;
 }
 
-.money b{
-color:#00e5ff;
+.stat span{
+display:block;
+color:#aaa;
+font-size:13px;
+}
+
+.stat b{
+display:block;
+margin-top:7px;
 font-size:21px;
+color:#00e5ff;
 }
 
-.filters{
+.formations{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.formation{
+background:#333;
+color:white;
+border:0;
+padding:12px 18px;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.formation.active{
+background:#00bcd4;
+}
+
+.tactics{
 display:flex;
 gap:10px;
 flex-wrap:wrap;
 justify-content:center;
 }
 
-input,select{
-padding:13px;
-border:0;
-border-radius:10px;
-font-size:16px;
-background:#151515;
+.tactic{
+background:#333;
 color:white;
-}
-
-.players{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(210px,1fr));
-gap:14px;
-}
-
-.player{
-background:#171717;
-border:2px solid #333;
-border-radius:16px;
-padding:16px;
-text-align:center;
-}
-
-.flag{
-font-size:35px;
-}
-
-.name{
-font-size:18px;
-font-weight:bold;
-margin:8px;
-}
-
-.rating{
-color:#ffd700;
-font-size:23px;
-font-weight:bold;
-}
-
-.position{
-color:#aaa;
-margin:6px;
-}
-
-.price{
-color:#00e5ff;
-font-weight:bold;
-margin:10px;
-}
-
-button{
 border:0;
+padding:12px 18px;
 border-radius:10px;
-padding:11px 18px;
-background:#16a085;
-color:white;
-font-size:16px;
 font-weight:bold;
 cursor:pointer;
 }
 
-button:disabled{
-background:#555;
+.tactic.active{
+background:#16a085;
 }
 
-.message{
+.field{
+position:relative;
+height:560px;
+max-width:850px;
+margin:20px auto;
+border:4px solid white;
+border-radius:15px;
+overflow:hidden;
+
+background:
+repeating-linear-gradient(
+90deg,
+#147636 0px,
+#147636 70px,
+#18813b 70px,
+#18813b 140px
+);
+}
+
+.line{
+position:absolute;
+background:white;
+}
+
+.midLine{
+width:3px;
+height:100%;
+left:50%;
+top:0;
+}
+
+.circle{
+position:absolute;
+width:115px;
+height:115px;
+border:3px solid white;
+border-radius:50%;
+left:50%;
+top:50%;
+transform:translate(-50%,-50%);
+}
+
+.spot{
+position:absolute;
+width:10px;
+height:10px;
+background:white;
+border-radius:50%;
+left:50%;
+top:50%;
+transform:translate(-50%,-50%);
+}
+
+.goal{
+position:absolute;
+width:35px;
+height:125px;
+border:4px solid white;
+top:38%;
+}
+
+.goal.left{
+left:-4px;
+}
+
+.goal.right{
+right:-4px;
+}
+
+.slot{
+position:absolute;
+transform:translate(-50%,-50%);
+width:82px;
+min-height:70px;
+background:#151515;
+border:2px solid #00e5ff;
+border-radius:14px;
+text-align:center;
+padding:8px 4px;
+cursor:pointer;
+}
+
+.slot .shirt{
+font-size:22px;
+}
+
+.slot .slotName{
+font-size:11px;
+font-weight:bold;
+margin-top:3px;
+}
+
+.slot .slotRating{
+font-size:12px;
+color:#ffd700;
+}
+
+.selectBox{
+display:none;
+background:#151515;
+padding:15px;
+border-radius:14px;
+margin-top:15px;
+}
+
+.selectBox.show{
+display:block;
+}
+
+.playerList{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(160px,1fr));
+gap:10px;
+}
+
+.playerButton{
+background:#252525;
+border:1px solid #444;
+border-radius:10px;
+padding:12px;
+color:white;
+cursor:pointer;
+}
+
+.playerButton:hover{
+background:#00bcd4;
+}
+
+.result{
 margin-top:15px;
 padding:15px;
 background:#151515;
 border-radius:12px;
 text-align:center;
+line-height:2;
 }
 
-.back{
+.actions{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(180px,1fr));
+gap:10px;
+}
+
+.actions a{
+text-decoration:none;
+color:white;
+padding:14px;
+border-radius:12px;
+text-align:center;
+font-weight:bold;
+}
+
+.market{
+background:#16a085;
+}
+
+.packs{
+background:#8e44ad;
+}
+
+.football{
+background:#e67e22;
+}
+
+.home{
 display:block;
 width:230px;
 margin:25px auto;
@@ -147,78 +283,133 @@ text-align:center;
 </head>
 <body>
 <header>
-🛒 بازار بازیکنان گیمی‌مود
+👥 تیم من ⚽
 </header>
 <section class="box">
-<div class="balance">
-<div class="money">
-🪙 سکه:
+<h2 id="clubName">
+تیم من
+</h2>
+<div class="stats">
+<div class="stat">
+<span>⭐ قدرت باشگاه</span>
+<b id="power">60</b>
+</div>
+<div class="stat">
+<span>🪙 سکه</span>
 <b id="coins">0</b>
 </div>
-<div class="money">
-💎 الماس:
+<div class="stat">
+<span>💎 الماس</span>
 <b id="diamonds">0</b>
 </div>
-<div class="money">
-👥 بازیکنان تیم:
-<b id="count">0</b>
+<div class="stat">
+<span>👥 بازیکنان</span>
+<b id="playerCount">0</b>
+</div>
+<div class="stat">
+<span>🏆 جام‌ها</span>
+<b id="cups">0</b>
 </div>
 </div>
 </section>
 <section class="box">
-<h2>🔎 جستجو و فیلتر</h2>
-<div class="filters">
-<input
-id="search"
-type="text"
-placeholder="نام بازیکن..."
-oninput="render()">
-<select id="country" onchange="render()">
-<option value="all">
-همه بازیکنان
-</option>
-<option value="iran">
-🇮🇷 بازیکنان ایرانی
-</option>
-<option value="foreign">
-🌍 بازیکنان خارجی
-</option>
-</select>
-<select id="position" onchange="render()">
-<option value="all">
-همه پست‌ها
-</option>
-<option value="GK">
-دروازه‌بان
-</option>
-<option value="DEF">
-مدافع
-</option>
-<option value="MID">
-هافبک
-</option>
-<option value="ATT">
-مهاجم
-</option>
-</select>
+<h2>📋 انتخاب ترکیب</h2>
+<div class="formations">
+<button
+class="formation active"
+onclick="setFormation('4-3-3',this)">
+4-3-3
+</button>
+<button
+class="formation"
+onclick="setFormation('4-4-2',this)">
+4-4-2
+</button>
+<button
+class="formation"
+onclick="setFormation('3-4-3',this)">
+3-4-3
+</button>
+<button
+class="formation"
+onclick="setFormation('5-3-2',this)">
+5-3-2
+</button>
 </div>
 </section>
 <section class="box">
-<h2>⚽ بازیکنان</h2>
-<div
-id="players"
-class="players">
+<h2>🎯 تاکتیک</h2>
+<div class="tactics">
+<button
+class="tactic active"
+onclick="setTactic('balanced',this)">
+⚖️ متعادل
+</button>
+<button
+class="tactic"
+onclick="setTactic('attack',this)">
+🔥 هجومی
+</button>
+<button
+class="tactic"
+onclick="setTactic('defend',this)">
+🛡️ دفاعی
+</button>
+</div>
+</section>
+<section class="box">
+<h2>
+⚽ ترکیب
+<span id="formationText">4-3-3</span>
+</h2>
+<div class="field">
+<div class="line midLine"></div>
+<div class="circle"></div>
+<div class="spot"></div>
+<div class="goal left"></div>
+<div class="goal right"></div>
+<div id="slots"></div>
 </div>
 <div
-id="message"
-class="message">
-بازیکنان بازار
+class="result"
+id="message">
+روی یک جایگاه بازیکن بزن و بازیکنت را انتخاب کن.
+</div>
+<div
+class="selectBox"
+id="selectBox">
+<h3 id="selectTitle">
+انتخاب بازیکن
+</h3>
+<div
+class="playerList"
+id="playerList">
+</div>
+</div>
+</section>
+<section class="box">
+<div class="actions">
+<a
+class="market"
+href="players.html">
+🛒 بازار بازیکنان
+</a>
+<a
+class="packs"
+href="packs.html">
+🎁 پک فوتبال
+</a>
+<a
+class="football"
+href="football.html">
+⚽ ورود به بازی
+</a>
 </div>
 </section>
 <a
-class="back"
-href="myteam.html">
-⬅️ برگشت به تیم من
+class="home"
+href="index.html">
+🏠 برگشت به خانه
 </a>
 <script>
 
@@ -226,485 +417,10 @@ href="myteam.html">
    اطلاعات
 ========================= */
 
-let coins=
-Number(
-localStorage.getItem("coins")
-) || 10000;
-
-let diamonds=
-Number(
-localStorage.getItem("footballDiamonds")
-) || 0;
-
-let myPlayers=
-JSON.parse(
-localStorage.getItem("myPlayers")
-) || [];
-
-
-/* =========================
-   نام‌ها
-========================= */
-
-const iranFirst=[
-"علی","محمد","مهدی","امیر","رضا",
-"حسین","سعید","میلاد","احمد","پارسا",
-"آریا","سینا","یاسین","سامان","اشکان",
-"پویا","ماهان","کیان","بردیا","علیرضا"
-];
-
-const iranLast=[
-"محمدی","حسینی","رضایی","کریمی",
-"مرادی","اکبری","کاظمی","موسوی",
-"نوری","جعفری","حیدری","صادقی",
-"رحیمی","امیری","مهدوی","احمدی",
-"قاسمی","عباسی","نعمتی","شریفی"
-];
-
-
-const foreignFirst=[
-"Alex","Leo","Luca","Marco","Daniel",
-"David","Lucas","Noah","Oliver","Adam",
-"Rayan","Ethan","Mateo","Carlos","Luis",
-"Jude","Victor","Kevin","Nico","Sergio"
-];
-
-const foreignLast=[
-"Silva","Costa","Ramos","Garcia",
-"Martin","Wilson","Brown","Walker",
-"King","Young","Miller","Santos",
-"Diaz","Torres","Lopez","Moretti",
-"Romano","Mendes","Pereira","Sanchez"
-];
-
-
-/* =========================
-   پست‌ها
-========================= */
-
-const positions=[
-"GK","DEF","MID","ATT"
-];
-
-function getPosition(i){
-
-return positions[
-i%4
-];
-
-}
-
-
-/* =========================
-   تولید ۲۰۰۰ بازیکن
-========================= */
-
-let players=[];
-
-
-/* ایرانی */
-
-for(let i=0;i<1000;i++){
-
-let first=
-iranFirst[
-i%iranFirst.length
-];
-
-let last=
-iranLast[
-Math.floor(
-i/iranFirst.length
-)%iranLast.length
-];
-
-
-let rating=
-60+
-(i%31);
-
-
-let position=
-getPosition(i);
-
-
-let price=
-1000+
-(rating-60)*180;
-
-
-players.push({
-
-id:"ir"+i,
-
-name:
-first+" "+last+" "+(i+1),
-
-country:"iran",
-
-flag:"🇮🇷",
-
-position:position,
-
-rating:rating,
-
-price:price,
-
-currency:"coins"
-
-});
-
-}
-
-
-/* خارجی */
-
-for(let i=0;i<1000;i++){
-
-let first=
-foreignFirst[
-i%foreignFirst.length
-];
-
-let last=
-foreignLast[
-Math.floor(
-i/foreignFirst.length
-)%foreignLast.length
-];
-
-
-let rating=
-70+
-(i%31);
-
-
-let position=
-getPosition(i);
-
-
-let price=
-2500+
-(rating-70)*250;
-
-
-players.push({
-
-id:"fo"+i,
-
-name:
-first+" "+last+" "+(i+1),
-
-country:"foreign",
-
-flag:"🌍",
-
-position:position,
-
-rating:rating,
-
-price:price,
-
-currency:"coins"
-
-});
-
-}
-
-
-/* =========================
-   ستاره‌های ویژه
-========================= */
-
-players.push({
-
-id:"ronaldo",
-name:"رونالدو",
-country:"foreign",
-flag:"🌍",
-position:"ATT",
-rating:100,
-price:50,
-currency:"diamonds"
-});
-
-
-players.push({
-
-id:"mbappe",
-name:"امباپه",
-country:"foreign",
-flag:"🌍",
-position:"ATT",
-rating:100,
-price:50,
-currency:"diamonds"
-});
-
-
-players.push({
-
-id:"yamal",
-name:"یامال",
-country:"foreign",
-flag:"🌍",
-position:"ATT",
-rating:100,
-price:50,
-currency:"diamonds"
-});
-
-
-/* =========================
-   نمایش
-========================= */
-
-function render(){
-
-const box=
-document.getElementById(
-"players"
-);
-
-box.innerHTML="";
-
-
-let search=
-document.getElementById(
-"search"
-).value
-.toLowerCase();
-
-
-let country=
-document.getElementById(
-"country"
-).value;
-
-
-let position=
-document.getElementById(
-"position"
-).value;
-
-
-let filtered=
-players.filter(
-function(p){
-
-let nameOK=
-p.name
-.toLowerCase()
-.includes(search);
-
-let countryOK=
-country==="all" ||
-p.country===country;
-
-let positionOK=
-position==="all" ||
-p.position===position;
-
-return(
-nameOK &&
-countryOK &&
-positionOK
-);
-
-});
-
-
-/* فقط 60 کارت همزمان */
-
-filtered=
-filtered.slice(0,60);
-
-
-if(filtered.length===0){
-
-box.innerHTML=
-"<div class='message'>"+
-"❌ بازیکنی پیدا نشد"+
-"</div>";
-
-return;
-
-}
-
-
-filtered.forEach(
-function(p){
-
-let div=
-document.createElement(
-"div"
-);
-
-div.className="player";
-
-
-let priceText;
-
-if(p.currency==="diamonds"){
-
-priceText=
-p.price+
-" 💎";
-
-}
-else{
-
-priceText=
-p.price.toLocaleString()+
-" 🪙";
-
-}
-
-
-div.innerHTML=
-
-"<div class='flag'>"+
-p.flag+
-"</div>"+
-
-"<div class='name'>"+
-p.name+
-"</div>"+
-
-"<div class='rating'>"+
-"⭐ "+
-p.rating+
-"</div>"+
-
-"<div class='position'>"+
-positionName(
-p.position
-)+
-"</div>"+
-
-"<div class='price'>"+
-priceText+
-"</div>"+
-
-"<button "+
-"onclick='buyPlayer(\""+
-p.id+
-"\")'>"+
-"🛒 خرید بازیکن"+
-"</button>";
-
-
-box.appendChild(div);
-
-});
-
-}
-
-
-/* =========================
-   خرید
-========================= */
-
-function buyPlayer(id){
-
-let player=
-players.find(
-p=>p.id===id
-);
-
-if(!player)return;
-
-
-/* بررسی خرید تکراری */
-
-let exists=
-myPlayers.some(
-p=>p.id===player.id
-);
-
-if(exists){
-
-showMessage(
-"⚠️ این بازیکن را قبلاً داری!"
-);
-
-return;
-
-}
-
-
-/* پرداخت */
-
-if(player.currency==="diamonds"){
-
-if(diamonds<player.price){
-
-showMessage(
-"❌ الماس کافی نداری!"
-);
-
-return;
-
-}
-
-diamonds-=player.price;
-
-}
-else{
-
-if(coins<player.price){
-
-showMessage(
-"❌ سکه کافی نداری!"
-);
-
-return;
-
-}
-
-coins-=player.price;
-
-}
-
-
-/* اضافه کردن */
-
-myPlayers.push({
-
-id:player.id,
-
-name:player.name,
-
-country:player.country,
-
-position:player.position,
-
-rating:player.rating
-
-});
-
-
-localStorage.setItem(
-"myPlayers",
-JSON.stringify(
-myPlayers
-)
-);
-
-
-localStorage.setItem(
-"coins",
-coins
-);
-
-
-localStorage.setItem(
-"footballDiamonds",
-diamonds
-);
-
-
-/* افزایش قدرت باشگاه */
+let clubName=
+localStorage.getItem(
+"clubName"
+) || "تیم من";
 
 let power=
 Number(
@@ -713,38 +429,561 @@ localStorage.getItem(
 )
 ) || 60;
 
+let coins=
+Number(
+localStorage.getItem(
+"coins"
+)
+) || 10000;
 
-power=
-Math.min(
-100,
-power+
-Math.max(
-1,
-Math.floor(
-player.rating/35
+let diamonds=
+Number(
+localStorage.getItem(
+"footballDiamonds"
 )
+) || 0;
+
+let cups=
+Number(
+localStorage.getItem(
+"cups"
 )
+) || 0;
+
+let myPlayers=
+JSON.parse(
+localStorage.getItem(
+"myPlayers"
+)
+) || [];
+
+
+/* =========================
+   ترکیب ذخیره شده
+========================= */
+
+let formation=
+localStorage.getItem(
+"formation"
+) || "4-3-3";
+
+let tactic=
+localStorage.getItem(
+"tactic"
+) || "balanced";
+
+let lineup=
+JSON.parse(
+localStorage.getItem(
+"lineup"
+)
+) || {};
+
+
+/* =========================
+   موقعیت‌ها
+========================= */
+
+const formations={
+
+"4-3-3":[
+["GK",50,91],
+["DEF",25,72],
+["DEF",42,77],
+["DEF",58,77],
+["DEF",75,72],
+["MID",30,53],
+["MID",50,58],
+["MID",70,53],
+["ATT",27,25],
+["ATT",50,18],
+["ATT",73,25]
+],
+
+"4-4-2":[
+["GK",50,91],
+["DEF",25,72],
+["DEF",42,77],
+["DEF",58,77],
+["DEF",75,72],
+["MID",22,52],
+["MID",40,57],
+["MID",60,57],
+["MID",78,52],
+["ATT",38,25],
+["ATT",62,25]
+],
+
+"3-4-3":[
+["GK",50,91],
+["DEF",30,70],
+["DEF",50,75],
+["DEF",70,70],
+["MID",20,53],
+["MID",40,58],
+["MID",60,58],
+["MID",80,53],
+["ATT",27,25],
+["ATT",50,18],
+["ATT",73,25]
+],
+
+"5-3-2":[
+["GK",50,91],
+["DEF",18,70],
+["DEF",34,77],
+["DEF",50,80],
+["DEF",66,77],
+["DEF",82,70],
+["MID",30,52],
+["MID",50,57],
+["MID",70,52],
+["ATT",40,25],
+["ATT",60,25]
+]
+
+};
+
+
+/* =========================
+   نمایش اطلاعات
+========================= */
+
+document.getElementById(
+"clubName"
+).innerHTML=
+clubName;
+
+document.getElementById(
+"power"
+).innerHTML=
+power;
+
+document.getElementById(
+"coins"
+).innerHTML=
+coins.toLocaleString();
+
+document.getElementById(
+"diamonds"
+).innerHTML=
+diamonds;
+
+document.getElementById(
+"playerCount"
+).innerHTML=
+myPlayers.length;
+
+document.getElementById(
+"cups"
+).innerHTML=
+cups;
+
+document.getElementById(
+"formationText"
+).innerHTML=
+formation;
+
+
+/* =========================
+   ساخت زمین
+========================= */
+
+function renderField(){
+
+const slots=
+document.getElementById(
+"slots"
 );
+
+slots.innerHTML="";
+
+
+const positions=
+formations[formation];
+
+
+positions.forEach(
+function(pos,index){
+
+let div=
+document.createElement(
+"div"
+);
+
+div.className="slot";
+
+div.style.left=
+pos[1]+"%";
+
+div.style.top=
+pos[2]+"%";
+
+
+let player=
+lineup[index];
+
+
+if(player){
+
+div.innerHTML=
+
+"<div class='shirt'>"+
+shirtIcon(pos[0])+
+"</div>"+
+
+"<div class='slotName'>"+
+player.name+
+"</div>"+
+
+"<div class='slotRating'>⭐ "+
+player.rating+
+"</div>";
+
+}
+else{
+
+div.innerHTML=
+
+"<div class='shirt'>"+
+shirtIcon(pos[0])+
+"</div>"+
+
+"<div class='slotName'>"+
+pos[0]+
+"<br>انتخاب"+
+"</div>";
+
+}
+
+
+div.onclick=
+function(){
+
+openPlayerSelector(
+index,
+pos[0]
+);
+
+};
+
+
+slots.appendChild(
+div
+);
+
+});
+
+}
+
+
+/* =========================
+   آیکون پست
+========================= */
+
+function shirtIcon(position){
+
+if(position==="GK")
+return"🧤";
+
+if(position==="DEF")
+return"🛡️";
+
+if(position==="MID")
+return"⚡";
+
+return"🔥";
+
+}
+
+
+/* =========================
+   انتخاب بازیکن
+========================= */
+
+let selectedSlot=null;
+
+function openPlayerSelector(
+index,
+position
+){
+
+selectedSlot=index;
+
+
+const box=
+document.getElementById(
+"selectBox"
+);
+
+const list=
+document.getElementById(
+"playerList"
+);
+
+const title=
+document.getElementById(
+"selectTitle"
+);
+
+
+box.classList.add("show");
+
+
+title.innerHTML=
+"انتخاب "+
+positionName(position);
+
+
+list.innerHTML="";
+
+
+let available=
+myPlayers.filter(
+function(player){
+
+return compatible(
+player.position,
+position
+);
+
+});
+
+
+if(available.length===0){
+
+list.innerHTML=
+"<div class='result'>"+
+"❌ بازیکن مناسب برای این پست نداری."+
+"</div>";
+
+return;
+
+}
+
+
+available.forEach(
+function(player){
+
+let button=
+document.createElement(
+"button"
+);
+
+button.className=
+"playerButton";
+
+button.innerHTML=
+
+"⚽ "+
+player.name+
+"<br>"+
+"⭐ "+
+player.rating+
+"<br>"+
+positionName(
+player.position
+);
+
+
+button.onclick=
+function(){
+
+selectPlayer(player);
+
+};
+
+
+list.appendChild(
+button
+);
+
+});
+
+}
+
+
+/* =========================
+   سازگاری پست
+========================= */
+
+function compatible(
+playerPosition,
+needed
+){
+
+if(needed==="GK")
+return playerPosition==="GK";
+
+if(needed==="DEF")
+return playerPosition==="DEF";
+
+if(needed==="MID")
+return playerPosition==="MID";
+
+if(needed==="ATT")
+return playerPosition==="ATT";
+
+return false;
+
+}
+
+
+/* =========================
+   انتخاب
+========================= */
+
+function selectPlayer(player){
+
+lineup[selectedSlot]=player;
 
 
 localStorage.setItem(
-"clubPower",
-power
+"lineup",
+JSON.stringify(
+lineup
+)
 );
 
 
-updateBalance();
+document.getElementById(
+"selectBox"
+).classList.remove(
+"show"
+);
 
 
-showMessage(
-
+document.getElementById(
+"message"
+).innerHTML=
 "✅ "+
 player.name+
-" به تیم تو اضافه شد!"+
-"<br>⭐ قدرت: "+
-player.rating
+" در ترکیب قرار گرفت.";
 
+
+renderField();
+
+}
+
+
+/* =========================
+   تغییر ترکیب
+========================= */
+
+function setFormation(
+newFormation,
+button
+){
+
+formation=
+newFormation;
+
+
+lineup={};
+
+
+localStorage.setItem(
+"formation",
+formation
 );
+
+localStorage.setItem(
+"lineup",
+JSON.stringify(
+lineup
+)
+);
+
+
+document.querySelectorAll(
+".formation"
+).forEach(
+function(btn){
+
+btn.classList.remove(
+"active"
+);
+
+});
+
+
+button.classList.add(
+"active"
+);
+
+
+document.getElementById(
+"formationText"
+).innerHTML=
+formation;
+
+
+renderField();
+
+
+document.getElementById(
+"message"
+).innerHTML=
+"⚽ ترکیب "+
+formation+
+" انتخاب شد.";
+
+}
+
+
+/* =========================
+   تاکتیک
+========================= */
+
+function setTactic(
+newTactic,
+button
+){
+
+tactic=
+newTactic;
+
+
+localStorage.setItem(
+"tactic",
+tactic
+);
+
+
+document.querySelectorAll(
+".tactic"
+).forEach(
+function(btn){
+
+btn.classList.remove(
+"active"
+);
+
+});
+
+
+button.classList.add(
+"active"
+);
+
+
+let text="⚖️ تاکتیک متعادل";
+
+if(tactic==="attack"){
+text=
+"🔥 تاکتیک هجومی فعال شد؛ تیم بیشتر برای گل تلاش می‌کند.";
+}
+
+if(tactic==="defend"){
+text=
+"🛡️ تاکتیک دفاعی فعال شد؛ تیم بیشتر روی دفاع تمرکز می‌کند.";
+}
+
+
+document.getElementById(
+"message"
+).innerHTML=
+text;
 
 }
 
@@ -756,16 +995,16 @@ player.rating
 function positionName(p){
 
 if(p==="GK")
-return"🧤 دروازه‌بان";
+return"دروازه‌بان";
 
 if(p==="DEF")
-return"🛡️ مدافع";
+return"مدافع";
 
 if(p==="MID")
-return"⚡ هافبک";
+return"هافبک";
 
 if(p==="ATT")
-return"🔥 مهاجم";
+return"مهاجم";
 
 return"بازیکن";
 
@@ -773,49 +1012,12 @@ return"بازیکن";
 
 
 /* =========================
-   موجودی
+   شروع
 ========================= */
 
-function updateBalance(){
-
-document.getElementById(
-"coins"
-).innerHTML=
-coins.toLocaleString();
-
-
-document.getElementById(
-"diamonds"
-).innerHTML=
-diamonds;
-
-
-document.getElementById(
-"count"
-).innerHTML=
-myPlayers.length;
-
-}
-
-
-/* =========================
-   پیام
-========================= */
-
-function showMessage(text){
-
-document.getElementById(
-"message"
-).innerHTML=
-text;
-
-}
-
-
-updateBalance();
-
-render();
+renderField();
 
 </script>
 </body>
-</html>
+
+   </html>
