@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>👥 تیم من | گیمی‌مود</title>
+<title>🛒 بازار بازیکنان | گیمی‌مود</title>
 <style>
-
 *{box-sizing:border-box}
 
 body{
@@ -25,45 +24,52 @@ font-weight:bold;
 
 .box{
 width:94%;
-max-width:1000px;
-margin:20px auto;
-padding:20px;
+max-width:1100px;
+margin:18px auto;
+padding:18px;
 background:#202020;
 border-radius:20px;
 box-shadow:0 0 15px #000;
 }
 
-.info{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(150px,1fr));
+.balance{
+display:flex;
+justify-content:center;
 gap:12px;
+flex-wrap:wrap;
 }
 
-.stat{
+.money{
 background:#151515;
-padding:15px;
-border-radius:14px;
-text-align:center;
+padding:13px 25px;
+border-radius:12px;
 }
 
-.stat span{
-display:block;
-font-size:13px;
-color:#aaa;
-}
-
-.stat b{
-display:block;
-margin-top:7px;
-font-size:23px;
+.money b{
 color:#00e5ff;
+font-size:21px;
+}
+
+.filters{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+input,select{
+padding:13px;
+border:0;
+border-radius:10px;
+font-size:16px;
+background:#151515;
+color:white;
 }
 
 .players{
 display:grid;
 grid-template-columns:
-repeat(auto-fit,minmax(180px,1fr));
+repeat(auto-fit,minmax(210px,1fr));
 gap:14px;
 }
 
@@ -75,19 +81,19 @@ padding:16px;
 text-align:center;
 }
 
-.player .icon{
+.flag{
 font-size:35px;
 }
 
-.player .name{
+.name{
 font-size:18px;
 font-weight:bold;
-margin:8px 0;
+margin:8px;
 }
 
 .rating{
-font-size:23px;
 color:#ffd700;
+font-size:23px;
 font-weight:bold;
 }
 
@@ -96,124 +102,609 @@ color:#aaa;
 margin:6px;
 }
 
-.actions{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(190px,1fr));
-gap:12px;
+.price{
+color:#00e5ff;
+font-weight:bold;
+margin:10px;
 }
 
-button,a{
+button{
 border:0;
-border-radius:12px;
-padding:14px;
+border-radius:10px;
+padding:11px 18px;
+background:#16a085;
+color:white;
 font-size:16px;
 font-weight:bold;
-text-decoration:none;
-text-align:center;
 cursor:pointer;
 }
 
-.market{
-background:#16a085;
-color:white;
+button:disabled{
+background:#555;
 }
 
-.pack{
-background:#8e44ad;
-color:white;
+.message{
+margin-top:15px;
+padding:15px;
+background:#151515;
+border-radius:12px;
+text-align:center;
 }
 
-.match{
-background:#e67e22;
-color:white;
-}
-
-.home{
-background:#333;
-color:white;
+.back{
 display:block;
 width:230px;
 margin:25px auto;
-}
-
-.empty{
-padding:25px;
-background:#151515;
-border-radius:14px;
+padding:14px;
+background:#333;
+color:white;
+text-decoration:none;
+border-radius:12px;
 text-align:center;
-line-height:2;
 }
 
 </style>
 </head>
 <body>
 <header>
-👥 تیم من
+🛒 بازار بازیکنان گیمی‌مود
 </header>
 <section class="box">
-<h2 style="text-align:center">
-🏟️ <span id="clubName">تیم من</span>
-</h2>
-<div class="info">
-<div class="stat">
-<span>⭐ قدرت باشگاه</span>
-<b id="power">60</b>
-</div>
-<div class="stat">
-<span>🪙 سکه</span>
+<div class="balance">
+<div class="money">
+🪙 سکه:
 <b id="coins">0</b>
 </div>
-<div class="stat">
-<span>💎 الماس</span>
+<div class="money">
+💎 الماس:
 <b id="diamonds">0</b>
 </div>
-<div class="stat">
-<span>👥 تعداد بازیکنان</span>
-<b id="playerCount">0</b>
-</div>
-<div class="stat">
-<span>🏆 جام‌ها</span>
-<b id="cups">0</b>
+<div class="money">
+👥 بازیکنان تیم:
+<b id="count">0</b>
 </div>
 </div>
 </section>
 <section class="box">
-<h2>⚽ ترکیب تیم</h2>
-<div id="players" class="players"></div>
-</section>
-<section class="box">
-<h2>🎮 بخش‌های تیم</h2>
-<div class="actions">
-<a class="market"
-href="players.html">
-🛒 بازار بازیکنان
-</a>
-<a class="pack"
-href="packs.html">
-🎁 پک فوتبال
-</a>
-<a class="match"
-href="football.html">
-⚽ شروع مسابقه
-</a>
+<h2>🔎 جستجو و فیلتر</h2>
+<div class="filters">
+<input
+id="search"
+type="text"
+placeholder="نام بازیکن..."
+oninput="render()">
+<select id="country" onchange="render()">
+<option value="all">
+همه بازیکنان
+</option>
+<option value="iran">
+🇮🇷 بازیکنان ایرانی
+</option>
+<option value="foreign">
+🌍 بازیکنان خارجی
+</option>
+</select>
+<select id="position" onchange="render()">
+<option value="all">
+همه پست‌ها
+</option>
+<option value="GK">
+دروازه‌بان
+</option>
+<option value="DEF">
+مدافع
+</option>
+<option value="MID">
+هافبک
+</option>
+<option value="ATT">
+مهاجم
+</option>
+</select>
 </div>
 </section>
-<a class="home"
-href="index.html">
-🏠 برگشت به خانه
+<section class="box">
+<h2>⚽ بازیکنان</h2>
+<div
+id="players"
+class="players">
+</div>
+<div
+id="message"
+class="message">
+بازیکنان بازار
+</div>
+</section>
+<a
+class="back"
+href="myteam.html">
+⬅️ برگشت به تیم من
 </a>
 <script>
 
 /* =========================
-   اطلاعات باشگاه
+   اطلاعات
 ========================= */
 
-let clubName=
-localStorage.getItem(
-"clubName"
-) || "تیم من";
+let coins=
+Number(
+localStorage.getItem("coins")
+) || 10000;
 
+let diamonds=
+Number(
+localStorage.getItem("footballDiamonds")
+) || 0;
+
+let myPlayers=
+JSON.parse(
+localStorage.getItem("myPlayers")
+) || [];
+
+
+/* =========================
+   نام‌ها
+========================= */
+
+const iranFirst=[
+"علی","محمد","مهدی","امیر","رضا",
+"حسین","سعید","میلاد","احمد","پارسا",
+"آریا","سینا","یاسین","سامان","اشکان",
+"پویا","ماهان","کیان","بردیا","علیرضا"
+];
+
+const iranLast=[
+"محمدی","حسینی","رضایی","کریمی",
+"مرادی","اکبری","کاظمی","موسوی",
+"نوری","جعفری","حیدری","صادقی",
+"رحیمی","امیری","مهدوی","احمدی",
+"قاسمی","عباسی","نعمتی","شریفی"
+];
+
+
+const foreignFirst=[
+"Alex","Leo","Luca","Marco","Daniel",
+"David","Lucas","Noah","Oliver","Adam",
+"Rayan","Ethan","Mateo","Carlos","Luis",
+"Jude","Victor","Kevin","Nico","Sergio"
+];
+
+const foreignLast=[
+"Silva","Costa","Ramos","Garcia",
+"Martin","Wilson","Brown","Walker",
+"King","Young","Miller","Santos",
+"Diaz","Torres","Lopez","Moretti",
+"Romano","Mendes","Pereira","Sanchez"
+];
+
+
+/* =========================
+   پست‌ها
+========================= */
+
+const positions=[
+"GK","DEF","MID","ATT"
+];
+
+function getPosition(i){
+
+return positions[
+i%4
+];
+
+}
+
+
+/* =========================
+   تولید ۲۰۰۰ بازیکن
+========================= */
+
+let players=[];
+
+
+/* ایرانی */
+
+for(let i=0;i<1000;i++){
+
+let first=
+iranFirst[
+i%iranFirst.length
+];
+
+let last=
+iranLast[
+Math.floor(
+i/iranFirst.length
+)%iranLast.length
+];
+
+
+let rating=
+60+
+(i%31);
+
+
+let position=
+getPosition(i);
+
+
+let price=
+1000+
+(rating-60)*180;
+
+
+players.push({
+
+id:"ir"+i,
+
+name:
+first+" "+last+" "+(i+1),
+
+country:"iran",
+
+flag:"🇮🇷",
+
+position:position,
+
+rating:rating,
+
+price:price,
+
+currency:"coins"
+
+});
+
+}
+
+
+/* خارجی */
+
+for(let i=0;i<1000;i++){
+
+let first=
+foreignFirst[
+i%foreignFirst.length
+];
+
+let last=
+foreignLast[
+Math.floor(
+i/foreignFirst.length
+)%foreignLast.length
+];
+
+
+let rating=
+70+
+(i%31);
+
+
+let position=
+getPosition(i);
+
+
+let price=
+2500+
+(rating-70)*250;
+
+
+players.push({
+
+id:"fo"+i,
+
+name:
+first+" "+last+" "+(i+1),
+
+country:"foreign",
+
+flag:"🌍",
+
+position:position,
+
+rating:rating,
+
+price:price,
+
+currency:"coins"
+
+});
+
+}
+
+
+/* =========================
+   ستاره‌های ویژه
+========================= */
+
+players.push({
+
+id:"ronaldo",
+name:"رونالدو",
+country:"foreign",
+flag:"🌍",
+position:"ATT",
+rating:100,
+price:50,
+currency:"diamonds"
+});
+
+
+players.push({
+
+id:"mbappe",
+name:"امباپه",
+country:"foreign",
+flag:"🌍",
+position:"ATT",
+rating:100,
+price:50,
+currency:"diamonds"
+});
+
+
+players.push({
+
+id:"yamal",
+name:"یامال",
+country:"foreign",
+flag:"🌍",
+position:"ATT",
+rating:100,
+price:50,
+currency:"diamonds"
+});
+
+
+/* =========================
+   نمایش
+========================= */
+
+function render(){
+
+const box=
+document.getElementById(
+"players"
+);
+
+box.innerHTML="";
+
+
+let search=
+document.getElementById(
+"search"
+).value
+.toLowerCase();
+
+
+let country=
+document.getElementById(
+"country"
+).value;
+
+
+let position=
+document.getElementById(
+"position"
+).value;
+
+
+let filtered=
+players.filter(
+function(p){
+
+let nameOK=
+p.name
+.toLowerCase()
+.includes(search);
+
+let countryOK=
+country==="all" ||
+p.country===country;
+
+let positionOK=
+position==="all" ||
+p.position===position;
+
+return(
+nameOK &&
+countryOK &&
+positionOK
+);
+
+});
+
+
+/* فقط 60 کارت همزمان */
+
+filtered=
+filtered.slice(0,60);
+
+
+if(filtered.length===0){
+
+box.innerHTML=
+"<div class='message'>"+
+"❌ بازیکنی پیدا نشد"+
+"</div>";
+
+return;
+
+}
+
+
+filtered.forEach(
+function(p){
+
+let div=
+document.createElement(
+"div"
+);
+
+div.className="player";
+
+
+let priceText;
+
+if(p.currency==="diamonds"){
+
+priceText=
+p.price+
+" 💎";
+
+}
+else{
+
+priceText=
+p.price.toLocaleString()+
+" 🪙";
+
+}
+
+
+div.innerHTML=
+
+"<div class='flag'>"+
+p.flag+
+"</div>"+
+
+"<div class='name'>"+
+p.name+
+"</div>"+
+
+"<div class='rating'>"+
+"⭐ "+
+p.rating+
+"</div>"+
+
+"<div class='position'>"+
+positionName(
+p.position
+)+
+"</div>"+
+
+"<div class='price'>"+
+priceText+
+"</div>"+
+
+"<button "+
+"onclick='buyPlayer(\""+
+p.id+
+"\")'>"+
+"🛒 خرید بازیکن"+
+"</button>";
+
+
+box.appendChild(div);
+
+});
+
+}
+
+
+/* =========================
+   خرید
+========================= */
+
+function buyPlayer(id){
+
+let player=
+players.find(
+p=>p.id===id
+);
+
+if(!player)return;
+
+
+/* بررسی خرید تکراری */
+
+let exists=
+myPlayers.some(
+p=>p.id===player.id
+);
+
+if(exists){
+
+showMessage(
+"⚠️ این بازیکن را قبلاً داری!"
+);
+
+return;
+
+}
+
+
+/* پرداخت */
+
+if(player.currency==="diamonds"){
+
+if(diamonds<player.price){
+
+showMessage(
+"❌ الماس کافی نداری!"
+);
+
+return;
+
+}
+
+diamonds-=player.price;
+
+}
+else{
+
+if(coins<player.price){
+
+showMessage(
+"❌ سکه کافی نداری!"
+);
+
+return;
+
+}
+
+coins-=player.price;
+
+}
+
+
+/* اضافه کردن */
+
+myPlayers.push({
+
+id:player.id,
+
+name:player.name,
+
+country:player.country,
+
+position:player.position,
+
+rating:player.rating
+
+});
+
+
+localStorage.setItem(
+"myPlayers",
+JSON.stringify(
+myPlayers
+)
+);
+
+
+localStorage.setItem(
+"coins",
+coins
+);
+
+
+localStorage.setItem(
+"footballDiamonds",
+diamonds
+);
+
+
+/* افزایش قدرت باشگاه */
 
 let power=
 Number(
@@ -223,58 +714,74 @@ localStorage.getItem(
 ) || 60;
 
 
-let coins=
-Number(
-localStorage.getItem(
-"coins"
+power=
+Math.min(
+100,
+power+
+Math.max(
+1,
+Math.floor(
+player.rating/35
 )
-) || 10000;
-
-
-let diamonds=
-Number(
-localStorage.getItem(
-"footballDiamonds"
 )
-) || 0;
+);
 
 
-let cups=
-Number(
-localStorage.getItem(
-"cups"
-)
-) || 0;
+localStorage.setItem(
+"clubPower",
+power
+);
 
 
-let myPlayers=
-JSON.parse(
-localStorage.getItem(
-"myPlayers"
-)
-) || [];
+updateBalance();
+
+
+showMessage(
+
+"✅ "+
+player.name+
+" به تیم تو اضافه شد!"+
+"<br>⭐ قدرت: "+
+player.rating
+
+);
+
+}
 
 
 /* =========================
-   نمایش اطلاعات
+   نام پست
 ========================= */
 
-document.getElementById(
-"clubName"
-).innerHTML=
-clubName;
+function positionName(p){
+
+if(p==="GK")
+return"🧤 دروازه‌بان";
+
+if(p==="DEF")
+return"🛡️ مدافع";
+
+if(p==="MID")
+return"⚡ هافبک";
+
+if(p==="ATT")
+return"🔥 مهاجم";
+
+return"بازیکن";
+
+}
 
 
-document.getElementById(
-"power"
-).innerHTML=
-power;
+/* =========================
+   موجودی
+========================= */
 
+function updateBalance(){
 
 document.getElementById(
 "coins"
 ).innerHTML=
-coins;
+coins.toLocaleString();
 
 
 document.getElementById(
@@ -284,123 +791,30 @@ diamonds;
 
 
 document.getElementById(
-"cups"
-).innerHTML=
-cups;
-
-
-document.getElementById(
-"playerCount"
+"count"
 ).innerHTML=
 myPlayers.length;
 
+}
+
 
 /* =========================
-   نمایش بازیکنان
+   پیام
 ========================= */
 
-const box=
+function showMessage(text){
+
 document.getElementById(
-"players"
-);
-
-
-if(myPlayers.length===0){
-
-box.innerHTML=
-
-"<div class='empty'>"+
-"👤 هنوز بازیکنی نداری."+
-"<br>"+
-"از بازار یا پک فوتبال بازیکن بخر!"+
-"</div>";
-
-}
-else{
-
-myPlayers.forEach(
-function(player,index){
-
-let icon="⚽";
-
-if(player.position==="GK"){
-icon="🧤";
-}
-
-if(player.position==="DEF"){
-icon="🛡️";
-}
-
-if(player.position==="MID"){
-icon="⚡";
-}
-
-if(player.position==="ATT"){
-icon="🔥";
-}
-
-
-let card=
-document.createElement(
-"div"
-);
-
-card.className=
-"player";
-
-
-card.innerHTML=
-
-"<div class='icon'>"+
-icon+
-"</div>"+
-
-"<div class='name'>"+
-player.name+
-"</div>"+
-
-"<div class='position'>"+
-positionName(
-player.position
-)+
-"</div>"+
-
-"<div class='rating'>"+
-"⭐ "+
-player.rating+
-"</div>";
-
-
-box.appendChild(
-card
-);
-
-});
+"message"
+).innerHTML=
+text;
 
 }
 
 
-/* =========================
-   نام پست
-========================= */
+updateBalance();
 
-function positionName(position){
-
-if(position==="GK")
-return "دروازه‌بان";
-
-if(position==="DEF")
-return "مدافع";
-
-if(position==="MID")
-return "هافبک";
-
-if(position==="ATT")
-return "مهاجم";
-
-return "بازیکن";
-
-}
+render();
 
 </script>
 </body>
