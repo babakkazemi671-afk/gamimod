@@ -3,13 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>مرکز سکه | گیمی‌مود</title>
+<title>🎯 مرکز سکه | گیمی‌مود</title>
 <style>
+
+*{
+    box-sizing:border-box;
+}
 
 body{
     margin:0;
     font-family:tahoma;
-    background:#111;
+    background:#101010;
     color:white;
 }
 
@@ -17,7 +21,7 @@ header{
     background:#00bcd4;
     padding:20px;
     text-align:center;
-    font-size:30px;
+    font-size:28px;
     font-weight:bold;
 }
 
@@ -35,49 +39,129 @@ header{
 }
 
 .coins{
-    font-size:35px;
+    font-size:34px;
     font-weight:bold;
-    margin:15px;
 }
 
-.menu{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:20px;
+.section{
+    margin:20px;
     padding:20px;
+    background:#202020;
+    border-radius:20px;
+    box-shadow:0 0 12px #000;
 }
 
-.box{
-    background:#222;
-    border-radius:18px;
-    padding:25px 15px;
-    text-align:center;
-    box-shadow:0 0 15px #000;
-}
-
-.box h2{
+.section h2{
     color:#00e5ff;
+    text-align:center;
 }
 
-.box p{
-    line-height:1.8;
+.card{
+    background:#292929;
+    padding:18px;
+    margin-top:15px;
+    border-radius:15px;
+    text-align:center;
 }
 
-.box button{
+button{
+    border:0;
+    border-radius:10px;
+    padding:12px 20px;
     background:#00bcd4;
     color:white;
-    border:none;
-    padding:12px 20px;
-    border-radius:10px;
     font-size:16px;
     font-weight:bold;
     cursor:pointer;
+    margin:5px;
+}
+
+button:disabled{
+    background:#555;
+    cursor:not-allowed;
+}
+
+.team{
+    font-size:20px;
+    font-weight:bold;
+    margin:12px;
+}
+
+.prediction-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.prediction-buttons button{
+    min-width:100px;
+}
+
+.result{
+    margin-top:15px;
+    padding:12px;
+    border-radius:10px;
+    background:#151515;
+    line-height:2;
+}
+
+.wheel{
+    width:260px;
+    height:260px;
+    margin:20px auto;
+    border-radius:50%;
+    border:8px solid #ddd;
+    position:relative;
+    overflow:hidden;
+    transform:rotate(0deg);
+    transition:transform 4s cubic-bezier(.15,.8,.25,1);
+    background:conic-gradient(
+        #ff5252 0deg 72deg,
+        #2196f3 72deg 144deg,
+        #4caf50 144deg 216deg,
+        #ffc107 216deg 288deg,
+        #9c27b0 288deg 360deg
+    );
+}
+
+.wheel span{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    font-size:24px;
+    font-weight:bold;
+}
+
+.pointer{
+    text-align:center;
+    font-size:35px;
+    margin-bottom:-15px;
+    position:relative;
+    z-index:5;
+}
+
+.shop-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:15px;
+}
+
+.shop-item{
+    background:#292929;
+    border-radius:15px;
+    padding:18px;
+    text-align:center;
+}
+
+.shop-item h3{
+    color:#00e5ff;
 }
 
 .back{
     display:block;
     width:220px;
-    margin:20px auto 30px;
+    margin:25px auto;
     padding:14px;
     text-align:center;
     background:#333;
@@ -93,127 +177,420 @@ header{
 <header>
 🎯 مرکز سکه گیمی‌مود
 </header>
+<!-- موجودی -->
 <section class="balance">
-<h2>🪙 موجودی شما</h2>
+<h2>🪙 موجودی سکه</h2>
 <div class="coins" id="coins">
 0 🪙
 </div>
-<p>
-از بازی‌ها و فعالیت‌های گیمی‌مود سکه بگیر!
-</p>
 </section>
-<div class="menu">
-<div class="box">
-<h2>⚽ فوتبال</h2>
+<!-- پیش بینی فوتبال -->
+<section class="section">
+<h2>⚽ پیش‌بینی فوتبال</h2>
+<div class="card">
+<div class="team">
+🇪🇸 بارسلونا
+<br>
+VS
+<br>
+🇪🇸 رئال مادرید
+</div>
 <p>
-یک بازی کوتاه فوتبال انجام بده
-و سکه بگیر.
+نتیجه را انتخاب کن:
 </p>
-<button onclick="football()">
-⚽ بازی کردن
+<div class="prediction-buttons">
+<button onclick="makePrediction('home')">
+برد بارسلونا
+</button>
+<button onclick="makePrediction('draw')">
+مساوی
+</button>
+<button onclick="makePrediction('away')">
+برد رئال
 </button>
 </div>
-<div class="box">
-<h2>🎯 پیش‌بینی</h2>
+<div class="result" id="predictionResult">
+هنوز پیش‌بینی نکرده‌ای.
+</div>
+</div>
+</section>
+<!-- فوتبال -->
+<section class="section">
+<h2>⚽ بازی فوتبال</h2>
+<div class="card">
 <p>
-نتیجه یک مسابقه را پیش‌بینی کن
-و امتیاز بگیر.
+در این بازی یک شوت بزن!
 </p>
-<button onclick="prediction()">
-🎯 پیش‌بینی
+<button onclick="shoot()">
+🥅 شوت کردن
+</button>
+<div class="result" id="footballResult">
+منتظر شوت شما هستیم!
+</div>
+</div>
+</section>
+<!-- گردونه -->
+<section class="section">
+<h2>🎡 گردونه سکه</h2>
+<div class="pointer">
+🔻
+</div>
+<div class="wheel" id="wheel">
+<span>🪙</span>
+</div>
+<div style="text-align:center">
+<button id="spinButton" onclick="spinWheel()">
+🎡 چرخاندن گردونه
 </button>
 </div>
-<div class="box">
-<h2>🎡 گردونه</h2>
-<p>
-گردونه را بچرخان و جایزه سکه‌ای بگیر.
-</p>
-<button onclick="wheel()">
-🎡 چرخاندن
+<div class="result" id="wheelResult">
+۵ جایزه در گردونه وجود دارد.
+</div>
+</section>
+<!-- فروشگاه -->
+<section class="section">
+<h2>🏪 فروشگاه گیمی‌مود</h2>
+<div class="shop-grid">
+<div class="shop-item">
+<h3>🎨 تم قرمز</h3>
+<p>100 🪙</p>
+<button onclick="buyItem('redTheme',100)">
+خرید
 </button>
 </div>
-<div class="box">
-<h2>🏪 فروشگاه</h2>
-<p>
-با سکه‌ها آیتم‌ها و امکانات جدید بخر.
-</p>
-<button onclick="shop()">
-🛒 ورود به فروشگاه
+<div class="shop-item">
+<h3>🌈 تم رنگی</h3>
+<p>200 🪙</p>
+<button onclick="buyItem('colorTheme',200)">
+خرید
+</button>
+</div>
+<div class="shop-item">
+<h3>🖼️ پس‌زمینه ویژه</h3>
+<p>300 🪙</p>
+<button onclick="buyItem('background',300)">
+خرید
+</button>
+</div>
+<div class="shop-item">
+<h3>👑 نشان VIP</h3>
+<p>500 🪙</p>
+<button onclick="buyItem('vip',500)">
+خرید
+</button>
+</div>
+<div class="shop-item">
+<h3>⚡ ضریب 2× سکه</h3>
+<p>750 🪙</p>
+<button onclick="buyItem('doubleCoins',750)">
+خرید
+</button>
+</div>
+<div class="shop-item">
+<h3>🏆 نشان قهرمانی</h3>
+<p>1000 🪙</p>
+<button onclick="buyItem('champion',1000)">
+خرید
+</button>
+</div>
+<div class="shop-item">
+<h3>🔥 عنوان ویژه</h3>
+<p>1500 🪙</p>
+<button onclick="buyItem('specialTitle',1500)">
+خرید
+</button>
+</div>
+<div class="shop-item">
+<h3>💎 آیتم افسانه‌ای</h3>
+<p>3000 🪙</p>
+<button onclick="buyItem('legendary',3000)">
+خرید
 </button>
 </div>
 </div>
+</section>
 <a class="back" href="index.html">
 ⬅️ برگشت به گیمی‌مود
 </a>
 <script>
 
-let coins = Number(localStorage.getItem("gamimodCoins")) || 0;
+/* =========================
+   سیستم سکه
+========================= */
 
-function showCoins(){
+let coins =
+Number(localStorage.getItem("gamimodCoins")) || 0;
+
+function saveCoins(){
+
+    localStorage.setItem(
+        "gamimodCoins",
+        coins
+    );
+
+    updateCoins();
+
+}
+
+function updateCoins(){
 
     document.getElementById("coins").innerHTML =
     coins + " 🪙";
 
 }
 
-function saveCoins(){
+updateCoins();
 
-    localStorage.setItem("gamimodCoins", coins);
 
-    showCoins();
+/* =========================
+   پیش بینی فوتبال
+========================= */
+
+let predictionDone =
+localStorage.getItem("predictionDone") === "true";
+
+
+function makePrediction(choice){
+
+    if(predictionDone){
+
+        alert("⚠️ قبلاً برای این مسابقه پیش‌بینی کرده‌ای!");
+
+        return;
+
+    }
+
+    predictionDone = true;
+
+    localStorage.setItem(
+        "predictionDone",
+        "true"
+    );
+
+    localStorage.setItem(
+        "predictionChoice",
+        choice
+    );
+
+    document.getElementById(
+        "predictionResult"
+    ).innerHTML =
+    "✅ پیش‌بینی شما ثبت شد!<br>" +
+    "🏆 بعد از مشخص شدن نتیجه واقعی، " +
+    "در صورت درست بودن پیش‌بینی سکه دریافت می‌کنی.";
 
 }
 
 
-function football(){
+/* =========================
+   بازی فوتبال
+========================= */
 
-    let reward = Math.floor(Math.random() * 20) + 10;
+function shoot(){
 
-    coins += reward;
+    let result =
+    Math.floor(Math.random()*3);
+
+    if(result === 0){
+
+        coins += 10;
+
+        document.getElementById(
+            "footballResult"
+        ).innerHTML =
+        "⚽ گللللل! 🔥<br>+10 🪙";
+
+    }
+
+    else if(result === 1){
+
+        coins += 5;
+
+        document.getElementById(
+            "footballResult"
+        ).innerHTML =
+        "🥅 توپ به تیرک خورد!<br>+5 🪙";
+
+    }
+
+    else{
+
+        document.getElementById(
+            "footballResult"
+        ).innerHTML =
+        "❌ گل نشد!<br>این بار سکه نگرفتی.";
+
+    }
 
     saveCoins();
 
-    alert("⚽ آفرین!\n" + reward + " 🪙 سکه گرفتی!");
+}
+
+
+/* =========================
+   گردونه
+========================= */
+
+let spinning = false;
+
+function spinWheel(){
+
+    if(spinning){
+
+        return;
+
+    }
+
+    spinning = true;
+
+    document.getElementById(
+        "spinButton"
+    ).disabled = true;
+
+
+    /*
+       ۵ بخش:
+
+       بخش ۱ = پوچ
+       بخش ۲ = 10 سکه
+       بخش ۳ = 25 سکه
+       بخش ۴ = 50 سکه
+       بخش ۵ = 400 سکه
+
+       احتمال 400 سکه = 1 درصد
+    */
+
+    let random =
+    Math.random() * 100;
+
+    let reward;
+
+    if(random < 1){
+
+        reward = 400;
+
+    }
+
+    else if(random < 26){
+
+        reward = 50;
+
+    }
+
+    else if(random < 51){
+
+        reward = 25;
+
+    }
+
+    else if(random < 76){
+
+        reward = 10;
+
+    }
+
+    else{
+
+        reward = 0;
+
+    }
+
+
+    let rotation =
+    1440 + Math.floor(Math.random()*360);
+
+    document.getElementById(
+        "wheel"
+    ).style.transform =
+    "rotate(" + rotation + "deg)";
+
+
+    setTimeout(function(){
+
+        if(reward === 0){
+
+            document.getElementById(
+                "wheelResult"
+            ).innerHTML =
+            "😢 پوچ شد! این بار سکه‌ای نگرفتی.";
+
+        }
+
+        else{
+
+            coins += reward;
+
+            saveCoins();
+
+            document.getElementById(
+                "wheelResult"
+            ).innerHTML =
+            "🎉 تبریک!<br>" +
+            "+" + reward + " 🪙 سکه گرفتی!";
+
+        }
+
+        spinning = false;
+
+        document.getElementById(
+            "spinButton"
+        ).disabled = false;
+
+    },4000);
 
 }
 
 
-function prediction(){
+/* =========================
+   فروشگاه
+========================= */
 
-    let reward = Math.floor(Math.random() * 30) + 10;
+function buyItem(item,price){
 
-    coins += reward;
+    let owned =
+    localStorage.getItem(
+        "item_" + item
+    ) === "true";
+
+
+    if(owned){
+
+        alert("✅ این آیتم را قبلاً خریدی!");
+
+        return;
+
+    }
+
+
+    if(coins < price){
+
+        alert(
+            "❌ سکه کافی نداری!\n" +
+            "قیمت: " + price + " 🪙"
+        );
+
+        return;
+
+    }
+
+
+    coins -= price;
+
+    localStorage.setItem(
+        "item_" + item,
+        "true"
+    );
 
     saveCoins();
 
-    alert("🎯 پیش‌بینی ثبت شد!\n" + reward + " 🪙 سکه گرفتی!");
+
+    alert(
+        "🎉 خرید موفق بود!\n" +
+        "آیتم با موفقیت به حساب شما اضافه شد."
+    );
 
 }
-
-
-function wheel(){
-
-    let reward = Math.floor(Math.random() * 100) + 10;
-
-    coins += reward;
-
-    saveCoins();
-
-    alert("🎡 گردونه چرخید!\n" + reward + " 🪙 بردی!");
-
-}
-
-
-function shop(){
-
-    alert("🏪 فروشگاه گیمی‌مود به‌زودی فعال می‌شود!");
-
-}
-
-
-showCoins();
 
 </script>
 </body>
-
 </html>
