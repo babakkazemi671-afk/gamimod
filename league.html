@@ -2,150 +2,133 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>🏆 لیگ | گیمی‌مود</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🏆 لیگ فوتبال | گیمی‌مود</title>
 <style>
-
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
-    margin:0;
-    font-family:tahoma;
-    background:#101010;
-    color:white;
-    text-align:center;
-    padding-bottom:30px;
+margin:0;
+font-family:tahoma;
+background:#101010;
+color:white;
 }
 
 header{
-    background:linear-gradient(135deg,#00bcd4,#006b7a);
-    padding:20px;
-    font-size:27px;
-    font-weight:bold;
+background:linear-gradient(135deg,#00bcd4,#006b7a);
+padding:20px;
+text-align:center;
+font-size:27px;
+font-weight:bold;
 }
 
 .box{
-    width:94%;
-    max-width:900px;
-    margin:20px auto;
-    padding:20px;
-    background:#202020;
-    border-radius:20px;
-    box-shadow:0 0 15px #000;
-}
-
-.title{
-    color:#00e5ff;
-    font-size:25px;
-    font-weight:bold;
+width:94%;
+max-width:1000px;
+margin:18px auto;
+padding:20px;
+background:#202020;
+border-radius:20px;
+box-shadow:0 0 15px #000;
 }
 
 .info{
-    line-height:2;
-    color:#ddd;
-}
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
-    margin:20px 0;
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(145px,1fr));
+gap:10px;
 }
 
 .stat{
-    background:#151515;
-    padding:15px;
-    border-radius:12px;
+background:#151515;
+padding:14px;
+border-radius:14px;
+text-align:center;
+}
+
+.stat span{
+display:block;
+color:#aaa;
+font-size:13px;
 }
 
 .stat b{
-    display:block;
-    color:#00e5ff;
-    font-size:22px;
-    margin-top:6px;
+display:block;
+margin-top:7px;
+font-size:22px;
+color:#00e5ff;
 }
 
-.next{
-    background:#181818;
-    padding:20px;
-    border-radius:15px;
-    margin-top:20px;
+h2{
+text-align:center;
 }
 
-.opponent{
-    font-size:24px;
-    color:#ffd700;
-    font-weight:bold;
-    margin:12px;
+.match{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:8px;
+padding:13px;
+margin:8px 0;
+background:#171717;
+border-radius:12px;
+border-right:4px solid #00bcd4;
 }
 
-button{
-    width:100%;
-    padding:16px;
-    border:0;
-    border-radius:13px;
-    background:#00bcd4;
-    color:white;
-    font-size:18px;
-    font-weight:bold;
-    cursor:pointer;
+.played{
+border-right-color:#16a085;
 }
 
-button:disabled{
-    background:#555;
+.match button{
+border:0;
+border-radius:9px;
+padding:9px 13px;
+background:#e67e22;
+color:white;
+font-weight:bold;
+cursor:pointer;
 }
 
-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:15px;
+.match button:disabled{
+background:#555;
 }
 
-th,td{
-    padding:10px 5px;
-    border-bottom:1px solid #333;
+.teams{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(150px,1fr));
+gap:10px;
 }
 
-th{
-    color:#00e5ff;
+.team{
+background:#151515;
+padding:13px;
+border-radius:12px;
+text-align:center;
 }
 
-.me{
-    background:#263238;
-    font-weight:bold;
+.team b{
+color:#00e5ff;
+font-size:20px;
 }
 
-.message{
-    margin-top:15px;
-    padding:15px;
-    background:#151515;
-    border-radius:12px;
-    line-height:2;
+.reward{
+background:#151515;
+padding:15px;
+border-radius:12px;
+line-height:2;
 }
 
 .back{
-    display:block;
-    width:230px;
-    margin:25px auto;
-    padding:14px;
-    background:#333;
-    color:white;
-    text-decoration:none;
-    border-radius:12px;
-}
-
-@media(max-width:600px){
-
-    .stats{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    th,td{
-        font-size:13px;
-    }
-
+display:block;
+width:230px;
+margin:25px auto;
+padding:14px;
+background:#333;
+color:white;
+text-decoration:none;
+border-radius:12px;
+text-align:center;
 }
 
 </style>
@@ -155,67 +138,56 @@ th{
 🏆 لیگ فوتبال گیمی‌مود
 </header>
 <section class="box">
-<div class="title">
-🟢 لیگ دسته ۲
-</div>
+<h2>📊 وضعیت تیم</h2>
 <div class="info">
-از دسته ۲ شروع کن و برای صعود بجنگ!<br>
-🥇 و 🥈 دو تیم اول به دسته ۱ صعود می‌کنند.
-</div>
-<div class="stats">
 <div class="stat">
-🎮 بازی
-<b id="match">1 / 30</b>
+<span>🏟️ باشگاه</span>
+<b id="club">تیم من</b>
 </div>
 <div class="stat">
-⭐ امتیاز
-<b id="points">0</b>
+<span>🏆 لیگ</span>
+<b id="league">دسته دو</b>
 </div>
 <div class="stat">
-⚽ برد
-<b id="wins">0</b>
+<span>⭐ قدرت</span>
+<b id="power">60</b>
 </div>
 <div class="stat">
-💎 الماس
+<span>💎 الماس</span>
 <b id="diamonds">0</b>
 </div>
+<div class="stat">
+<span>📅 بازی</span>
+<b id="gameNumber">0 / 30</b>
 </div>
-</section>
-<section class="box next">
-<h2>📅 بازی بعدی</h2>
-<div class="opponent" id="opponent">
-در حال انتخاب حریف...
-</div>
-<div id="opponentPower">
-قدرت حریف: -
-</div>
-<br>
-<button
-id="playButton"
-onclick="playMatch()">
-⚽ بازی کن
-</button>
-<div class="message" id="message">
-هر وقت دوست داشتی بازی کن؛
-هیچ زمان واقعی لازم نیست.
 </div>
 </section>
 <section class="box">
-<h2 class="title">
-📊 جدول لیگ
-</h2>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>تیم</th>
-<th>قدرت</th>
-<th>بازی</th>
-<th>امتیاز</th>
-</tr>
-</thead>
-<tbody id="table"></tbody>
-</table>
+<h2>🏟️ تیم‌های لیگ</h2>
+<div class="teams" id="teams"></div>
+</section>
+<section class="box">
+<h2>📅 بازی‌های فصل</h2>
+<div id="fixtures"></div>
+</section>
+<section class="box">
+<h2>💎 جوایز صعود</h2>
+<div class="reward">
+🥈 قهرمانی لیگ دسته دو:
+<strong>5 💎</strong>
+<br>
+🥇 قهرمانی لیگ دسته یک:
+<strong>10 💎</strong>
+<br>
+🏆 قهرمانی لیگ برتر:
+<strong>20 💎</strong>
+<br>
+🌏 قهرمانی جام آسیا:
+<strong>75 💎</strong>
+<br>
+🌎 قهرمانی جام جهانی:
+<strong>100 💎</strong>
+</div>
 </section>
 <a class="back" href="myteam.html">
 ⬅️ برگشت به تیم من
@@ -223,574 +195,402 @@ onclick="playMatch()">
 <script>
 
 /* =========================
-   اطلاعات باشگاه
+   اطلاعات تیم
 ========================= */
 
-let clubName =
+let clubName=
 localStorage.getItem(
 "clubName"
-) || "باشگاه من";
+) || "تیم من";
 
-
-let clubPower =
+let power=
 Number(
 localStorage.getItem(
 "clubPower"
 )
-) || 64;
+) || 60;
 
-
-/* =========================
-   ذخیره فصل
-========================= */
-
-let match =
-Number(
-localStorage.getItem(
-"leagueMatch"
-)
-) || 1;
-
-
-let points =
-Number(
-localStorage.getItem(
-"leaguePoints"
-)
-) || 0;
-
-
-let wins =
-Number(
-localStorage.getItem(
-"leagueWins"
-)
-) || 0;
-
-
-let draws =
-Number(
-localStorage.getItem(
-"leagueDraws"
-)
-) || 0;
-
-
-let losses =
-Number(
-localStorage.getItem(
-"leagueLosses"
-)
-) || 0;
-
-
-let diamonds =
+let diamonds=
 Number(
 localStorage.getItem(
 "footballDiamonds"
 )
 ) || 0;
 
+let league=
+localStorage.getItem(
+"currentLeague"
+) || "دسته دو";
 
-/* =========================
-   تیم‌های دسته ۲
-========================= */
-
-const teams = [
-
-{
-name:"شاهین شمال",
-power:58
-},
-
-{
-name:"پارس جوان",
-power:61
-},
-
-{
-name:"آریا شهر",
-power:63
-},
-
-{
-name:"کویر FC",
-power:56
-},
-
-{
-name:"ستاره جنوب",
-power:60
-},
-
-{
-name:"سپیدار",
-power:65
-},
-
-{
-name:"پاس تهران",
-power:62
-},
-
-{
-name:"دریای خزر",
-power:59
-},
-
-{
-name:"آذرخش",
-power:64
-}
-
-];
+let gameNumber=
+Number(
+localStorage.getItem(
+"leagueGame"
+)
+) || 0;
 
 
 /* =========================
-   انتخاب حریف
+   تیم‌های ایرانی
 ========================= */
 
-let opponent;
-
-
-function chooseOpponent(){
-
-    opponent =
-    teams[
-        Math.floor(
-            Math.random() *
-            teams.length
-        )
-    ];
-
-    document.getElementById(
-        "opponent"
-    ).innerHTML =
-    clubName+
-    " 🆚 "+
-    opponent.name;
-
-
-    document.getElementById(
-        "opponentPower"
-    ).innerHTML =
-    "💪 قدرت حریف: "+
-    opponent.power;
-
-}
-
-
-chooseOpponent();
-
-
-/* =========================
-   بازی
-========================= */
-
-function playMatch(){
-
-    if(match>30){
-
-        return;
-
-    }
-
-
-    const button =
-    document.getElementById(
-        "playButton"
-    );
-
-
-    button.disabled=true;
-
-
-    /*
-       کمی شانس
-    */
-
-    const myChance =
-    clubPower +
-    (Math.random()*20-10);
-
-
-    const enemyChance =
-    opponent.power +
-    (Math.random()*20-10);
-
-
-    let result;
-
-
-    if(myChance>enemyChance+5){
-
-        result="win";
-
-    }
-
-    else if(
-        Math.abs(
-            myChance-enemyChance
-        )<5
-    ){
-
-        result="draw";
-
-    }
-
-    else{
-
-        result="loss";
-
-    }
-
-
-    /*
-       نتیجه
-    */
-
-    if(result==="win"){
-
-        wins++;
-        points+=3;
-
-        document.getElementById(
-        "message"
-        ).innerHTML=
-        "🎉 بردی! +۳ امتیاز<br>"+
-        "💪 قدرت حریف: "+
-        opponent.power;
-
-    }
-
-    else if(result==="draw"){
-
-        draws++;
-        points+=1;
-
-        document.getElementById(
-        "message"
-        ).innerHTML=
-        "🤝 مساوی شد! +۱ امتیاز";
-
-    }
-
-    else{
-
-        losses++;
-
-        document.getElementById(
-        "message"
-        ).innerHTML=
-        "❌ باختی! این بار نشد.";
-
-    }
-
-
-    match++;
-
-
-    save();
-
-
-    setTimeout(
-    function(){
-
-        if(match>30){
-
-            finishLeague();
-
-        }
-
-        else{
-
-            chooseOpponent();
-
-            button.disabled=false;
-
-        }
-
-    },800);
-
-}
-
-
-/* =========================
-   پایان لیگ
-========================= */
-
-function finishLeague(){
-
-    document.getElementById(
-        "playButton"
-    ).disabled=true;
-
-
-    /*
-       امتیاز تقریبی برای رتبه
-    */
-
-    let rank;
-
-
-    if(points>=55){
-
-        rank=1;
-
-    }
-
-    else if(points>=45){
-
-        rank=2;
-
-    }
-
-    else{
-
-        rank=3+
-        Math.floor(
-            Math.random()*5
-        );
-
-    }
-
-
-    if(rank===1){
-
-        diamonds+=5;
-
-        localStorage.setItem(
-            "footballDiamonds",
-            diamonds
-        );
-
-
-        document.getElementById(
-            "message"
-        ).innerHTML=
-        "🏆 قهرمان لیگ دسته ۲ شدی!<br>"+
-        "💎 +۵ الماس<br>"+
-        "⬆️ صعود به لیگ دسته ۱";
-
-        localStorage.setItem(
-            "league",
-            "دسته ۱"
-        );
-
-    }
-
-    else if(rank===2){
-
-        document.getElementById(
-            "message"
-        ).innerHTML=
-        "🥈 دوم شدی!<br>"+
-        "⬆️ صعود به لیگ دسته ۱";
-
-        localStorage.setItem(
-            "league",
-            "دسته ۱"
-        );
-
-    }
-
-    else{
-
-        document.getElementById(
-            "message"
-        ).innerHTML=
-        "🏁 فصل تمام شد.<br>"+
-        "رتبه تو: "+
-        rank;
-
-    }
-
-}
-
-
-/* =========================
-   ذخیره
-========================= */
-
-function save(){
-
-    localStorage.setItem(
-        "leagueMatch",
-        match
-    );
-
-    localStorage.setItem(
-        "leaguePoints",
-        points
-    );
-
-    localStorage.setItem(
-        "leagueWins",
-        wins
-    );
-
-    localStorage.setItem(
-        "leagueDraws",
-        draws
-    );
-
-    localStorage.setItem(
-        "leagueLosses",
-        losses
-    );
-
-    localStorage.setItem(
-        "footballDiamonds",
-        diamonds
-    );
-
-
-    update();
-
-
-}
+const leagueTeams={
+
+"دسته دو":[
+"تیم من",
+"پارس جوان",
+"کویر FC",
+"شاهین شمال",
+"سپیدار",
+"آریا شهر",
+"دریای خزر",
+"پاس نوین"
+],
+
+"دسته یک":[
+"تیم من",
+"پیکان",
+"فجر سپاسی",
+"مس کرمان",
+"شمس آذر",
+"سایپا",
+"نفت مسجدسلیمان",
+"نساجی"
+],
+
+"لیگ برتر":[
+"تیم من",
+"پرسپولیس",
+"استقلال",
+"سپاهان",
+"تراکتور",
+"ذوب‌آهن",
+"فولاد",
+"گل‌گهر"
+]
+
+};
 
 
 /* =========================
    نمایش
 ========================= */
 
-function update(){
+document.getElementById(
+"club"
+).innerHTML=
+clubName;
 
-    document.getElementById(
-        "match"
-    ).innerHTML=
-    Math.min(match,30)+
-    " / 30";
+document.getElementById(
+"league"
+).innerHTML=
+league;
+
+document.getElementById(
+"power"
+).innerHTML=
+power;
+
+document.getElementById(
+"diamonds"
+).innerHTML=
+diamonds;
+
+document.getElementById(
+"gameNumber"
+).innerHTML=
+gameNumber+
+" / 30";
 
 
-    document.getElementById(
-        "points"
-    ).innerHTML=
-    points;
+/* =========================
+   تیم‌ها
+========================= */
+
+function showTeams(){
+
+const box=
+document.getElementById(
+"teams"
+);
+
+box.innerHTML="";
 
 
-    document.getElementById(
-        "wins"
-    ).innerHTML=
-    wins;
+let teams=
+leagueTeams[league];
 
 
-    document.getElementById(
-        "diamonds"
-    ).innerHTML=
-    diamonds;
+teams.forEach(
+function(team,index){
 
+let strength=
+55+
+(index*4);
 
-    buildTable();
+if(team==="تیم من"){
+strength=power;
+}
+
+let div=
+document.createElement(
+"div"
+);
+
+div.className="team";
+
+div.innerHTML=
+"⚽ "+
+team+
+"<br>"+
+"⭐ قدرت "+
+"<b>"+
+strength+
+"</b>";
+
+box.appendChild(div);
+
+});
 
 }
 
 
 /* =========================
-   جدول
+   ساخت بازی‌ها
 ========================= */
 
-function buildTable(){
+function createFixtures(){
 
-    let list=[
-        {
-            name:clubName,
-            power:clubPower,
-            points:points
-        }
-    ];
+const box=
+document.getElementById(
+"fixtures"
+);
 
-
-    teams.forEach(
-    function(team){
-
-        list.push({
-
-            name:team.name,
-
-            power:team.power,
-
-            points:
-            Math.floor(
-                Math.random()*35
-            )
-
-        });
-
-    });
+box.innerHTML="";
 
 
-    list.sort(
-    function(a,b){
-
-        return b.points-a.points;
-
-    });
-
-
-    const table =
-    document.getElementById(
-        "table"
-    );
+let teams=
+leagueTeams[league]
+.filter(
+team=>team!=="تیم من"
+);
 
 
-    table.innerHTML="";
+for(
+let i=1;
+i<=30;
+i++
+){
+
+let opponent=
+teams[
+(i-1)%
+teams.length
+];
 
 
-    list.forEach(
-    function(team,index){
+let div=
+document.createElement(
+"div"
+);
 
-        const tr =
-        document.createElement(
-            "tr"
-        );
-
-
-        if(
-            team.name===
-            clubName
-        ){
-
-            tr.className="me";
-
-        }
+div.className=
+"match";
 
 
-        tr.innerHTML=
-
-        "<td>"+
-        (index+1)+
-        "</td>"+
-
-        "<td>"+
-        team.name+
-        "</td>"+
-
-        "<td>"+
-        team.power+
-        "</td>"+
-
-        "<td>"+
-        Math.min(
-            match-1,
-            30
-        )+
-        "</td>"+
-
-        "<td>"+
-        team.points+
-        "</td>";
+let status=
+i<=gameNumber
+?"✅ انجام شد"
+:"⏳ آماده";
 
 
-        table.appendChild(tr);
+let disabled=
+i!==gameNumber+1
+?"disabled"
+:"";
 
-    });
+
+div.innerHTML=
+
+"<span>بازی "+
+i+
+"</span>"+
+
+"<strong>"+
+clubName+
+" 🆚 "+
+opponent+
+"</strong>"+
+
+"<span>"+
+status+
+"</span>"+
+
+"<button "+
+disabled+
+" onclick='playGame("+
+i+
+")'>"+
+"⚽ بازی"+
+"</button>";
+
+
+if(i<=gameNumber){
+
+div.classList.add(
+"played"
+);
+
+}
+
+box.appendChild(
+div
+);
+
+}
 
 }
 
 
-update();
+/* =========================
+   انجام مسابقه
+========================= */
+
+function playGame(number){
+
+if(number!==gameNumber+1){
+return;
+}
+
+
+localStorage.setItem(
+"leagueOpponent",
+leagueTeams[league][
+(number-1)%
+leagueTeams[league].length
+]
+);
+
+
+/* football.html بازی را اجرا می‌کند */
+
+window.location.href=
+"football.html";
+
+}
+
+
+/* =========================
+   بعد از برگشت مسابقه
+========================= */
+
+function completeGame(){
+
+gameNumber++;
+
+if(gameNumber>30){
+
+gameNumber=0;
+
+promote();
+
+}
+
+
+localStorage.setItem(
+"leagueGame",
+gameNumber
+);
+
+}
+
+
+/* =========================
+   صعود
+========================= */
+
+function promote(){
+
+if(league==="دسته دو"){
+
+league="دسته یک";
+
+localStorage.setItem(
+"currentLeague",
+league
+);
+
+addDiamonds(5);
+
+alert(
+"🎉 قهرمان دسته دو شدی!"+
+"\n"+
+"5 💎 گرفتی!"+
+"\n"+
+"⬆️ صعود به لیگ دسته یک"
+);
+
+}
+
+else if(league==="دسته یک"){
+
+league="لیگ برتر";
+
+localStorage.setItem(
+"currentLeague",
+league
+);
+
+addDiamonds(10);
+
+alert(
+"🎉 قهرمان دسته یک شدی!"+
+"\n"+
+"10 💎 گرفتی!"+
+"\n"+
+"⬆️ صعود به لیگ برتر"
+);
+
+}
+
+else{
+
+addDiamonds(20);
+
+alert(
+"🏆 قهرمان لیگ برتر شدی!"+
+"\n"+
+"20 💎 گرفتی!"
+);
+
+}
+
+}
+
+
+/* =========================
+   الماس
+========================= */
+
+function addDiamonds(amount){
+
+diamonds+=amount;
+
+localStorage.setItem(
+"footballDiamonds",
+diamonds
+);
+
+}
+
+
+/* =========================
+   شروع
+========================= */
+
+showTeams();
+
+createFixtures();
 
 </script>
 </body>
