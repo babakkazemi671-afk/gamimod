@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🏆 جام حذفی ایران | گیمی‌مود</title>
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:tahoma;
+background:#101010;
+color:white;
+text-align:center;
+}
+
+header{
+background:linear-gradient(135deg,#00bcd4,#006b7a);
+padding:20px;
+font-size:27px;
+font-weight:bold;
+}
+
+.box{
+width:94%;
+max-width:900px;
+margin:20px auto;
+padding:20px;
+background:#202020;
+border-radius:20px;
+box-shadow:0 0 15px #000;
+}
+
+.info{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(150px,1fr));
+gap:10px;
+}
+
+.stat{
+background:#151515;
+padding:15px;
+border-radius:14px;
+}
+
+.stat span{
+display:block;
+color:#aaa;
+font-size:13px;
+}
+
+.stat b{
+display:block;
+margin-top:7px;
+font-size:21px;
+color:#00e5ff;
+}
+
+.round{
+margin-top:15px;
+padding:15px;
+background:#171717;
+border-radius:14px;
+}
+
+.opponent{
+font-size:22px;
+margin:15px;
+}
+
+button{
+border:0;
+border-radius:12px;
+padding:14px 25px;
+background:#e67e22;
+color:white;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:disabled{
+background:#555;
+}
+
+.result{
+margin-top:18px;
+padding:18px;
+background:#151515;
+border-radius:14px;
+line-height:2;
+}
+
+.back{
+display:block;
+width:230px;
+margin:25px auto;
+padding:14px;
+background:#333;
+color:white;
+text-decoration:none;
+border-radius:12px;
+}
+</style>
+</head>
+<body>
+<header>
+🏆 جام حذفی ایران
+</header>
+<section class="box">
+<h2>🏟️ وضعیت تیم</h2>
+<div class="info">
+<div class="stat">
+<span>باشگاه</span>
+<b id="club">تیم من</b>
+</div>
+<div class="stat">
+<span>قدرت</span>
+<b id="power">60</b>
+</div>
+<div class="stat">
+<span>مرحله</span>
+<b id="round">دور اول</b>
+</div>
+<div class="stat">
+<span>💎 الماس</span>
+<b id="diamonds">0</b>
+</div>
+</div>
+</section>
+<section class="box">
+<h2>⚔️ مسابقه</h2>
+<div class="round">
+<div>
+حریف این مرحله:
+</div>
+<div class="opponent" id="opponent">
+در حال انتخاب...
+</div>
+<button id="playButton"
+onclick="playCup()">
+⚽ شروع مسابقه
+</button>
+</div>
+</section>
+<section class="box">
+<h2>📜 مراحل جام</h2>
+<div class="result">
+دور اول 🟢<br>
+دور دوم 🟢<br>
+یک‌چهارم نهایی 🟡<br>
+نیمه‌نهایی 🟠<br>
+فینال 🏆
+</div>
+</section>
+<div class="result" id="result">
+🎲 حریف به‌صورت تصادفی انتخاب می‌شود.
+</div>
+<a class="back" href="myteam.html">
+⬅️ برگشت به تیم من
+</a>
+<script>
+
+/* =========================
+   اطلاعات
+========================= */
+
+let clubName=
+localStorage.getItem(
+"clubName"
+) || "تیم من";
+
+let power=
+Number(
+localStorage.getItem(
+"clubPower"
+)
+) || 60;
+
+let diamonds=
+Number(
+localStorage.getItem(
+"footballDiamonds"
+)
+) || 0;
+
+let cupRound=
+Number(
+localStorage.getItem(
+"hazfiRound"
+)
+) || 0;
+
+let eliminated=
+localStorage.getItem(
+"hazfiEliminated"
+)==="true";
+
+
+/* =========================
+   تیم‌های ایرانی
+========================= */
+
+const teams=[
+
+{
+name:"پرسپولیس",
+power:82
+},
+
+{
+name:"استقلال",
+power:81
+},
+
+{
+name:"سپاهان",
+power:80
+},
+
+{
+name:"تراکتور",
+power:79
+},
+
+{
+name:"ذوب‌آهن",
+power:70
+},
+
+{
+name:"فولاد",
+power:72
+},
+
+{
+name:"گل‌گهر",
+power:71
+},
+
+{
+name:"آلومینیوم",
+power:66
+},
+
+{
+name:"پیکان",
+power:63
+},
+
+{
+name:"فجر سپاسی",
+power:61
+},
+
+{
+name:"مس کرمان",
+power:62
+},
+
+{
+name:"شمس‌آذر",
+power:64
+},
+
+{
+name:"نساجی",
+power:67
+},
+
+{
+name:"سایپا",
+power:60
+},
+
+{
+name:"شاهین شمال",
+power:56
+},
+
+{
+name:"پارس جوان",
+power:55
+}
+
+];
+
+
+/* =========================
+   نام مراحل
+========================= */
+
+const rounds=[
+
+"دور اول",
+"دور دوم",
+"یک‌چهارم نهایی",
+"نیمه‌نهایی",
+"فینال"
+
+];
+
+
+/* =========================
+   نمایش اطلاعات
+========================= */
+
+document.getElementById(
+"club"
+).innerHTML=
+clubName;
+
+document.getElementById(
+"power"
+).innerHTML=
+power;
+
+document.getElementById(
+"diamonds"
+).innerHTML=
+diamonds;
+
+
+if(eliminated){
+
+document.getElementById(
+"round"
+).innerHTML=
+"❌ حذف شده";
+
+document.getElementById(
+"opponent"
+).innerHTML=
+"تا فصل بعد نمی‌توانی بازی کنی.";
+
+document.getElementById(
+"playButton"
+).disabled=true;
+
+}
+else{
+
+showOpponent();
+
+}
+
+
+/* =========================
+   انتخاب حریف
+========================= */
+
+function showOpponent(){
+
+let available=
+teams.filter(
+team=>
+team.name!==clubName
+);
+
+
+let enemy=
+available[
+Math.floor(
+Math.random()*
+available.length
+)
+];
+
+
+localStorage.setItem(
+"hazfiOpponent",
+enemy.name
+);
+
+localStorage.setItem(
+"hazfiOpponentPower",
+enemy.power
+);
+
+
+document.getElementById(
+"opponent"
+).innerHTML=
+"⚽ "+
+enemy.name+
+"<br>⭐ قدرت "+
+enemy.power;
+
+
+document.getElementById(
+"round"
+).innerHTML=
+rounds[cupRound];
+
+}
+
+
+/* =========================
+   شروع بازی
+========================= */
+
+function playCup(){
+
+if(eliminated)return;
+
+
+const enemy=
+localStorage.getItem(
+"hazfiOpponent"
+);
+
+
+const enemyPower=
+Number(
+localStorage.getItem(
+"hazfiOpponentPower"
+)
+);
+
+
+localStorage.setItem(
+"cupMatch",
+"true"
+);
+
+localStorage.setItem(
+"leagueOpponent",
+enemy
+);
+
+localStorage.setItem(
+"leagueOpponentPower",
+enemyPower
+);
+
+
+/*
+مسابقه در football.html
+*/
+
+window.location.href=
+"football.html";
+
+}
+
+
+/* =========================
+   نتیجه جام
+========================= */
+
+function cupWin(){
+
+cupRound++;
+
+
+if(cupRound>=5){
+
+winCup();
+
+return;
+
+}
+
+
+localStorage.setItem(
+"hazfiRound",
+cupRound
+);
+
+
+showOpponent();
+
+
+document.getElementById(
+"result"
+).innerHTML=
+"🎉 بردی!<br>"+
+"به "+
+rounds[cupRound]+
+" رسیدی.";
+
+}
+
+
+/* =========================
+   حذف شدن
+========================= */
+
+function cupLose(){
+
+eliminated=true;
+
+
+localStorage.setItem(
+"hazfiEliminated",
+"true"
+);
+
+
+document.getElementById(
+"result"
+).innerHTML=
+"❌ باختی و از جام حذفی حذف شدی!"+
+"<br>"+
+"تا فصل بعد نمی‌توانی وارد جام شوی.";
+
+
+document.getElementById(
+"playButton"
+).disabled=true;
+
+
+document.getElementById(
+"round"
+).innerHTML=
+"❌ حذف شده";
+
+}
+
+
+/* =========================
+   قهرمانی
+========================= */
+
+function winCup(){
+
+diamonds+=30;
+
+
+localStorage.setItem(
+"footballDiamonds",
+diamonds
+);
+
+
+localStorage.setItem(
+"hazfiRound",
+0
+);
+
+localStorage.setItem(
+"hazfiEliminated",
+"false"
+);
+
+
+document.getElementById(
+"diamonds"
+).innerHTML=
+diamonds;
+
+
+document.getElementById(
+"result"
+).innerHTML=
+"🏆🏆🏆 قهرمان جام حذفی ایران شدی!"+
+"<br>"+
+"💎 30 الماس جایزه گرفتی!";
+
+
+cupRound=0;
+
+showOpponent();
+
+}
+
+</script>
+</body>
+</html>
