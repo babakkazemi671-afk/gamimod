@@ -2,483 +2,1305 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>🧠 بازی هوش | گیمی‌مود</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🧠 بازی هوش | گیمی مود</title>
 <style>
-
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
-    margin:0;
-    font-family:tahoma;
-    background:#101010;
-    color:white;
-    text-align:center;
+margin:0;
+font-family:tahoma;
+background:#101010;
+color:white;
+text-align:center;
 }
 
 header{
-    background:#00bcd4;
-    padding:20px;
-    font-size:28px;
-    font-weight:bold;
+background:linear-gradient(135deg,#8e44ad,#4a235a);
+padding:18px;
+font-size:25px;
+font-weight:bold;
 }
 
-.balance{
-    margin:20px;
-    padding:20px;
-    background:linear-gradient(135deg,#302b63,#24243e);
-    border-radius:20px;
+.container{
+width:94%;
+max-width:700px;
+margin:20px auto;
 }
 
-.coins{
-    font-size:32px;
-    font-weight:bold;
+.card{
+background:#1d1d1d;
+border-radius:20px;
+padding:20px;
+margin-bottom:15px;
+box-shadow:0 5px 20px #0008;
 }
 
-.game{
-    width:92%;
-    max-width:600px;
-    margin:20px auto;
-    padding:25px 18px;
-    background:#202020;
-    border-radius:20px;
-    box-shadow:0 0 15px #000;
+h2{
+margin-top:5px;
 }
 
-.question{
-    font-size:21px;
-    line-height:2;
-    margin-bottom:20px;
+.levels{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
 }
 
-.answers{
-    display:grid;
-    gap:12px;
+button{
+border:0;
+border-radius:13px;
+padding:14px;
+font-family:tahoma;
+font-weight:bold;
+font-size:15px;
+cursor:pointer;
+color:white;
 }
+
+.easy{background:#27ae60}
+.normal{background:#2980b9}
+.medium{background:#e67e22}
+.hard{background:#c0392b}
 
 .answer{
-    padding:15px;
-    border:0;
-    border-radius:12px;
-    background:#333;
-    color:white;
-    font-size:17px;
-    cursor:pointer;
+display:block;
+width:100%;
+margin:9px 0;
+background:#333;
 }
 
 .answer:hover{
-    background:#00bcd4;
+background:#555;
 }
 
-.answer:disabled{
-    cursor:not-allowed;
-    opacity:.7;
+.answer.correct{
+background:#168a45;
 }
 
-.progress{
-    margin:15px;
-    color:#00e5ff;
+.answer.wrong{
+background:#a93226;
 }
 
-.result{
-    margin-top:20px;
-    padding:15px;
-    background:#151515;
-    border-radius:12px;
-    line-height:2;
+.question{
+font-size:20px;
+line-height:1.8;
+margin:20px 0;
 }
 
-.start{
-    padding:14px 30px;
-    border:0;
-    border-radius:12px;
-    background:#00bcd4;
-    color:white;
-    font-size:18px;
-    font-weight:bold;
-    cursor:pointer;
+.info{
+display:flex;
+justify-content:space-around;
+background:#151515;
+padding:12px;
+border-radius:12px;
+margin-bottom:15px;
+}
+
+.hidden{
+display:none;
+}
+
+.next{
+background:#00a8cc;
+width:100%;
+margin-top:10px;
 }
 
 .back{
-    display:block;
-    width:230px;
-    margin:25px auto;
-    padding:14px;
-    background:#333;
-    color:white;
-    text-decoration:none;
-    border-radius:12px;
-    font-weight:bold;
+display:block;
+background:#333;
+color:white;
+text-decoration:none;
+padding:13px;
+border-radius:12px;
+margin-top:15px;
 }
 
+.message{
+min-height:35px;
+line-height:1.8;
+}
+
+.progress{
+height:9px;
+background:#333;
+border-radius:10px;
+overflow:hidden;
+margin-top:12px;
+}
+
+.progress div{
+height:100%;
+background:#00e5ff;
+width:0%;
+transition:.3s;
+}
 </style>
 </head>
 <body>
 <header>
-🧠 بازی هوش گیمی‌مود
+🧠 بازی هوش گیمی مود
 </header>
-<section class="balance">
-<h2>🐷 موجودی قلک</h2>
-<div class="coins" id="coins">
-0 🪙
+<div class="container">
+<!-- انتخاب سطح -->
+<div class="card" id="levelBox">
+<h2>سطح بازی را انتخاب کن</h2>
+<p>
+هر سطح سؤال‌های مخصوص خودش را دارد.
+</p>
+<div class="levels">
+<button class="easy" onclick="chooseLevel('easy')">
+🟢 آسان
+</button>
+<button class="normal" onclick="chooseLevel('normal')">
+🔵 معمولی
+</button>
+<button class="medium" onclick="chooseLevel('medium')">
+🟠 متوسط
+</button>
+<button class="hard" onclick="chooseLevel('hard')">
+🔴 دشوار
+</button>
 </div>
-</section>
-<section class="game">
-<div class="progress" id="progress">
-آماده شروع
+</div>
+<!-- بازی -->
+<div class="card hidden" id="gameBox">
+<div class="info">
+<div>
+سؤال:
+<span id="number">1</span>
+</div>
+<div>
+امتیاز:
+<span id="score">0</span>
+</div>
+<div>
+🪙
+<span id="coins">0</span>
+</div>
+</div>
+<div class="progress">
+<div id="progressBar"></div>
 </div>
 <div class="question" id="question">
-برای شروع روی دکمه زیر بزن.
+سؤال آماده است...
 </div>
-<div class="answers" id="answers">
-</div>
+<div id="answers"></div>
+<div class="message" id="message"></div>
 <button
-class="start"
-id="startButton"
-onclick="startQuiz()">
-🧠 شروع بازی
+class="next"
+id="nextButton"
+onclick="nextQuestion()"
+disabled>
+➡️ سؤال بعدی
 </button>
-<div class="result" id="result">
-هر جواب درست = ۲۰ 🪙
 </div>
-</section>
-<a class="back" href="coin.html">
-⬅️ برگشت به مرکز سرگرمی
+<div class="card hidden" id="finishBox">
+<h2>🏆 بازی تمام شد!</h2>
+<div id="finalResult"></div>
+<button
+class="next"
+onclick="restartGame()">
+🔄 بازی دوباره
+</button>
+</div>
+<a class="back" href="index.html">
+⬅️ برگشت به خانه
 </a>
+</div>
 <script>
 
-/* =========================
-   سکه مشترک
-========================= */
+/* =====================================
+   وضعیت بازی
+===================================== */
 
-let coins =
-Number(localStorage.getItem("gamimodCoins")) || 0;
+let level="normal";
+
+let questionNumber=0;
+
+let score=0;
+
+let coins=0;
+
+let currentAnswer="";
+
+let answered=false;
+
+let totalQuestions=20;
 
 
-function updateCoins(){
+/* =====================================
+   انتخاب سطح
+===================================== */
 
-    document.getElementById(
-        "coins"
-    ).innerHTML =
-    coins + " 🪙";
+function chooseLevel(selected){
+
+level=selected;
+
+questionNumber=0;
+
+score=0;
+
+coins=0;
+
+answered=false;
+
+document.getElementById(
+"levelBox"
+).classList.add("hidden");
+
+document.getElementById(
+"gameBox"
+).classList.remove("hidden");
+
+loadSavedCoins();
+
+nextQuestion();
 
 }
 
 
-function saveCoins(){
+/* =====================================
+   سکه ذخیره‌شده
+===================================== */
 
-    localStorage.setItem(
-        "gamimodCoins",
-        coins
-    );
+function loadSavedCoins(){
 
-    updateCoins();
+let oldCoins=
+Number(
+localStorage.getItem("coins")
+)||0;
+
+coins=oldCoins;
+
+document.getElementById(
+"coins"
+).innerHTML=coins;
 
 }
 
 
-updateCoins();
+/* =====================================
+   سؤال بعدی
+===================================== */
 
+function nextQuestion(){
 
-/* =========================
-   سوالات
-========================= */
+if(questionNumber>=totalQuestions){
 
-const questions = [
+finishGame();
 
-{
-    q:"پایتخت ایران کدام شهر است؟",
-    a:["تهران","شیراز","تبریز","مشهد"],
-    correct:0
-},
+return;
 
-{
-    q:"۵ + ۷ چند می‌شود؟",
-    a:["۱۰","۱۱","۱۲","۱۳"],
-    correct:2
-},
-
-{
-    q:"کدام سیاره به خورشید نزدیک‌تر است؟",
-    a:["زمین","مریخ","عطارد","زحل"],
-    correct:2
-},
-
-{
-    q:"کدام حیوان به سلطان جنگل معروف است؟",
-    a:["فیل","شیر","گرگ","خرس"],
-    correct:1
-},
-
-{
-    q:"۱۰ × ۵ چند می‌شود؟",
-    a:["۳۰","۴۰","۵۰","۶۰"],
-    correct:2
-},
-
-{
-    q:"کدام رنگ از ترکیب آبی و زرد ساخته می‌شود؟",
-    a:["قرمز","سبز","بنفش","نارنجی"],
-    correct:1
-},
-
-{
-    q:"بزرگ‌ترین قاره جهان کدام است؟",
-    a:["آفریقا","اروپا","آسیا","استرالیا"],
-    correct:2
-},
-
-{
-    q:"یک ساعت چند دقیقه دارد؟",
-    a:["۳۰","۴۵","۶۰","۹۰"],
-    correct:2
 }
 
+questionNumber++;
+
+answered=false;
+
+document.getElementById(
+"nextButton"
+).disabled=true;
+
+document.getElementById(
+"message"
+).innerHTML="";
+
+document.getElementById(
+"number"
+).innerHTML=
+questionNumber;
+
+document.getElementById(
+"score"
+).innerHTML=
+score;
+
+document.getElementById(
+"progressBar"
+).style.width=
+(
+questionNumber/
+totalQuestions*
+100
+)+"%";
+
+
+let q=
+generateQuestion(level);
+
+currentAnswer=
+String(q.answer);
+
+document.getElementById(
+"question"
+).innerHTML=
+q.question;
+
+
+let answers=
+shuffle(
+q.options.map(String)
+);
+
+
+const box=
+document.getElementById(
+"answers"
+);
+
+box.innerHTML="";
+
+
+answers.forEach(
+answer=>{
+
+let btn=
+document.createElement("button");
+
+btn.className="answer";
+
+btn.innerHTML=answer;
+
+btn.onclick=function(){
+
+checkAnswer(
+answer,
+btn
+);
+
+};
+
+box.appendChild(btn);
+
+});
+
+}
+
+
+/* =====================================
+   بررسی جواب
+===================================== */
+
+function checkAnswer(
+answer,
+button
+){
+
+if(answered)return;
+
+answered=true;
+
+let buttons=
+document.querySelectorAll(
+".answer"
+);
+
+buttons.forEach(
+b=>{
+b.disabled=true;
+}
+);
+
+
+if(
+String(answer)===
+String(currentAnswer)
+){
+
+button.classList.add("correct");
+
+score+=10;
+
+coins+=2;
+
+document.getElementById(
+"message"
+).innerHTML=
+"✅ درست بود! +۱۰ امتیاز و +۲ سکه";
+
+}
+else{
+
+button.classList.add("wrong");
+
+buttons.forEach(
+b=>{
+
+if(
+b.innerHTML===
+String(currentAnswer)
+){
+
+b.classList.add("correct");
+
+}
+
+});
+
+document.getElementById(
+"message"
+).innerHTML=
+"❌ جواب اشتباه بود. جواب درست: "+
+currentAnswer;
+
+}
+
+
+document.getElementById(
+"score"
+).innerHTML=
+score;
+
+document.getElementById(
+"coins"
+).innerHTML=
+coins;
+
+localStorage.setItem(
+"coins",
+coins
+);
+
+document.getElementById(
+"nextButton"
+).disabled=false;
+
+}
+
+
+/* =====================================
+   ساخت سؤال
+===================================== */
+
+function generateQuestion(level){
+
+if(level==="easy"){
+
+return easyQuestion();
+
+}
+
+if(level==="medium"){
+
+return mediumQuestion();
+
+}
+
+if(level==="hard"){
+
+return hardQuestion();
+
+}
+
+return normalQuestion();
+
+}
+
+
+/* =====================================
+   آسان
+===================================== */
+
+function easyQuestion(){
+
+let type=
+randomInt(1,5);
+
+
+/*
+ جمع
+*/
+
+if(type===1){
+
+let a=randomInt(1,50);
+
+let b=randomInt(1,50);
+
+return mathQuestion(
+a+" + "+b+" = ؟",
+a+b
+);
+
+}
+
+
+/*
+ تفریق
+*/
+
+if(type===2){
+
+let a=randomInt(20,80);
+
+let b=randomInt(1,a);
+
+return mathQuestion(
+a+" − "+b+" = ؟",
+a-b
+);
+
+}
+
+
+/*
+ ضرب ساده
+*/
+
+if(type===3){
+
+let a=randomInt(2,12);
+
+let b=randomInt(2,12);
+
+return mathQuestion(
+a+" × "+b+" = ؟",
+a*b
+);
+
+}
+
+
+/*
+ عدد بزرگ‌تر
+*/
+
+if(type===4){
+
+let a=randomInt(1,100);
+
+let b=randomInt(1,100);
+
+return mathQuestion(
+"کدام عدد بزرگ‌تر است؟",
+Math.max(a,b),
+[
+a,b
+]
+);
+
+}
+
+
+/*
+ زوج یا فرد
+*/
+
+let n=randomInt(1,100);
+
+let answer=
+n%2===0
+?"زوج"
+:"فرد";
+
+return textQuestion(
+n+" زوج است یا فرد؟",
+answer,
+["زوج","فرد"]
+);
+
+}
+
+
+/* =====================================
+   معمولی
+===================================== */
+
+function normalQuestion(){
+
+let type=
+randomInt(1,6);
+
+
+/*
+ ضرب بزرگ‌تر
+*/
+
+if(type===1){
+
+let a=randomInt(10,30);
+
+let b=randomInt(5,20);
+
+return mathQuestion(
+a+" × "+b+" = ؟",
+a*b
+);
+
+}
+
+
+/*
+ تقسیم
+*/
+
+if(type===2){
+
+let b=randomInt(2,12);
+
+let answer=randomInt(2,15);
+
+let a=b*answer;
+
+return mathQuestion(
+a+" ÷ "+b+" = ؟",
+answer
+);
+
+}
+
+
+/*
+ دنباله
+*/
+
+if(type===3){
+
+let start=randomInt(2,20);
+
+let step=randomInt(2,10);
+
+let nums=[
+start,
+start+step,
+start+step*2,
+start+step*3
 ];
 
+let answer=
+start+step*4;
 
-let current = 0;
-
-let score = 0;
-
-let playing = false;
-
-
-/* =========================
-   شروع
-========================= */
-
-function startQuiz(){
-
-    current = 0;
-
-    score = 0;
-
-    playing = true;
-
-
-    document.getElementById(
-        "startButton"
-    ).style.display =
-    "none";
-
-
-    document.getElementById(
-        "result"
-    ).innerHTML =
-    "🎯 جواب درست بده و سکه بگیر!";
-
-
-    showQuestion();
+return mathQuestion(
+nums.join(" ، ")+" ، ؟",
+answer
+);
 
 }
 
 
-/* =========================
-   نمایش سوال
-========================= */
+/*
+ درصد ساده
+*/
 
-function showQuestion(){
+if(type===4){
 
-    const data =
-    questions[current];
+let percent=
+[10,20,25,50][
+randomInt(0,3)
+];
 
+let value=
+randomInt(2,20)*10;
 
-    document.getElementById(
-        "progress"
-    ).innerHTML =
-    "سؤال " +
-    (current + 1) +
-    " از " +
-    questions.length;
+let answer=
+value*percent/100;
 
-
-    document.getElementById(
-        "question"
-    ).innerHTML =
-    data.q;
-
-
-    const answers =
-    document.getElementById(
-        "answers"
-    );
-
-
-    answers.innerHTML = "";
-
-
-    data.a.forEach(
-    function(answer,index){
-
-        const button =
-        document.createElement(
-            "button"
-        );
-
-
-        button.className =
-        "answer";
-
-
-        button.innerHTML =
-        answer;
-
-
-        button.onclick =
-        function(){
-
-            checkAnswer(
-                index
-            );
-
-        };
-
-
-        answers.appendChild(
-            button
-        );
-
-    });
+return mathQuestion(
+percent+"٪ از "+value+" چند است؟",
+answer
+);
 
 }
 
 
-/* =========================
-   بررسی
-========================= */
+/*
+ مربع
+*/
 
-function checkAnswer(index){
+if(type===5){
 
-    if(!playing){
+let n=randomInt(2,15);
 
-        return;
-
-    }
-
-
-    const data =
-    questions[current];
-
-
-    const buttons =
-    document.querySelectorAll(
-        ".answer"
-    );
-
-
-    buttons.forEach(
-    function(button){
-
-        button.disabled =
-        true;
-
-    });
-
-
-    if(index === data.correct){
-
-        score++;
-
-
-        coins += 20;
-
-        saveCoins();
-
-
-        document.getElementById(
-            "result"
-        ).innerHTML =
-        "✅ جواب درست!<br>" +
-        "+20 🪙";
-
-    }
-
-    else{
-
-        document.getElementById(
-            "result"
-        ).innerHTML =
-        "❌ جواب اشتباه بود.<br>" +
-        "این سؤال سکه‌ای نداد.";
-
-    }
-
-
-    setTimeout(
-    function(){
-
-        current++;
-
-
-        if(
-            current >=
-            questions.length
-        ){
-
-            finishQuiz();
-
-        }
-
-        else{
-
-            showQuestion();
-
-        }
-
-    },1000);
+return mathQuestion(
+"مربع عدد "+n+" چند است؟",
+n*n
+);
 
 }
 
 
-/* =========================
-   پایان
-========================= */
+/*
+ معما
+*/
 
-function finishQuiz(){
+let a=randomInt(3,12);
 
-    playing = false;
+let b=randomInt(3,12);
 
+return mathQuestion(
+"اگر "+a+
+" سیب داشته باشیم و "+
+b+
+" سیب دیگر بگیریم، چند سیب داریم؟",
+a+b
+);
 
-    document.getElementById(
-        "question"
-    ).innerHTML =
-    "🎉 بازی تمام شد!";
-
-
-    document.getElementById(
-        "progress"
-    ).innerHTML =
-    "نتیجه نهایی";
+}
 
 
-    document.getElementById(
-        "answers"
-    ).innerHTML = "";
+/* =====================================
+   متوسط
+===================================== */
+
+function mediumQuestion(){
+
+let type=
+randomInt(1,6);
 
 
-    document.getElementById(
-        "result"
-    ).innerHTML =
-    "🧠 جواب درست: " +
-    score +
-    " از " +
-    questions.length +
-    "<br>" +
-    "🪙 سکه‌های این دور: " +
-    (score * 20);
+/*
+ معادله ساده
+*/
+
+if(type===1){
+
+let x=randomInt(2,20);
+
+let a=randomInt(2,15);
+
+let b=x*a;
+
+return mathQuestion(
+a+" × x = "+b+" ؛ x = ؟",
+x
+);
+
+}
 
 
-    document.getElementById(
-        "startButton"
-    ).style.display =
-    "inline-block";
+/*
+ دنباله سخت‌تر
+*/
+
+if(type===2){
+
+let start=randomInt(3,20);
+
+let step=randomInt(3,12);
+
+let nums=[];
+
+for(let i=0;i<4;i++){
+
+nums.push(
+start+i*step
+);
+
+}
+
+return mathQuestion(
+nums.join(" ، ")+" ، ؟",
+start+4*step
+);
+
+}
+
+
+/*
+ درصد
+*/
+
+if(type===3){
+
+let value=randomInt(5,30)*10;
+
+let percent=
+randomInt(2,8)*5;
+
+return mathQuestion(
+percent+
+"٪ از "+
+value+
+" چند است؟",
+value*percent/100
+);
+
+}
+
+
+/*
+ الگوی ضرب
+*/
+
+if(type===4){
+
+let start=randomInt(2,8);
+
+let r=randomInt(2,4);
+
+let nums=[
+start,
+start*r,
+start*r*r,
+start*r*r*r
+];
+
+return mathQuestion(
+nums.join(" ، ")+" ، ؟",
+start*r*r*r*r
+);
+
+}
+
+
+/*
+ مقایسه
+*/
+
+if(type===5){
+
+let a=randomInt(100,500);
+
+let b=randomInt(100,500);
+
+return mathQuestion(
+"کدام عدد به ۳۰۰ نزدیک‌تر است؟",
+Math.abs(a-300)<
+Math.abs(b-300)
+?a:b,
+[a,b]
+);
+
+}
+
+
+/*
+ سن
+*/
+
+let age=randomInt(10,30);
+
+let years=randomInt(5,15);
+
+return mathQuestion(
+"اگر سن کسی "+
+age+
+" سال باشد، "+
+years+
+" سال بعد چند ساله می‌شود؟",
+age+years
+);
+
+}
+
+
+/* =====================================
+   دشوار
+===================================== */
+
+function hardQuestion(){
+
+let type=
+randomInt(1,6);
+
+
+/*
+ معادله
+*/
+
+if(type===1){
+
+let x=randomInt(3,20);
+
+let a=randomInt(2,9);
+
+let b=randomInt(1,20);
+
+let c=
+a*x+b;
+
+return mathQuestion(
+a+" × x + "+b+
+" = "+c+
+" ؛ x = ؟",
+x
+);
+
+}
+
+
+/*
+ دنباله دومرحله‌ای
+*/
+
+if(type===2){
+
+let start=randomInt(2,10);
+
+let add=randomInt(2,8);
+
+let multiply=randomInt(2,4);
+
+let a=start;
+
+let b=(a+add)*multiply;
+
+let c=(b+add)*multiply;
+
+let d=(c+add)*multiply;
+
+let answer=
+(d+add)*multiply;
+
+return mathQuestion(
+a+" ، "+b+
+" ، "+c+
+" ، "+d+
+" ، ؟",
+answer
+);
+
+}
+
+
+/*
+ توان
+*/
+
+if(type===3){
+
+let base=randomInt(2,5);
+
+let power=randomInt(2,4);
+
+return mathQuestion(
+base+
+" به توان "+
+power+
+" چند است؟",
+Math.pow(base,power)
+);
+
+}
+
+
+/*
+ کسر
+*/
+
+if(type===4){
+
+let denominator=
+randomInt(2,10);
+
+let numerator=
+randomInt(1,denominator-1);
+
+let multiple=
+randomInt(2,10);
+
+let total=
+denominator*multiple;
+
+let answer=
+numerator*multiple;
+
+return mathQuestion(
+numerator+
+"/"+
+denominator+
+" از "+
+total+
+" چند است؟",
+answer
+);
+
+}
+
+
+/*
+ مسئله سرعت
+*/
+
+if(type===5){
+
+let speed=
+randomInt(20,80);
+
+let time=
+randomInt(2,6);
+
+return mathQuestion(
+"اگر سرعت "+
+speed+
+" کیلومتر بر ساعت باشد و "+
+time+
+" ساعت حرکت کنیم، چند کیلومتر طی می‌کنیم؟",
+speed*time
+);
+
+}
+
+
+/*
+ معمای منطقی
+*/
+
+let a=randomInt(5,20);
+
+let b=randomInt(5,20);
+
+let c=randomInt(5,20);
+
+return mathQuestion(
+"عدد حاصل از "+
+a+
+" + "+
+b+
+" × "+
+c+
+" چند است؟",
+a+b*c
+);
+
+}
+
+
+/* =====================================
+   سؤال عددی
+===================================== */
+
+function mathQuestion(
+question,
+answer,
+customOptions
+){
+
+let options;
+
+if(customOptions){
+
+options=
+makeOptions(
+answer,
+customOptions
+);
+
+}
+else{
+
+options=
+makeOptions(
+answer
+);
+
+}
+
+return{
+
+question:question,
+
+answer:answer,
+
+options:options
+
+};
+
+}
+
+
+/* =====================================
+   سؤال متنی
+===================================== */
+
+function textQuestion(
+question,
+answer,
+options
+){
+
+return{
+
+question:question,
+
+answer:answer,
+
+options:options
+
+};
+
+}
+
+
+/* =====================================
+   گزینه‌های اشتباه
+===================================== */
+
+function makeOptions(
+answer,
+custom=[]
+){
+
+let options=[
+...custom,
+answer
+];
+
+while(options.length<4){
+
+let offset=
+randomInt(
+1,
+Math.max(3,
+Math.abs(Number(answer))*0.25+5)
+);
+
+let wrong;
+
+if(
+typeof answer==="number"
+){
+
+wrong=
+Math.random()<0.5
+?
+answer+Math.ceil(offset)
+:
+answer-Math.ceil(offset);
+
+}
+else{
+
+wrong=
+randomInt(1,100);
+
+}
+
+if(
+!options.includes(wrong)
+){
+
+options.push(wrong);
+
+}
+
+}
+
+
+return shuffle(
+options
+).slice(0,4);
+
+}
+
+
+/* =====================================
+   تصادفی
+===================================== */
+
+function randomInt(min,max){
+
+return Math.floor(
+Math.random()*
+(max-min+1)
+)+min;
+
+}
+
+
+/* =====================================
+   مخلوط کردن
+===================================== */
+
+function shuffle(array){
+
+let a=[...array];
+
+for(
+let i=a.length-1;
+i>0;
+i--
+){
+
+let j=
+Math.floor(
+Math.random()*(i+1)
+);
+
+[
+a[i],
+a[j]
+]=
+[
+a[j],
+a[i]
+];
+
+}
+
+return a;
+
+}
+
+
+/* =====================================
+   پایان بازی
+===================================== */
+
+function finishGame(){
+
+document.getElementById(
+"gameBox"
+).classList.add("hidden");
+
+document.getElementById(
+"finishBox"
+).classList.remove("hidden");
+
+document.getElementById(
+"finalResult"
+).innerHTML=
+
+"امتیاز نهایی: <b>"+
+score+
+"</b><br>"+
+"🪙 سکه به دست آمده: <b>"+
+coins+
+"</b><br>"+
+"سطح: <b>"+
+getLevelName()+
+"</b>";
+
+}
+
+
+/* =====================================
+   نام سطح
+===================================== */
+
+function getLevelName(){
+
+if(level==="easy")
+return "آسان";
+
+if(level==="normal")
+return "معمولی";
+
+if(level==="medium")
+return "متوسط";
+
+return "دشوار";
+
+}
+
+
+/* =====================================
+   شروع دوباره
+===================================== */
+
+function restartGame(){
+
+document.getElementById(
+"finishBox"
+).classList.add("hidden");
+
+document.getElementById(
+"levelBox"
+).classList.remove("hidden");
 
 }
 
 </script>
 </body>
-
-  </html>
+    </html>
