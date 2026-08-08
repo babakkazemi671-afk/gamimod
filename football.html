@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>⚽ بازی فوتبال گیمی‌مود</title>
+<title>⚽ بازی فوتبال | گیمی‌مود</title>
 <style>
 *{box-sizing:border-box}
 
@@ -16,18 +16,18 @@ text-align:center;
 }
 
 header{
-background:#00bcd4;
-padding:18px;
-font-size:26px;
+background:linear-gradient(135deg,#00bcd4,#006b7a);
+padding:16px;
+font-size:24px;
 font-weight:bold;
 }
 
 .game{
 width:96%;
-max-width:1000px;
-margin:18px auto;
-padding:16px;
+max-width:1050px;
+margin:15px auto;
 background:#202020;
+padding:14px;
 border-radius:20px;
 }
 
@@ -35,17 +35,23 @@ border-radius:20px;
 display:grid;
 grid-template-columns:1fr auto 1fr;
 align-items:center;
-font-weight:bold;
+gap:10px;
 font-size:18px;
-margin-bottom:15px;
+font-weight:bold;
+margin-bottom:12px;
 }
 
-.home{color:#ff3333}
-.away{color:white}
+.home{
+color:#ff4040;
+}
+
+.away{
+color:#fff;
+}
 
 .minute{
 color:#00e5ff;
-font-size:23px;
+font-size:20px;
 }
 
 .field{
@@ -55,6 +61,7 @@ height:560px;
 overflow:hidden;
 border:5px solid white;
 border-radius:14px;
+
 background:
 repeating-linear-gradient(
 90deg,
@@ -112,33 +119,48 @@ border:5px solid white;
 z-index:2;
 }
 
-.goal.left{left:-5px}
-.goal.right{right:-5px}
+.goal.left{
+left:-5px;
+}
+
+.goal.right{
+right:-5px;
+}
 
 .defenceLine{
 position:absolute;
 top:0;
 height:100%;
 width:3px;
-border-left:2px dashed rgba(255,255,255,.5);
+border-left:2px dashed rgba(255,255,255,.45);
 z-index:1;
 }
 
-.redLine{left:43%}
-.whiteLine{left:57%}
+.redLine{
+left:43%;
+}
+
+.whiteLine{
+left:57%;
+}
 
 .player{
 position:absolute;
-width:34px;
-height:34px;
+width:40px;
+height:40px;
 border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:9px;
+font-size:8px;
 font-weight:bold;
+text-align:center;
+padding:3px;
 z-index:5;
-transition:left .18s linear,top .18s linear;
+
+transition:
+left .18s linear,
+top .18s linear;
 }
 
 .red{
@@ -165,46 +187,57 @@ background:white;
 border:2px solid #111;
 border-radius:50%;
 z-index:8;
-transition:left .12s linear,top .12s linear;
+
+transition:
+left .12s linear,
+top .12s linear;
 }
 
 .controls{
-margin-top:15px;
+margin-top:14px;
 }
 
 button{
 border:0;
 border-radius:12px;
-padding:12px 22px;
-margin:5px;
-font-size:16px;
+padding:11px 18px;
+margin:4px;
+font-family:tahoma;
 font-weight:bold;
-color:white;
 cursor:pointer;
+color:white;
 }
 
-.start{background:#00bcd4}
-.attack{background:#16a085}
-.defend{background:#8e44ad}
+.start{
+background:#00bcd4;
+}
+
+.attack{
+background:#e67e22;
+}
+
+.defend{
+background:#8e44ad;
+}
 
 button:disabled{
 background:#555;
 }
 
 .log{
-margin-top:15px;
-height:180px;
+margin-top:14px;
+height:170px;
 overflow:auto;
 background:#151515;
-padding:14px;
+padding:12px;
 border-radius:12px;
 text-align:right;
-line-height:2;
+line-height:1.9;
 }
 
 .result{
-margin-top:15px;
-padding:15px;
+margin-top:12px;
+padding:14px;
 background:#151515;
 border-radius:12px;
 line-height:2;
@@ -212,9 +245,9 @@ line-height:2;
 
 .back{
 display:block;
-width:220px;
-margin:25px auto;
-padding:14px;
+width:230px;
+margin:22px auto;
+padding:13px;
 background:#333;
 color:white;
 text-decoration:none;
@@ -222,16 +255,17 @@ border-radius:12px;
 }
 
 .goalText{
-font-size:24px;
+font-size:23px;
 color:#ffd700;
 }
+
 </style>
 </head>
 <body>
 <header>
 ⚽ بازی فوتبال گیمی‌مود
 </header>
-<section class="game">
+<div class="game">
 <div class="score">
 <div class="home">
 <span id="homeName">تیم من</span>
@@ -257,28 +291,8 @@ color:#ffd700;
 <div class="goal right"></div>
 <div class="defenceLine redLine"></div>
 <div class="defenceLine whiteLine"></div>
-<div class="player red gk" id="r1">1</div>
-<div class="player red" id="r2">2</div>
-<div class="player red" id="r3">3</div>
-<div class="player red" id="r4">4</div>
-<div class="player red" id="r5">5</div>
-<div class="player red" id="r6">6</div>
-<div class="player red" id="r7">7</div>
-<div class="player red" id="r8">8</div>
-<div class="player red" id="r9">9</div>
-<div class="player red" id="r10">10</div>
-<div class="player red" id="r11">11</div>
-<div class="player white gk" id="w1">1</div>
-<div class="player white" id="w2">2</div>
-<div class="player white" id="w3">3</div>
-<div class="player white" id="w4">4</div>
-<div class="player white" id="w5">5</div>
-<div class="player white" id="w6">6</div>
-<div class="player white" id="w7">7</div>
-<div class="player white" id="w8">8</div>
-<div class="player white" id="w9">9</div>
-<div class="player white" id="w10">10</div>
-<div class="player white" id="w11">11</div>
+<div id="homePlayers"></div>
+<div id="awayPlayers"></div>
 <div class="ball" id="ball"></div>
 </div>
 <div class="controls">
@@ -300,247 +314,454 @@ onclick="setTactic('defend')">
 🛡️ دفاعی
 </button>
 </div>
-<div class="log" id="log">
+<div
+class="log"
+id="log">
 🏟️ آماده شروع مسابقه...
 </div>
-<div class="result" id="result">
-⚽ بازیکنان آماده مسابقه هستند.
+<div
+class="result"
+id="result">
+ترکیب ذخیره‌شده تیم آماده است.
 </div>
-</section>
-<a class="back" href="myteam.html">
+</div>
+<a
+class="back"
+href="myteam.html">
 ⬅️ برگشت به تیم من
 </a>
 <script>
 
-let playing=false;
-let minute=1;
-let homeScore=0;
-let awayScore=0;
-let timer=null;
-let tactic="balanced";
+/* =================================
+   اطلاعات تیم
+================================= */
 
-let ballOwner=7;
-let ballTeam="home";
-let passTarget=null;
-let actionCooldown=0;
-
-
-/* نام تیم‌ها */
-
-let homeName=
-localStorage.getItem("clubName")
-||"تیم من";
-
-let awayName=
-localStorage.getItem("leagueOpponent")
-||localStorage.getItem("hazfiOpponent")
-||"حریف";
-
-document.getElementById("homeName").innerHTML=homeName;
-document.getElementById("awayName").innerHTML=awayName;
-
-
-/* ترکیب */
-
-let lineup=
+let savedLineup=
 JSON.parse(
 localStorage.getItem("lineup")
 ) || {};
 
+let formation=
+localStorage.getItem("formation")
+||"4-3-3";
 
-/* جای اولیه */
 
-const homeBase=[
+let myPlayers=
+Object.values(savedLineup);
 
-[7,50],
 
-[18,22],
-[18,40],
-[18,60],
-[18,78],
+/* نام باشگاه */
 
-[30,30],
-[32,50],
-[30,70],
+let clubName=
+localStorage.getItem("clubName")
+||"تیم من";
 
-[48,28],
-[48,50],
-[48,72]
+let opponent=
+localStorage.getItem("leagueOpponent")
+||"حریف";
 
-];
 
-const awayBase=[
+document.getElementById(
+"homeName"
+).innerHTML=clubName;
 
-[93,50],
+document.getElementById(
+"awayName"
+).innerHTML=opponent;
 
-[82,22],
-[82,40],
-[82,60],
-[82,78],
 
-[70,30],
+/* =================================
+   آرایش‌ها
+================================= */
+
+const formations={
+
+"4-3-3":[
+[8,50],
+[24,18],
+[22,40],
+[22,60],
+[24,82],
+[40,25],
+[40,50],
+[40,75],
+[63,25],
 [68,50],
-[70,70],
+[63,75]
+],
 
-[52,28],
-[52,50],
-[52,72]
+"4-4-2":[
+[8,50],
+[24,18],
+[22,40],
+[22,60],
+[24,82],
+[40,18],
+[40,40],
+[40,60],
+[40,82],
+[67,40],
+[67,60]
+],
 
-];
+"3-4-3":[
+[8,50],
+[24,25],
+[22,50],
+[24,75],
+[40,18],
+[40,40],
+[40,60],
+[40,82],
+[67,25],
+[70,50],
+[67,75]
+],
 
+"5-3-2":[
+[8,50],
+[23,12],
+[20,32],
+[20,50],
+[20,68],
+[23,88],
+[40,25],
+[40,50],
+[40,75],
+[67,40],
+[67,60]
+],
 
-/* محدوده حرکت */
-
-const homeZones={
-
-1:{minX:4,maxX:13},
-
-2:{minX:8,maxX:43},
-3:{minX:8,maxX:43},
-4:{minX:8,maxX:43},
-5:{minX:8,maxX:43},
-
-6:{minX:12,maxX:58},
-7:{minX:12,maxX:62},
-8:{minX:12,maxX:58},
-
-9:{minX:25,maxX:82},
-10:{minX:25,maxX:82},
-11:{minX:25,maxX:82}
+"3-5-2":[
+[8,50],
+[24,25],
+[22,50],
+[24,75],
+[40,12],
+[40,30],
+[40,50],
+[40,70],
+[40,88],
+[67,40],
+[67,60]
+]
 
 };
 
-const awayZones={
 
-1:{minX:87,maxX:96},
+/* =================================
+   بازیکنان تیم ما
+================================= */
 
-2:{minX:57,maxX:92},
-3:{minX:57,maxX:92},
-4:{minX:57,maxX:92},
-5:{minX:57,maxX:92},
-
-6:{minX:38,maxX:88},
-7:{minX:38,maxX:88},
-8:{minX:38,maxX:88},
-
-9:{minX:18,maxX:75},
-10:{minX:18,maxX:75},
-11:{minX:18,maxX:75}
-
-};
-
-
-/* قرار دادن بازیکنان */
-
-function placePlayers(){
-
-for(let i=1;i<=11;i++){
-
-let r=
-document.getElementById("r"+i);
-
-let w=
-document.getElementById("w"+i);
-
-r.style.left=
-homeBase[i-1][0]+"%";
-
-r.style.top=
-homeBase[i-1][1]+"%";
-
-w.style.left=
-awayBase[i-1][0]+"%";
-
-w.style.top=
-awayBase[i-1][1]+"%";
-
-}
-
-
-/* نام بازیکنان */
-
-let players=
-Object.values(lineup);
+let homePlayers=[];
 
 for(
 let i=0;
-i<players.length &&
 i<11;
 i++
 ){
 
-if(players[i].name){
+let player=
+myPlayers[i];
 
+if(!player){
+
+player={
+name:"بازیکن "+(i+1),
+power:60,
+position:
+i===0
+?"GK"
+:
+i<5
+?"DEF"
+:
+i<8
+?"MID"
+:
+"ATT"
+};
+
+}
+
+homePlayers.push({
+
+number:i+1,
+name:player.name,
+power:Number(player.power)||60,
+position:player.position
+
+});
+
+}
+
+
+/* =================================
+   بازیکنان حریف
+================================= */
+
+const opponentNames=[
+
+"مهاجم حریف",
+"مدافع راست",
+"مدافع چپ",
+"مدافع وسط",
+"کاپیتان",
+"هافبک",
+"هافبک مرکزی",
+"وینگر",
+"مهاجم",
+"مهاجم دوم",
+"دروازه‌بان"
+
+];
+
+let awayPlayers=[];
+
+for(
+let i=0;
+i<11;
+i++
+){
+
+awayPlayers.push({
+
+number:i+1,
+
+name:
+opponentNames[i],
+
+power:
+65+(i%20),
+
+position:
+i===10
+?"GK"
+:
+i<4
+?"DEF"
+:
+i<7
+?"MID"
+:
+"ATT"
+
+});
+
+}
+
+
+/* =================================
+   موقعیت اولیه
+================================= */
+
+function createPlayers(){
+
+let homeBox=
 document.getElementById(
-"r"+(i+1)
-).innerHTML=
-players[i].name.substring(0,7);
+"homePlayers"
+);
+
+let awayBox=
+document.getElementById(
+"awayPlayers"
+);
+
+homeBox.innerHTML="";
+awayBox.innerHTML="";
+
+
+let spots=
+formations[formation]
+||formations["4-3-3"];
+
+
+homePlayers.forEach(
+(player,index)=>{
+
+let div=
+document.createElement("div");
+
+div.className=
+"player red";
+
+if(index===0){
+
+div.classList.add("gk");
 
 }
 
-}
+div.id=
+"home_"+player.number;
+
+div.innerHTML=
+player.name+
+"<br>"+
+player.power;
+
+div.style.left=
+spots[index][0]+"%";
+
+div.style.top=
+spots[index][1]+"%";
+
+homeBox.appendChild(div);
+
+});
+
+
+awayPlayers.forEach(
+(player,index)=>{
+
+let div=
+document.createElement("div");
+
+div.className=
+"player white";
+
+if(index===10){
+
+div.classList.add("gk");
 
 }
 
-placePlayers();
+div.id=
+"away_"+player.number;
+
+div.innerHTML=
+player.name+
+"<br>"+
+player.power;
 
 
-/* موقعیت */
+/*
+ حریف از سمت راست
+*/
 
-function getPosition(team,number){
+div.style.left=
+(100-spots[index][0])+"%";
 
-let element=
+div.style.top=
+spots[index][1]+"%";
+
+awayBox.appendChild(div);
+
+});
+
+}
+
+
+createPlayers();
+
+
+/* =================================
+   وضعیت بازی
+================================= */
+
+let playing=false;
+
+let minute=1;
+
+let homeScore=0;
+
+let awayScore=0;
+
+let timer=null;
+
+let ballTeam="home";
+
+let ballOwner=9;
+
+let passTarget=null;
+
+let tactic="balanced";
+
+let actionCooldown=0;
+
+
+/* =================================
+   گرفتن موقعیت
+================================= */
+
+function getPosition(
+team,
+number
+){
+
+let el=
 document.getElementById(
 team==="home"
-? "r"+number
-: "w"+number
+?
+"home_"+number
+:
+"away_"+number
 );
 
 return{
 
-x:parseFloat(element.style.left),
-y:parseFloat(element.style.top)
+x:parseFloat(el.style.left),
+
+y:parseFloat(el.style.top)
 
 };
 
 }
 
 
-/* فاصله */
+/* =================================
+   فاصله
+================================= */
 
-function distance(x1,y1,x2,y2){
+function distance(
+x1,y1,x2,y2
+){
 
 return Math.sqrt(
-Math.pow(x2-x1,2)+
-Math.pow(y2-y1,2)
+
+Math.pow(
+x2-x1,
+2
+)
++
+Math.pow(
+y2-y1,
+2
+)
+
 );
 
 }
 
 
-/* توپ روی بازیکن */
+/* =================================
+   توپ
+================================= */
 
-function putBallOnOwner(){
+function putBall(){
 
-let pos=
+let p=
 getPosition(
 ballTeam,
 ballOwner
 );
 
 let ball=
-document.getElementById("ball");
+document.getElementById(
+"ball"
+);
 
 ball.style.left=
-(pos.x-0.8)+"%";
+(p.x-0.8)+"%";
 
 ball.style.top=
-(pos.y-1.2)+"%";
+(p.y-1.2)+"%";
 
 }
 
 
-/* شروع */
+/* =================================
+   شروع
+================================= */
 
 function startMatch(){
 
@@ -556,35 +777,60 @@ awayScore=0;
 
 ballTeam="home";
 
-ballOwner=7;
+ballOwner=9;
 
 passTarget=null;
 
 actionCooldown=0;
 
-document.getElementById("homeScore").innerHTML=0;
-document.getElementById("awayScore").innerHTML=0;
-document.getElementById("minute").innerHTML=1;
+document.getElementById(
+"homeScore"
+).innerHTML=0;
 
-document.getElementById("log").innerHTML=
-"🏟️ سوت شروع مسابقه!"+
-"<br>⚽ "+homeName+
+document.getElementById(
+"awayScore"
+).innerHTML=0;
+
+document.getElementById(
+"minute"
+).innerHTML=1;
+
+document.getElementById(
+"startButton"
+).disabled=true;
+
+document.getElementById(
+"log"
+).innerHTML=
+"🏟️ سوت شروع مسابقه!<br>"+
+"🔴 "+clubName+
 " صاحب توپ است.";
 
-document.getElementById("result").innerHTML=
+document.getElementById(
+"result"
+).innerHTML=
 "⚽ بازی شروع شد.";
 
-document.getElementById("startButton").disabled=true;
+putBall();
 
-putBallOnOwner();
+
+/*
+ هر ۱.۳ ثانیه
+ تقریباً یک دقیقه بازی
+*/
 
 timer=
-setInterval(gameTick,600);
+setInterval(
+gameTick,
+1300
+);
 
 }
 
 
-/* تیک بازی */
+/* =================================
+   تیک بازی
+================================= */
 
 function gameTick(){
 
@@ -592,104 +838,118 @@ if(!playing)return;
 
 minute++;
 
-document.getElementById("minute").innerHTML=minute;
+document.getElementById(
+"minute"
+).innerHTML=minute;
 
-if(actionCooldown>0)
+
+if(actionCooldown>0){
+
 actionCooldown--;
 
-movePlayersSmart();
+}
+
+
+movePlayers();
 
 if(passTarget!==null){
-moveBallToTarget();
+
+movePass();
+
 }
 else{
-putBallOnOwner();
+
+putBall();
+
 }
+
 
 footballDecision();
 
+
 if(minute>=90){
+
 finishMatch();
-}
-
-}
-
-
-/* حرکت بازیکنان */
-
-function movePlayersSmart(){
-
-for(let i=1;i<=11;i++){
-
-moveOnePlayer("home",i);
-moveOnePlayer("away",i);
 
 }
 
 }
 
 
-/* حرکت بازیکن */
+/* =================================
+   حرکت بازیکنان
+================================= */
 
-function moveOnePlayer(team,number){
+function movePlayers(){
 
-let element=
+for(
+let i=1;
+i<=11;
+i++
+){
+
+moveHome(i);
+
+moveAway(i);
+
+}
+
+}
+
+
+/* =================================
+   حرکت تیم خودی
+================================= */
+
+function moveHome(number){
+
+let el=
 document.getElementById(
-team==="home"
-? "r"+number
-: "w"+number
+"home_"+number
 );
 
-let pos=
-getPosition(team,number);
-
-let zone=
-team==="home"
-? homeZones[number]
-: awayZones[number];
+let p=
+getPosition(
+"home",
+number
+);
 
 
 /*
- صاحب توپ سریع‌تر حرکت می‌کند
+ بازیکن صاحب توپ
 */
 
 if(
-team===ballTeam &&
+ballTeam==="home" &&
 number===ballOwner &&
 passTarget===null
 ){
 
-let direction=
-team==="home"
-? 1
-: -1;
+/*
+ سرعت بیشتر
+*/
 
-/* سرعت بیشتر */
-
-pos.x+=
-direction*1.8;
+p.x+=1.6;
 
 
-/* تاکتیک هجومی */
+/*
+ هجومی
+*/
 
-if(
-team==="home" &&
-tactic==="attack"
-){
+if(tactic==="attack"){
 
-pos.x+=0.6;
+p.x+=0.7;
 
 }
 
 
-/* تاکتیک دفاعی */
+/*
+ دفاعی
+*/
 
-if(
-team==="home" &&
-tactic==="defend"
-){
+if(tactic==="defend"){
 
-pos.x-=0.5;
+p.x-=0.5;
 
 }
 
@@ -697,115 +957,307 @@ pos.x-=0.5;
 
 
 /*
- فقط بازیکن نزدیک توپ
- می‌تواند کمی دنبال آن برود
+ بازیکنان نزدیک توپ
 */
 
 if(
-team===ballTeam &&
+ballTeam==="home" &&
 number!==ballOwner &&
-Math.random()<0.20
+Math.random()<0.18
 ){
 
-let ballPos=
+let owner=
 getPosition(
-ballTeam,
+"home",
 ballOwner
 );
 
 let d=
 distance(
-pos.x,
-pos.y,
-ballPos.x,
-ballPos.y
+p.x,
+p.y,
+owner.x,
+owner.y
 );
 
-if(d<22){
+if(d<20){
 
-pos.x+=
-(ballPos.x-pos.x)*0.18;
+p.x+=
+(owner.x-p.x)*0.15;
 
-pos.y+=
-(ballPos.y-pos.y)*0.18;
-
-}
+p.y+=
+(owner.y-p.y)*0.15;
 
 }
 
+}
 
-/* حرکت طبیعی */
+
+/*
+ حرکت طبیعی
+*/
 
 if(
-Math.random()<0.20 &&
-number!==ballOwner
+number!==ballOwner &&
+Math.random()<0.18
 ){
 
-pos.y+=
-(Math.random()-0.5)*2;
+p.y+=
+(Math.random()-0.5)*1.8;
 
 }
 
 
-/* محدودیت منطقه */
+/*
+ محدودیت دفاعی
+*/
 
-pos.x=
-Math.max(
-zone.minX,
-Math.min(
-zone.maxX,
-pos.x
-)
-);
+let minX=5;
 
-pos.y=
-Math.max(
-7,
-Math.min(
-93,
-pos.y
-)
-);
+let maxX=88;
 
-element.style.left=
-pos.x+"%";
+if(
+number>=2 &&
+number<=5
+){
 
-element.style.top=
-pos.y+"%";
+maxX=43;
+
+}
+
+if(
+number>=6 &&
+number<=8
+){
+
+maxX=63;
+
+}
+
+if(
+number>=9
+){
+
+maxX=86;
 
 }
 
 
-/* پاس */
+p.x=
+Math.max(
+minX,
+Math.min(
+maxX,
+p.x
+)
+);
+
+p.y=
+Math.max(
+6,
+Math.min(
+94,
+p.y
+)
+);
+
+
+el.style.left=
+p.x+"%";
+
+el.style.top=
+p.y+"%";
+
+}
+
+
+/* =================================
+   حرکت حریف
+================================= */
+
+function moveAway(number){
+
+let el=
+document.getElementById(
+"away_"+number
+);
+
+let p=
+getPosition(
+"away",
+number
+);
+
+
+if(
+ballTeam==="away" &&
+number===ballOwner &&
+passTarget===null
+){
+
+p.x-=1.6;
+
+if(tactic==="attack"){
+
+p.x-=0.5;
+
+}
+
+}
+
+
+/*
+ دنبال کردن محدود توپ
+*/
+
+if(
+ballTeam==="away" &&
+number!==ballOwner &&
+Math.random()<0.18
+){
+
+let owner=
+getPosition(
+"away",
+ballOwner
+);
+
+let d=
+distance(
+p.x,
+p.y,
+owner.x,
+owner.y
+);
+
+if(d<20){
+
+p.x+=
+(owner.x-p.x)*0.15;
+
+p.y+=
+(owner.y-p.y)*0.15;
+
+}
+
+}
+
+
+/*
+ حرکت طبیعی
+*/
+
+if(
+number!==ballOwner &&
+Math.random()<0.18
+){
+
+p.y+=
+(Math.random()-0.5)*1.8;
+
+}
+
+
+/*
+ محدودیت حریف
+*/
+
+let minX=12;
+
+let maxX=95;
+
+if(
+number>=1 &&
+number<=4
+){
+
+minX=57;
+
+}
+
+if(
+number>=5 &&
+number<=7
+){
+
+minX=37;
+
+}
+
+if(number>=8){
+
+minX=14;
+
+}
+
+
+p.x=
+Math.max(
+minX,
+Math.min(
+maxX,
+p.x
+)
+);
+
+p.y=
+Math.max(
+6,
+Math.min(
+94,
+p.y
+)
+);
+
+
+el.style.left=
+p.x+"%";
+
+el.style.top=
+p.y+"%";
+
+}
+
+
+/* =================================
+   پاس
+================================= */
 
 function passBall(){
 
 if(actionCooldown>0)return;
 
-let team=ballTeam;
-
 let candidates=[];
 
 let owner=
 getPosition(
-team,
+ballTeam,
 ballOwner
 );
 
-for(let i=1;i<=11;i++){
+for(
+let i=1;
+i<=11;
+i++
+){
 
 if(i===ballOwner)continue;
 
 let p=
-getPosition(team,i);
+getPosition(
+ballTeam,
+i
+);
 
 let d=
 distance(
-p.x,p.y,
-owner.x,owner.y
+owner.x,
+owner.y,
+p.x,
+p.y
 );
 
-if(d<45){
+if(d<42){
 
 candidates.push({
 number:i,
@@ -816,33 +1268,53 @@ distance:d
 
 }
 
+
 if(!candidates.length)return;
+
+
+candidates.sort(
+(a,b)=>
+a.distance-b.distance
+);
+
 
 let target=
 candidates[
 Math.floor(
-Math.random()*candidates.length
+Math.random()*
+Math.min(
+3,
+candidates.length
+)
 )
 ];
 
-passTarget=target.number;
+
+passTarget=
+target.number;
 
 actionCooldown=2;
 
+
 addLog(
-team==="home"
+ballTeam==="home"
 ?
-"🔴 پاس "+homeName
+"🔴 پاس "+
+homePlayers[
+ballOwner-1
+].name
 :
-"⚪ پاس "+awayName
+"⚪ پاس حریف"
 );
 
 }
 
 
-/* حرکت پاس */
+/* =================================
+   حرکت توپ هنگام پاس
+================================= */
 
-function moveBallToTarget(){
+function movePass(){
 
 let from=
 getPosition(
@@ -856,26 +1328,30 @@ ballTeam,
 passTarget
 );
 
-let newX=
+let x=
 from.x+
-(to.x-from.x)*0.55;
+(to.x-from.x)*0.60;
 
-let newY=
+let y=
 from.y+
-(to.y-from.y)*0.55;
+(to.y-from.y)*0.60;
+
 
 let ball=
-document.getElementById("ball");
+document.getElementById(
+"ball"
+);
 
 ball.style.left=
-(newX-0.8)+"%";
+(x-0.8)+"%";
 
 ball.style.top=
-(newY-1.2)+"%";
+(y-1.2)+"%";
+
 
 if(
 distance(
-newX,newY,
+x,y,
 to.x,to.y
 )<4
 ){
@@ -890,22 +1366,28 @@ passTarget=null;
 }
 
 
-/* تصمیم */
+/* =================================
+   تصمیم فوتبال
+================================= */
 
 function footballDecision(){
 
 if(passTarget!==null)return;
 
-let pos=
+let p=
 getPosition(
 ballTeam,
 ballOwner
 );
 
 
-/* پاس */
+/*
+ پاس
+*/
 
-if(Math.random()<0.30){
+if(
+Math.random()<0.32
+){
 
 passBall();
 
@@ -914,12 +1396,13 @@ return;
 }
 
 
-/* شوت */
-
-if(ballTeam==="home"){
+/*
+ شوت تیم خودی
+*/
 
 if(
-pos.x>62 &&
+ballTeam==="home" &&
+p.x>62 &&
 actionCooldown===0
 ){
 
@@ -929,11 +1412,14 @@ return;
 
 }
 
-}
-else{
+
+/*
+ شوت حریف
+*/
 
 if(
-pos.x<38 &&
+ballTeam==="away" &&
+p.x<38 &&
 actionCooldown===0
 ){
 
@@ -943,12 +1429,14 @@ return;
 
 }
 
-}
 
+/*
+ توپ‌گیری
+*/
 
-/* توپ‌گیری */
-
-if(Math.random()<0.08){
+if(
+Math.random()<0.07
+){
 
 changePossession();
 
@@ -957,21 +1445,37 @@ changePossession();
 }
 
 
-/* توپ‌گیری */
+/* =================================
+   توپ‌گیری
+================================= */
 
 function changePossession(){
 
-let oldTeam=ballTeam;
+let oldTeam=
+ballTeam;
 
 let newTeam=
 oldTeam==="home"
-? "away"
-: "home";
+?
+"away"
+:
+"home";
+
+let oldPos=
+getPosition(
+oldTeam,
+ballOwner
+);
 
 let nearest=1;
+
 let best=999;
 
-for(let i=1;i<=11;i++){
+for(
+let i=1;
+i<=11;
+i++
+){
 
 let p=
 getPosition(
@@ -979,41 +1483,43 @@ newTeam,
 i
 );
 
-let owner=
-getPosition(
-oldTeam,
-ballOwner
-);
-
 let d=
 distance(
-p.x,p.y,
-owner.x,owner.y
+p.x,
+p.y,
+oldPos.x,
+oldPos.y
 );
 
 if(d<best){
 
 best=d;
+
 nearest=i;
 
 }
 
 }
 
-if(best<18){
 
-ballTeam=newTeam;
-ballOwner=nearest;
+if(best<17){
+
+ballTeam=
+newTeam;
+
+ballOwner=
+nearest;
+
 passTarget=null;
 
 addLog(
 newTeam==="home"
 ?
-"🔴 "+homeName+
-" توپ را پس گرفت!"
+"🔴 توپ به "+
+clubName+
+" رسید!"
 :
-"⚪ "+awayName+
-" توپ را گرفت!"
+"⚪ حریف توپ را گرفت!"
 );
 
 }
@@ -1021,7 +1527,9 @@ newTeam==="home"
 }
 
 
-/* شوت تیم ما */
+/* =================================
+   شوت خودی
+================================= */
 
 function shootHome(){
 
@@ -1030,46 +1538,63 @@ if(actionCooldown>0)return;
 actionCooldown=5;
 
 let shooter=
-getHomeShooter();
+homePlayers[
+ballOwner-1
+];
 
 addLog(
 "🔴💥 "+
-shooter+
+shooter.name+
 " شوت می‌زند!"
 );
+
 
 setTimeout(
 function(){
 
-if(Math.random()<0.30){
+if(!playing)return;
 
-goal("home",shooter);
+let chance=
+0.18+
+(shooter.power/100)*0.18;
+
+
+if(
+Math.random()<chance
+){
+
+goal(
+"home",
+shooter.name
+);
 
 }
 else{
 
 addLog(
-"🧤 دروازه‌بان "+
-awayName+
-" شوت را گرفت!"
+"🧤 دروازه‌بان حریف شوت را گرفت."
 );
 
 ballTeam="away";
-ballOwner=1;
+
+ballOwner=11;
+
 passTarget=null;
 
-putBallOnOwner();
+putBall();
 
 }
 
 },
-450
+350
 );
 
 }
 
 
-/* شوت حریف */
+/* =================================
+   شوت حریف
+================================= */
 
 function shootAway(){
 
@@ -1078,172 +1603,150 @@ if(actionCooldown>0)return;
 actionCooldown=5;
 
 let shooter=
-getAwayShooter();
+awayPlayers[
+ballOwner-1
+];
 
 addLog(
 "⚪💥 "+
-shooter+
+shooter.name+
 " شوت می‌زند!"
 );
+
 
 setTimeout(
 function(){
 
-if(Math.random()<0.27){
+if(!playing)return;
 
-goal("away",shooter);
+if(
+Math.random()<0.25
+){
+
+goal(
+"away",
+shooter.name
+);
 
 }
 else{
 
 addLog(
 "🧤 دروازه‌بان "+
-homeName+
-" توپ را گرفت!"
+clubName+
+" توپ را گرفت."
 );
 
 ballTeam="home";
+
 ballOwner=1;
+
 passTarget=null;
 
-putBallOnOwner();
+putBall();
 
 }
 
 },
-450
+350
 );
 
 }
 
 
-/* گل */
+/* =================================
+   گل
+================================= */
 
-function goal(team,shooter){
+function goal(
+team,
+scorer
+){
 
 if(team==="home"){
 
 homeScore++;
 
-document.getElementById("homeScore").innerHTML=
+document.getElementById(
+"homeScore"
+).innerHTML=
 homeScore;
 
 addLog(
 "🔴⚽ گوووول! "+
-shooter+
+scorer+
 " برای "+
-homeName+
+clubName+
 " گل زد! 🔥"
 );
 
-document.getElementById("result").innerHTML=
+document.getElementById(
+"result"
+).innerHTML=
 "<div class='goalText'>⚽ گل!</div>"+
-homeName+
+clubName+
 "<br>گلزن: "+
-shooter+
+scorer+
 "<br>نتیجه: "+
 homeScore+
 " - "+
 awayScore;
 
+
 ballTeam="away";
-ballOwner=1;
+
+ballOwner=11;
 
 }
 else{
 
 awayScore++;
 
-document.getElementById("awayScore").innerHTML=
+document.getElementById(
+"awayScore"
+).innerHTML=
 awayScore;
 
 addLog(
 "⚪⚽ گل "+
-awayName+
+opponent+
 "! گلزن: "+
-shooter
+scorer
 );
 
-document.getElementById("result").innerHTML=
+document.getElementById(
+"result"
+).innerHTML=
 "<div class='goalText'>⚽ گل حریف!</div>"+
-awayName+
+opponent+
 "<br>گلزن: "+
-shooter+
+scorer+
 "<br>نتیجه: "+
 homeScore+
 " - "+
 awayScore;
 
+
 ballTeam="home";
-ballOwner=7;
+
+ballOwner=1;
 
 }
 
 passTarget=null;
 
-putBallOnOwner();
+putBall();
 
 }
 
 
-/* گلزن */
-
-function getHomeShooter(){
-
-let players=
-Object.values(lineup);
-
-let attackers=
-players.filter(
-p=>p.position==="ATT"
-);
-
-if(attackers.length){
-
-return attackers[
-Math.floor(
-Math.random()*attackers.length
-)
-].name;
-
-}
-
-return "مهاجم "+ballOwner;
-
-}
-
-
-/* گلزن حریف */
-
-function getAwayShooter(){
-
-const names=[
-"مهاجم شماره 9",
-"مهاجم شماره 10",
-"کاپیتان",
-"وینگر راست",
-"وینگر چپ"
-];
-
-return names[
-Math.floor(
-Math.random()*names.length
-)
-];
-
-}
-
-
-/* تاکتیک */
+/* =================================
+   تاکتیک
+================================= */
 
 function setTactic(type){
 
 tactic=type;
-
-localStorage.setItem(
-"tactic",
-type
-);
 
 if(type==="attack"){
 
@@ -1263,12 +1766,16 @@ addLog(
 }
 
 
-/* گزارش */
+/* =================================
+   گزارش
+================================= */
 
 function addLog(text){
 
 let log=
-document.getElementById("log");
+document.getElementById(
+"log"
+);
 
 log.innerHTML+=
 "<br>"+text;
@@ -1279,7 +1786,9 @@ log.scrollHeight;
 }
 
 
-/* پایان */
+/* =================================
+   پایان
+================================= */
 
 function finishMatch(){
 
@@ -1291,32 +1800,39 @@ document.getElementById(
 "startButton"
 ).disabled=false;
 
-let result;
 
-if(homeScore>awayScore){
+let text="";
 
-result="🏆 بردی!";
+if(
+homeScore>awayScore
+){
+
+text="🏆 بردی!";
 
 }
-else if(awayScore>homeScore){
+else if(
+awayScore>homeScore
+){
 
-result="❌ باختی!";
+text="❌ باختی!";
 
 }
 else{
 
-result="🤝 مساوی شد!";
+text="🤝 مساوی شد!";
 
 }
+
 
 document.getElementById(
 "result"
 ).innerHTML=
-result+
+text+
 "<br>نتیجه نهایی: "+
 homeScore+
 " - "+
 awayScore;
+
 
 addLog(
 "🏁 سوت پایان مسابقه!"
@@ -1327,9 +1843,9 @@ addLog(
 
 /* توپ اولیه */
 
-putBallOnOwner();
+putBall();
 
 </script>
 </body>
 
-   </html>
+ </html>
