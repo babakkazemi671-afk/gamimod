@@ -3,267 +3,527 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>بازی‌ها | GAMIMOD</title>
+<title>🎮 بازی‌ها | GAMIMOD</title>
 <style>
 
-body{
-    margin:0;
-    background:#0b0b0f;
-    color:white;
-    font-family:tahoma;
+*{
+box-sizing:border-box;
 }
 
-h1{
-    text-align:center;
-    padding:30px;
-    color:#00ff99;
+body{
+margin:0;
+background:#0b0b0f;
+color:white;
+font-family:tahoma;
+padding-bottom:30px;
+}
+
+header{
+background:linear-gradient(135deg,#00bcd4,#006b7a);
+padding:25px 15px;
+text-align:center;
+}
+
+header h1{
+margin:0 0 10px;
+font-size:28px;
+}
+
+header p{
+margin:0;
+color:#dffaff;
 }
 
 .games{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
+width:94%;
+max-width:1100px;
+margin:25px auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+gap:16px;
 }
 
 .card{
-    background:#181820;
-    width:280px;
-    margin:15px;
-    padding:20px;
-    border-radius:20px;
-    text-align:center;
+background:#181820;
+padding:20px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 5px 15px #000;
+transition:.2s;
 }
 
-.card img{
-    width:100%;
-    height:160px;
-    object-fit:cover;
-    border-radius:15px;
+.card:hover{
+transform:translateY(-4px);
 }
 
-.info{
-    text-align:right;
-    line-height:2;
+.icon{
+width:100px;
+height:100px;
+margin:0 auto 15px;
+border-radius:25px;
+background:linear-gradient(135deg,#252535,#101018);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:55px;
+box-shadow:inset 0 0 15px #000;
+}
+
+.card h2{
+margin:10px 0;
+color:#00e5ff;
+font-size:20px;
+}
+
+.description{
+color:#ddd;
+line-height:1.9;
+min-height:55px;
+}
+
+.type{
+display:inline-block;
+margin:10px 0;
+padding:6px 10px;
+border-radius:10px;
+background:#292936;
+color:#aaa;
+font-size:13px;
 }
 
 .btn{
-    display:inline-block;
-    background:#00ff99;
-    color:black;
-    padding:12px 30px;
-    border-radius:25px;
-    text-decoration:none;
-    font-weight:bold;
+display:block;
+background:#00ff99;
+color:#06140f;
+padding:12px;
+border-radius:13px;
+text-decoration:none;
+font-weight:bold;
+margin-top:10px;
+}
+
+.btn:hover{
+background:#00e5ff;
+}
+
+.back{
+display:block;
+width:240px;
+margin:30px auto;
+padding:14px;
+background:#252525;
+color:white;
+text-decoration:none;
+border-radius:13px;
+text-align:center;
+font-weight:bold;
 }
 
 </style>
 </head>
 <body>
+<header>
 <h1>🎮 بازی‌های GAMIMOD</h1>
+<p>
+بازی کن، سرگرم شو و رکورد بزن!
+</p>
+</header>
 <div class="games">
+<!-- 1 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🧠 بازی هوش</h2>
-<div class="info">🧩 معمای هوشی<br>⭐ سرگرمی</div>
-<br>
-<a class="btn" href="quiz.html">مشاهده</a>
+<div class="icon">🧠</div>
+<h2>بازی هوش</h2>
+<div class="description">
+سؤال‌های فکری و معماهای مختلف را حل کن.
 </div>
+<div class="type">
+🧩 فکری
+</div>
+<a class="btn" href="quiz.html">
+🎮 بازی
+</a>
+</div>
+<!-- 2 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🎲 تاس شانس</h2>
-<div class="info">🎲 تاس بنداز<br>⭐ شانس</div>
-<br>
-<a class="btn" href="dice.html">مشاهده</a>
+<div class="icon">🎲</div>
+<h2>تاس شانس</h2>
+<div class="description">
+تاس بنداز و ببین چه عددی نصیبت می‌شود.
 </div>
+<div class="type">
+🍀 شانسی
+</div>
+<a class="btn" href="dice.html">
+🎮 بازی
+</a>
+</div>
+<!-- 3 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🪙 شیر یا خط</h2>
-<div class="info">🪙 انتخاب کن<br>⭐ شانس</div>
-<br>
-<a class="btn" href="coin.html">مشاهده</a>
+<div class="icon">🪙</div>
+<h2>شیر یا خط</h2>
+<div class="description">
+حدس بزن سکه شیر می‌آید یا خط.
 </div>
+<div class="type">
+🍀 شانسی
+</div>
+<a class="btn" href="coin.html">
+🎮 بازی
+</a>
+</div>
+<!-- 4 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🧩 پازل</h2>
-<div class="info">🧩 پازل حل کن<br>⭐ فکری</div>
-<br>
-<a class="btn" href="puzzle.html">مشاهده</a>
+<div class="icon">🧩</div>
+<h2>پازل</h2>
+<div class="description">
+قطعه‌ها را درست کنار هم قرار بده.
 </div>
+<div class="type">
+🧠 فکری
+</div>
+<a class="btn" href="puzzle.html">
+🎮 بازی
+</a>
+</div>
+<!-- 5 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>⚽ پنالتی</h2>
-<div class="info">⚽ گل بزن<br>⭐ ورزشی</div>
-<br>
-<a class="btn" href="penalty.html">مشاهده</a>
+<div class="icon">⚽</div>
+<h2>پنالتی</h2>
+<div class="description">
+شوت بزن و دروازه‌بان را شکست بده.
 </div>
+<div class="type">
+⚽ ورزشی
+</div>
+<a class="btn" href="penalty.html">
+🎮 بازی
+</a>
+</div>
+<!-- 6 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🎯 تیراندازی</h2>
-<div class="info">🎯 هدف را بزن<br>⭐ رکوردی</div>
-<br>
-<a class="btn" href="shooting.html">مشاهده</a>
+<div class="icon">🎯</div>
+<h2>تیراندازی</h2>
+<div class="description">
+هدف‌ها را بزن و رکورد خودت را بالا ببر.
 </div>
+<div class="type">
+🎯 رکوردی
+</div>
+<a class="btn" href="shooting.html">
+🎮 بازی
+</a>
+</div>
+<!-- 7 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🎯 هدف‌گیری</h2>
-<div class="info">🎯 هدف‌گیری سریع<br>⭐ رکوردی</div>
-<br>
-<a class="btn" href="target.html">مشاهده</a>
+<div class="icon">🎯</div>
+<h2>هدف‌گیری</h2>
+<div class="description">
+با سرعت و دقت هدف‌های مختلف را بزن.
 </div>
+<div class="type">
+⚡ مهارتی
+</div>
+<a class="btn" href="target.html">
+🎮 بازی
+</a>
+</div>
+<!-- 8 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🃏 کارت‌ها</h2>
-<div class="info">🃏 کارت انتخاب کن<br>⭐ شانس</div>
-<br>
-<a class="btn" href="cards.html">مشاهده</a>
+<div class="icon">🃏</div>
+<h2>کارت‌ها</h2>
+<div class="description">
+یک کارت انتخاب کن و شانس خودت را امتحان کن.
 </div>
+<div class="type">
+🍀 شانسی
+</div>
+<a class="btn" href="cards.html">
+🎮 بازی
+</a>
+</div>
+<!-- 9 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>💰 شکار سکه</h2>
-<div class="info">💰 سکه جمع کن<br>⭐ رکوردی</div>
-<br>
-<a class="btn" href="coinhunt.html">مشاهده</a>
+<div class="icon">💰</div>
+<h2>شکار سکه</h2>
+<div class="description">
+سکه‌ها را جمع کن و رکورد بزن.
 </div>
+<div class="type">
+💰 رکوردی
+</div>
+<a class="btn" href="coinhunt.html">
+🎮 بازی
+</a>
+</div>
+<!-- 10 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🎡 گردونه شانس</h2>
-<div class="info">🎡 هر ۲۴ ساعت<br>⭐ جایزه</div>
-<br>
-<a class="btn" href="wheel.html">مشاهده</a>
+<div class="icon">🎡</div>
+<h2>گردونه شانس</h2>
+<div class="description">
+گردونه را بچرخان و جایزه خودت را بگیر.
 </div>
+<div class="type">
+🎁 جایزه
+</div>
+<a class="btn" href="wheel.html">
+🎮 بازی
+</a>
+</div>
+<!-- 11 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>👀 حافظه</h2>
-<div class="info">👀 حافظه‌ات را امتحان کن<br>⭐ فکری</div>
-<br>
-<a class="btn" href="memory.html">مشاهده</a>
+<div class="icon">👀</div>
+<h2>حافظه</h2>
+<div class="description">
+کارت‌های مشابه را پیدا کن و حافظه‌ات را امتحان کن.
 </div>
+<div class="type">
+🧠 فکری
+</div>
+<a class="btn" href="memory.html">
+🎮 بازی
+</a>
+</div>
+<!-- 12 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>⚽ فوتبال</h2>
-<div class="info">⚽ فوتبال بازی کن<br>⭐ ورزشی</div>
-<br>
-<a class="btn" href="football.html">مشاهده</a>
+<div class="icon">⚽</div>
+<h2>فوتبال</h2>
+<div class="description">
+یک بازی فوتبالی سرگرم‌کننده انجام بده.
 </div>
+<div class="type">
+⚽ ورزشی
+</div>
+<a class="btn" href="football.html">
+🎮 بازی
+</a>
+</div>
+<!-- 13 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🏆 لیگ</h2>
-<div class="info">🏆 رقابت فوتبالی<br>⭐ ورزشی</div>
-<br>
-<a class="btn" href="league.html">مشاهده</a>
+<div class="icon">🏆</div>
+<h2>لیگ</h2>
+<div class="description">
+در رقابت‌های فوتبالی شرکت کن و امتیاز بگیر.
 </div>
+<div class="type">
+🏆 ورزشی
+</div>
+<a class="btn" href="league.html">
+🎮 بازی
+</a>
+</div>
+<!-- 14 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🏆 جام حذفی</h2>
-<div class="info">🏆 مسابقات حذفی<br>⭐ ورزشی</div>
-<br>
-<a class="btn" href="hazfi.html">مشاهده</a>
+<div class="icon">🏆</div>
+<h2>جام حذفی</h2>
+<div class="description">
+مسابقات حذفی را انجام بده و قهرمان شو.
 </div>
+<div class="type">
+🏆 ورزشی
+</div>
+<a class="btn" href="hazfi.html">
+🎮 بازی
+</a>
+</div>
+<!-- 15 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🏀 بسکتبال</h2>
-<div class="info">🏀 پرتاب توپ<br>⭐ ورزشی</div>
-<br>
-<a class="btn" href="#">مشاهده</a>
+<div class="icon">🏀</div>
+<h2>بسکتبال</h2>
+<div class="description">
+توپ را داخل سبد بینداز و امتیاز بگیر.
 </div>
+<div class="type">
+🏀 ورزشی
+</div>
+<a class="btn" href="#">
+🎮 به‌زودی
+</a>
+</div>
+<!-- 16 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🏎️ مسابقه ماشین</h2>
-<div class="info">🏎️ مسابقه بده<br>⭐ سرعتی</div>
-<br>
-<a class="btn" href="#">مشاهده</a>
+<div class="icon">🏎️</div>
+<h2>مسابقه ماشین</h2>
+<div class="description">
+با سرعت حرکت کن و از رقیب جلو بزن.
 </div>
+<div class="type">
+🏎️ سرعتی
+</div>
+<a class="btn" href="#">
+🎮 به‌زودی
+</a>
+</div>
+<!-- 17 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🏍️ موتورسواری</h2>
-<div class="info">🏍️ از موانع رد شو<br>⭐ سرعتی</div>
-<br>
-<a class="btn" href="#">مشاهده</a>
+<div class="icon">🐍</div>
+<h2>مار</h2>
+<div class="description">
+سکه‌ها را جمع کن و طول مار را بیشتر کن.
 </div>
+<div class="type">
+🐍 کلاسیک
+</div>
+<a class="btn" href="#">
+🎮 به‌زودی
+</a>
+</div>
+<!-- 18 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🐍 مار</h2>
-<div class="info">🐍 رکورد بزن<br>⭐ کلاسیک</div>
-<br>
-<a class="btn" href="#">مشاهده</a>
+<div class="icon">🚀</div>
+<h2>نبرد فضایی</h2>
+<div class="description">
+در فضا حرکت کن و دشمن‌ها را شکست بده.
 </div>
+<div class="type">
+🚀 اکشن
+</div>
+<a class="btn" href="#">
+🎮 به‌زودی
+</a>
+</div>
+<!-- 19 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🚀 نبرد فضایی</h2>
-<div class="info">🚀 دشمن‌ها را شکست بده<br>⭐ اکشن</div>
-<br>
-<a class="btn" href="#">مشاهده</a>
+<div class="icon">🧟</div>
+<h2>زامبی‌کش</h2>
+<div class="description">
+در برابر موج زامبی‌ها مقاومت کن.
 </div>
+<div class="type">
+🧟 اکشن
+</div>
+<a class="btn" href="#">
+🎮 به‌زودی
+</a>
+</div>
+<!-- 20 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🧟 زامبی‌کش</h2>
-<div class="info">🧟 زامبی‌ها را شکست بده<br>⭐ اکشن</div>
-<br>
-<a class="btn" href="#">مشاهده</a>
+<div class="icon">🏹</div>
+<h2>کماندار</h2>
+<div class="description">
+با تیر و کمان به هدف‌ها شلیک کن.
 </div>
+<div class="type">
+🏹 مهارتی
+</div>
+<a class="btn" href="#">
+🎮 به‌زودی
+</a>
+</div>
+<!-- 21 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🏹 کماندار</h2>
-<div class="info">🏹 به هدف بزن<br>⭐ مهارتی</div>
-<br>
-<a class="btn" href="#">مشاهده</a>
+<div class="icon">🎣</div>
+<h2>ماهیگیری</h2>
+<div class="description">
+ماهی بگیر و رکورد خودت را ثبت کن.
 </div>
+<div class="type">
+🎣 سرگرمی
+</div>
+<a class="btn" href="#">
+🎮 به‌زودی
+</a>
+</div>
+<!-- 22 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🎣 ماهیگیری</h2>
-<div class="info">🎣 ماهی بگیر<br>⭐ سرگرمی</div>
-<br>
-<a class="btn" href="#">مشاهده</a>
+<div class="icon">🍔</div>
+<h2>همبرگرساز</h2>
+<div class="description">
+سفارش مشتری‌ها را سریع آماده کن.
 </div>
+<div class="type">
+🍔 آشپزی
+</div>
+<a class="btn" href="#">
+🎮 به‌زودی
+</a>
+</div>
+<!-- 23 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🍔 همبرگرساز</h2>
-<div class="info">🍔 سفارش آماده کن<br>⭐ آشپزی</div>
-<br>
-<a class="btn" href="#">مشاهده</a>
+<div class="icon">🍕</div>
+<h2>پیتزاساز</h2>
+<div class="description">
+پیتزا درست کن و سفارش‌ها را تحویل بده.
 </div>
+<div class="type">
+🍕 آشپزی
+</div>
+<a class="btn" href="#">
+🎮 به‌زودی
+</a>
+</div>
+<!-- 24 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🍕 پیتزاساز</h2>
-<div class="info">🍕 پیتزا درست کن<br>⭐ آشپزی</div>
-<br>
-<a class="btn" href="#">مشاهده</a>
+<div class="icon">🍰</div>
+<h2>کیک‌ساز</h2>
+<div class="description">
+کیک‌های مختلف درست کن و امتیاز بگیر.
 </div>
+<div class="type">
+🍰 آشپزی
+</div>
+<a class="btn" href="#">
+🎮 به‌زودی
+</a>
+</div>
+<!-- 25 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🍰 کیک‌ساز</h2>
-<div class="info">🍰 کیک درست کن<br>⭐ آشپزی</div>
-<br>
-<a class="btn" href="#">مشاهده</a>
+<div class="icon">🍦</div>
+<h2>بستنی‌فروشی</h2>
+<div class="description">
+بستنی درست کن و مشتری‌ها را راضی کن.
 </div>
+<div class="type">
+🍦 مدیریتی
+</div>
+<a class="btn" href="#">
+🎮 به‌زودی
+</a>
+</div>
+<!-- 26 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🍦 بستنی‌فروشی</h2>
-<div class="info">🍦 بستنی بفروش<br>⭐ مدیریتی</div>
-<br>
-<a class="btn" href="#">مشاهده</a>
+<div class="icon">☕</div>
+<h2>کافه</h2>
+<div class="description">
+سفارش مشتری‌ها را آماده و سرو کن.
 </div>
+<div class="type">
+☕ مدیریتی
+</div>
+<a class="btn" href="#">
+🎮 به‌زودی
+</a>
+</div>
+<!-- 27 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>☕ کافه</h2>
-<div class="info">☕ مشتری‌ها را سرو کن<br>⭐ مدیریتی</div>
-<br>
-<a class="btn" href="#">مشاهده</a>
+<div class="icon">🏪</div>
+<h2>فروشگاه</h2>
+<div class="description">
+فروشگاه خودت را مدیریت و بزرگ‌تر کن.
 </div>
+<div class="type">
+🏪 مدیریتی
+</div>
+<a class="btn" href="#">
+🎮 به‌زودی
+</a>
+</div>
+<!-- 28 -->
 <div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🏪 فروشگاه</h2>
-<div class="info">🏪 فروشگاه را مدیریت کن<br>⭐ مدیریتی</div>
-<br>
-<a class="btn" href="#">مشاهده</a>
+<div class="icon">🏰</div>
+<h2>دفاع از قلعه</h2>
+<div class="description">
+از قلعه در برابر دشمنان دفاع کن.
 </div>
-<div class="card">
-<img src="https://via.placeholder.com/400x200">
-<h2>🏰 دفاع از قلعه</h2>
-<div class="info">🏰 قلعه را حفظ کن<br>⭐ استراتژی</div>
-<br>
-<a class="btn" href="#">مشاهده</a>
+<div class="type">
+🏰 استراتژی
+</div>
+<a class="btn" href="#">
+🎮 به‌زودی
+</a>
 </div>
 </div>
+<a class="back" href="index.html">
+⬅️ برگشت به خانه
+</a>
 </body>
-    </html>
+</html>
