@@ -1,161 +1,116 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>گیمی‌مود | دانلود بازی اندروید</title>
+<title>🎮 گیمی‌مود</title>
 <style>
+
+*{
+    box-sizing:border-box;
+}
 
 body{
     margin:0;
+    padding-bottom:85px;
     font-family:tahoma;
-    background:#111;
+    background:#101010;
     color:white;
 }
-
-/* هدر */
 
 header{
-    background:#00bcd4;
-    padding:20px;
+    padding:22px;
     text-align:center;
-    font-size:32px;
+    background:linear-gradient(135deg,#00bcd4,#006b7a);
+    font-size:28px;
     font-weight:bold;
 }
 
-/* قلک */
-
-.wallet{
-    margin:20px;
-    padding:25px;
+.hero{
+    width:94%;
+    max-width:1000px;
+    margin:20px auto;
+    padding:35px 20px;
     text-align:center;
     background:linear-gradient(135deg,#302b63,#24243e);
-    border-radius:20px;
-    box-shadow:0 0 15px #000;
+    border-radius:22px;
+    box-shadow:0 0 18px #000;
 }
 
-.wallet h2{
+.hero h1{
+    margin:5px;
     color:#00e5ff;
-    font-size:25px;
 }
 
-.coins{
-    font-size:32px;
-    font-weight:bold;
-    margin:15px;
-}
-
-.wallet-btn{
-    display:inline-block;
-    background:#00bcd4;
-    color:white;
-    padding:12px 25px;
-    border-radius:10px;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-/* جستجو */
-
-.search{
-    padding:15px;
-    text-align:center;
-}
-
-.search input{
-    width:90%;
-    max-width:500px;
-    padding:12px;
-    border-radius:10px;
-    border:none;
-    font-size:18px;
-}
-
-/* بازی‌ها */
-
-.games{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
-    padding:20px;
-}
-
-/* کارت بازی */
-
-.card{
-    background:#222;
-    border-radius:15px;
-    overflow:hidden;
-    box-shadow:0 0 15px #000;
-}
-
-.card img{
-    width:100%;
-    height:220px;
-    object-fit:cover;
-}
-
-.card h2{
-    text-align:center;
-}
-
-.info{
-    padding:10px;
-}
-
-/* دکمه */
-
-.btn{
-    display:block;
-    background:#00bcd4;
-    color:white;
-    text-align:center;
-    padding:12px;
-    margin:15px;
-    border-radius:10px;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-/* پشتیبانی */
-
-.support{
-    margin:30px 20px;
-    padding:30px 20px;
-    text-align:center;
-    background:linear-gradient(135deg,#16213e,#24104f);
-    border-radius:20px;
-    box-shadow:0 0 15px #000;
-}
-
-.support h2{
-    color:#00e5ff;
-    font-size:25px;
-}
-
-.support p{
-    font-size:17px;
+.hero p{
+    color:#ddd;
     line-height:2;
 }
 
-.support-btn{
-    display:inline-block;
-    margin-top:15px;
-    padding:14px 25px;
-    background:#00bcd4;
-    color:white;
-    text-decoration:none;
-    border-radius:12px;
-    font-weight:bold;
+.cards{
+    width:94%;
+    max-width:1000px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(210px,1fr));
+    gap:15px;
 }
 
-/* فوتر */
-
-footer{
-    background:#000;
+.card{
+    display:block;
+    padding:25px 15px;
+    background:#202020;
+    border-radius:18px;
     text-align:center;
-    padding:20px;
-    margin-top:20px;
+    text-decoration:none;
+    color:white;
+    box-shadow:0 0 10px #000;
+}
+
+.card:hover{
+    transform:translateY(-3px);
+}
+
+.icon{
+    font-size:45px;
+}
+
+.card h2{
+    color:#00e5ff;
+}
+
+.bottom{
+    position:fixed;
+    bottom:0;
+    right:0;
+    left:0;
+    height:75px;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    background:#181818;
+    border-top:2px solid #333;
+    z-index:100;
+}
+
+.nav{
+    color:#aaa;
+    text-decoration:none;
+    text-align:center;
+    font-size:12px;
+    padding:5px;
+}
+
+.nav span{
+    display:block;
+    font-size:27px;
+    margin-bottom:3px;
+}
+
+.nav.active{
+    color:#00e5ff;
+    font-weight:bold;
 }
 
 </style>
@@ -164,66 +119,70 @@ footer{
 <header>
 🎮 گیمی‌مود
 </header>
-<!-- قلک -->
-<section class="wallet">
-<h2>🐷 قلک گیمی‌مود</h2>
-<div class="coins" id="coins">
-0 🪙
-</div>
-<a class="wallet-btn" href="coin.html">
-🎯 مرکز سکه
+<section class="hero">
+<h1>🔥 به گیمی‌مود خوش آمدی</h1>
+<p>
+مرکز بازی‌ها، سرگرمی و فوتبال گیمی‌مود
+</p>
+</section>
+<section class="cards">
+<a class="card" href="coin.html">
+<div class="icon">🪙</div>
+<h2>مرکز سرگرمی</h2>
+<p>
+بازی کن و سکه بگیر
+</p>
+</a>
+<a class="card" href="players.html">
+<div class="icon">🛒</div>
+<h2>بازار بازیکنان</h2>
+<p>
+بازیکن‌های جدید بخر
+</p>
+</a>
+<a class="card" href="league.html">
+<div class="icon">🏆</div>
+<h2>لیگ</h2>
+<p>
+جدول و مسابقات لیگ
+</p>
+</a>
+<a class="card" href="myteam.html">
+<div class="icon">👕</div>
+<h2>تیم من</h2>
+<p>
+ترکیب تیم خودت را بساز
+</p>
+</a>
+<a class="card" href="football.html">
+<div class="icon">⚽</div>
+<h2>بازی فوتبال</h2>
+<p>
+تماشای مسابقه هوش مصنوعی
+</p>
 </a>
 </section>
-<!-- جستجو -->
-<div class="search">
-<input
-type="text"
-placeholder="🔎 جستجوی بازی..."
-
-</div>
-<!-- بازی‌ها -->
-<div class="games">
-<div class="card">
-<img src="Screenshot_۲۰۲۶۰۶۲۰_۲۱۴۳۴۹_Google.jpg">
-<div class="info">
-<h2>🎮 Mario</h2>
-<p>⭐ امتیاز: 4.8</p>
-<p>💾 حجم: 14 MB</p>
-<a class="btn" href="mario.html">
-🎮 مشاهده بازی
+<nav class="bottom">
+<a class="nav active" href="index.html">
+<span>🏠</span>
+خانه
 </a>
-</div>
-</div>
-</div>
-<!-- پشتیبانی -->
-<section class="support">
-<h2>📞 پشتیبانی گیمی‌مود</h2>
-<p>
-اگر در دانلود، نصب یا اجرای بازی مشکل داری،
-با پشتیبانی گیمی‌مود در ارتباط باش.
-</p>
-<p>
-📧 ایمیل پشتیبانی:
-<br>
-<strong>Babakkazemi671@gmail.com</strong>
-</p>
-<a
-class="support-btn"
-href="mailto:Babakkazemi671@gmail.com?subject=پشتیبانی%20گیمی‌مود">
-✉️ ارسال پیام به پشتیبانی
+<a class="nav" href="coin.html">
+<span>🎮</span>
+بازی‌ها
 </a>
-</section>
-<footer>
-© 2026 گیمی‌مود | تمامی حقوق محفوظ است
-</footer>
-<script>
-
-let coins =
-Number(localStorage.getItem("gamimodCoins")) || 0;
-
-document.getElementById("coins").innerHTML =
-coins + " 🪙";
-
-</script>
+<a class="nav" href="football.html">
+<span>⚽</span>
+فوتبال
+</a>
+<a class="nav" href="myteam.html">
+<span>👕</span>
+تیم من
+</a>
+<a class="nav" href="profile.html">
+<span>👤</span>
+پروفایل
+</a>
+</nav>
 </body>
 </html>
